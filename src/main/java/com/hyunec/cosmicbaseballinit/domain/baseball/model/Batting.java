@@ -1,15 +1,20 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+import java.util.Random;
 
 @Getter
-@RequiredArgsConstructor
 public enum Batting {
-    STRIKE(0.33),
-    BALL(0.33),
-    HIT(0.33),
-    ;
+    STRIKE, BALL, HIT;
 
-    private final double rate;
+    private static final Random random = new Random();
+
+    public static Batting generate() {
+        return Arrays.stream(Batting.values())
+                .filter(e -> e.ordinal() == random.nextInt(2) + 1)
+                .findFirst()
+                .orElse(STRIKE);
+    }
 }
