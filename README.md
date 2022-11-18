@@ -11,6 +11,7 @@
 - spring boot 2.x, java 11, gradle, mysql
 - 명시되지 않은 내용은 일반 야구의 룰을 따릅니다.
 - domain 로직과 oop 에 집중해주세요.
+- [PR 리뷰 요청 방법](https://github.com/Programmers-Hyune-c/cosmic-baseball-init/wiki/PR-%EB%A6%AC%EB%B7%B0-%EC%9A%94%EC%B2%AD-%EB%B0%A9%EB%B2%95)
 
 ### Mandatory
 
