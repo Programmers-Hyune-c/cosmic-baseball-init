@@ -20,7 +20,8 @@
 ### Recommend
 
 - level 에서 요구하는 최소 조건만을 만족시키기를 추천합니다.
-- 객체지향 체조를 지키려고 노력해주세요. [Link](https://williamdurand.fr/2013/06/03/object-calisthenics/)
+- 객체지향 체조를 지키려고
+  노력해주세요. [Link](https://williamdurand.fr/2013/06/03/object-calisthenics/) [Link](https://techblog.woowahan.com/2626/)
 - 영속성 레이어의 역할은 단순화해도 좋습니다.
     - spring data jpa 를 권장합니다. native query, querydsl 은 권장하지 않습니다.
 
