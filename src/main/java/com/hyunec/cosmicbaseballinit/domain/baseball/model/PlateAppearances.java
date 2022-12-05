@@ -1,14 +1,11 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
 
-@Component
 public class PlateAppearances {
 
     private final List<Batting> battings = new ArrayList<>();
