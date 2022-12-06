@@ -1,6 +1,6 @@
 package com.hyunec.cosmicbaseballinit.service;
 
-public interface Game {
+public interface GameService {
 
 
 }
