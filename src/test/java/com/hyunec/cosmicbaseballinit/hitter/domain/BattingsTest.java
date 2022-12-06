@@ -108,5 +108,4 @@ class BattingsTest {
                 arguments(Batting.HIT, BattingResult.HOMERUN)
         );
     }
-
 }

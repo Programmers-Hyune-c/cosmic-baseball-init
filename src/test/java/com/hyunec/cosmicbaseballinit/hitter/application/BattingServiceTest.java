@@ -48,10 +48,10 @@ class BattingServiceTest {
     @ParameterizedTest
     @MethodSource("parameters")
     void strikeTest(Batting batting, int count) {
-        battings = new Batting[count-1];
-        for(int i =1 ; i < count ; i++) {
+        battings = new Batting[count - 1];
+        for (int i = 1; i < count; i++) {
             battingService.swing(batting, randomGenerate);
-            battings[i-1] = batting;
+            battings[i - 1] = batting;
         }
         assertThat(battingRepository.findAll()).containsExactly(battings);
 
@@ -61,10 +61,9 @@ class BattingServiceTest {
 
     private static Stream<Arguments> parameters() {
         return Stream.of(
-            arguments(Batting.STRIKE, 3),
-            arguments(Batting.BALL, 4),
-            arguments(Batting.HIT, 1)
+                arguments(Batting.STRIKE, 3),
+                arguments(Batting.BALL, 4),
+                arguments(Batting.HIT, 1)
         );
     }
-
 }

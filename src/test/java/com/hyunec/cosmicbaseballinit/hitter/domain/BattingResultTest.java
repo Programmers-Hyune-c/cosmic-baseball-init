@@ -28,5 +28,4 @@ class BattingResultTest {
                 arguments(Batting.HIT, BattingResult.HIT)
         );
     }
-
 }
