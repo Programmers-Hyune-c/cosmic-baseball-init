@@ -1,23 +1,19 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
-import com.hyunec.cosmicbaseballinit.service.OneWeekGameService;
+import com.hyunec.cosmicbaseballinit.service.OneLevelGameService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 @Slf4j
 public class GameController {
 
-    @Autowired
-    private OneWeekGameService gameService;
+    private final OneLevelGameService gameService;
 
-    public GameController(OneWeekGameService gameService) {
-        this.gameService = gameService;
-    }
-
-    @GetMapping("/gameStart")
+    @GetMapping("/game/start")
     public String gameStart(){
         String gameResult = gameService.gameStarted();
         log.info("----------gameResult : " + gameResult + "----------");
