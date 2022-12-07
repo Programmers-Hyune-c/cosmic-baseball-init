@@ -36,11 +36,6 @@ class BattingServiceTest {
             public int generate() {
                 return 20;
             }
-
-            @Override
-            public int percentageGenerate() {
-                return 20;
-            }
         };
     }
 

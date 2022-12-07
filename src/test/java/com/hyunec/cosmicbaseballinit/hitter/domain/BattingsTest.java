@@ -17,7 +17,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 class BattingsTest {
 
     RandomGenerate randomGenerate;
-    RandomGenerate customRandomGenerate;
 
     @BeforeEach
     void setUp() {
@@ -25,23 +24,6 @@ class BattingsTest {
             @Override
             public int generate() {
                 return 0;
-            }
-
-            @Override
-            public int percentageGenerate() {
-                return 20;
-            }
-        };
-
-        customRandomGenerate = new RandomGenerate() {
-            @Override
-            public int generate() {
-                return 0;
-            }
-
-            @Override
-            public int percentageGenerate() {
-                return 19;
             }
         };
     }
@@ -90,22 +72,4 @@ class BattingsTest {
         );
     }
 
-    @DisplayName("20% 확률로 즉시 스트라이크, 볼, 홈런을 반환한다.")
-    @ParameterizedTest
-    @MethodSource("customParameters")
-    void customBattingResult(Batting batting, BattingResult result) {
-        Battings battings = new Battings(Collections.emptyList(), customRandomGenerate);
-
-        BattingResult actual = battings.battingResult(batting);
-
-        assertThat(actual).isEqualTo(result);
-    }
-
-    private static Stream<Arguments> customParameters() {
-        return Stream.of(
-                arguments(Batting.STRIKE, BattingResult.BULLSEYE_STRIKE),
-                arguments(Batting.BALL, BattingResult.BULLSEYE_BALL),
-                arguments(Batting.HIT, BattingResult.HOMERUN)
-        );
-    }
 }

@@ -21,11 +21,6 @@ class BattingTest {
             public int generate() {
                 return ordinal;
             }
-
-            @Override
-            public int percentageGenerate() {
-                return 0;
-            }
         };
 
         Batting actual = Batting.generate(randomGenerate);

@@ -18,8 +18,7 @@ public class BattingController {
     @GetMapping("/game/batting")
     public BattingResult batting() {
         Batting batting = Batting.generate(randomGenerate);
-        BattingResult battingResult = battingService.swing(batting, randomGenerate);
-        return battingResult;
+        return battingService.swing(batting, randomGenerate);
     }
 
 }

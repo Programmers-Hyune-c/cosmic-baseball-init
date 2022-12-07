@@ -22,12 +22,15 @@ public class Battings {
             return BattingResult.FOUR_BALL;
         }
 
-        BattingResult battingResult = BattingResult.from(lastBatting);
+        return BattingResult.from(lastBatting);
+    }
 
-        if(battingResult.getNextResult().getValue() > randomGenerate.percentageGenerate()) {
-            return battingResult.getNextResult();
-        }
-        return battingResult;
+    public boolean isNotEmpty() {
+        return !this.isEmpty();
+    }
+
+    public boolean isEmpty() {
+        return battings.isEmpty();
     }
 
     private boolean isBattingResult(Batting batting, BattingResult battingResult) {
