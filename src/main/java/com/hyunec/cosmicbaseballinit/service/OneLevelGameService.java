@@ -28,7 +28,8 @@ public class OneLevelGameService {
     public GameResult gameFinished(Integer myTeamScore, Integer otherTeamScore){
         if(myTeamScore > otherTeamScore){
             return GameResult.WIN;
-        }else if(myTeamScore < otherTeamScore){
+        }
+        if(myTeamScore < otherTeamScore){
             return GameResult.LOSE;
         }
         return GameResult.DRAW;
