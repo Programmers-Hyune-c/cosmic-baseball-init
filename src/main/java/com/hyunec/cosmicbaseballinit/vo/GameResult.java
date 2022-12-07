@@ -1,15 +1,15 @@
 package com.hyunec.cosmicbaseballinit.vo;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum GameResult {
     WIN("WIN"),
     LOSE("LOSE"),
     DRAW("DRAW");
 
-    String resultName;
-    GameResult(String resultName){
-        this.resultName = resultName;
-    }
+    final String  resultName;
+
 }
