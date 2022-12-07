@@ -3,6 +3,7 @@ package com.hyunec.cosmicbaseballinit.vo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PitchResultTest {
@@ -11,7 +12,6 @@ class PitchResultTest {
     void getResultName() {
         String name = PitchResult.Hit.getResultName();
 
-        Assertions.assertThat(name).isEqualTo("Hit");
+        assertThat(name).isEqualTo("Hit");
     }
-
 }

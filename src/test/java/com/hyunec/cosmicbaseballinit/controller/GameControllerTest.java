@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
@@ -16,6 +17,6 @@ class GameControllerTest {
     void gameStartTest(){
         String result = gameController.gameStart();
 
-        Assertions.assertThat(result).isEqualTo("DRAW");
+        assertThat(result).isEqualTo("DRAW");
     }
 }

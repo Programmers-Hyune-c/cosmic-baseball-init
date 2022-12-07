@@ -5,6 +5,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.assertj.core.api.Assertions.*;
+
 class OneWeekGameTest {
 
     OneWeekGameService oneWeekGameService = new OneWeekGameService();
@@ -17,8 +19,7 @@ class OneWeekGameTest {
 
         GameResult gameResult = oneWeekGameService.gameFinished(myTeamScore, otherTeamScore);
 
-        Assertions.assertThat(gameResult).isEqualTo(GameResult.LOSE);
+        assertThat(gameResult).isEqualTo(GameResult.LOSE);
 
     }
-
 }
