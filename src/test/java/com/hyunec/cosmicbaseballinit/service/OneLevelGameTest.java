@@ -1,23 +1,23 @@
 package com.hyunec.cosmicbaseballinit.service;
 
 import com.hyunec.cosmicbaseballinit.vo.GameResult;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.*;
 
-class OneWeekGameTest {
+class OneLevelGameTest {
 
-    OneWeekGameService oneWeekGameService = new OneWeekGameService();
+    OneLevelGameService oneLevelGameService = new OneLevelGameService();
 
 
     @Test
+    @DisplayName("게임 끝남 메서드가 팀 스코어에 따라 올바른 결과 값을 반환하는지 테스트")
     void gameFinishedTest(){
         Integer myTeamScore = 1;
         Integer otherTeamScore = 4;
 
-        GameResult gameResult = oneWeekGameService.gameFinished(myTeamScore, otherTeamScore);
+        GameResult gameResult = oneLevelGameService.gameFinished(myTeamScore, otherTeamScore);
 
         assertThat(gameResult).isEqualTo(GameResult.LOSE);
 
