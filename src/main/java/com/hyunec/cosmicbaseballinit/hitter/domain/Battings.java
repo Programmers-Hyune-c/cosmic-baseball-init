@@ -6,35 +6,27 @@ import java.util.List;
 public class Battings {
 
     private final List<Batting> battings;
-    private final RandomGenerate randomGenerate;
 
-    public Battings(List<Batting> battings, RandomGenerate randomGenerate) {
+    public Battings(List<Batting> battings) {
         this.battings = Collections.unmodifiableList(battings);
-        this.randomGenerate = randomGenerate;
     }
 
-    public BattingResult battingResult(final Batting lastBatting) {
-        if(isBattingResult(Batting.STRIKE, BattingResult.OUT)) {
-            return BattingResult.OUT;
+    public String battingResult() {
+        final Batting lastBatting = battings.get(battings.size() - 1);
+
+        if (isBattingResult(Batting.STRIKE, BattingsResult.OUT)) {
+            return BattingsResult.OUT.name();
         }
 
-        if(isBattingResult(Batting.BALL, BattingResult.FOUR_BALL)) {
-            return BattingResult.FOUR_BALL;
+        if (isBattingResult(Batting.BALL, BattingsResult.FOUR_BALL)) {
+            return BattingsResult.FOUR_BALL.name();
         }
 
-        return BattingResult.from(lastBatting);
+        return lastBatting.name();
     }
 
-    public boolean isNotEmpty() {
-        return !this.isEmpty();
-    }
-
-    public boolean isEmpty() {
-        return battings.isEmpty();
-    }
-
-    private boolean isBattingResult(Batting batting, BattingResult battingResult) {
-        return battingTypeCount(batting) >= battingResult.getValue();
+    private boolean isBattingResult(Batting batting, BattingsResult battingsResult) {
+        return battingTypeCount(batting) >= battingsResult.getValue();
     }
 
     private int battingTypeCount(Batting battingType) {
@@ -42,6 +34,10 @@ public class Battings {
                 .filter(batting -> batting.equals(battingType))
                 .map(type -> 1)
                 .reduce(0, Integer::sum);
+    }
+
+    public boolean isFinishPlaceApperances(final String battingResult) {
+        return !BattingResult.isNotFinishBaseBall(battingResult);
     }
 
 }
