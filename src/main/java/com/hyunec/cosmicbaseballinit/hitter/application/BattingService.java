@@ -1,6 +1,8 @@
 package com.hyunec.cosmicbaseballinit.hitter.application;
 
-import com.hyunec.cosmicbaseballinit.hitter.domain.*;
+import com.hyunec.cosmicbaseballinit.hitter.domain.Batting;
+import com.hyunec.cosmicbaseballinit.hitter.domain.BattingRepository;
+import com.hyunec.cosmicbaseballinit.hitter.domain.Battings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,20 +12,16 @@ public class BattingService {
 
     private final BattingRepository battingRepository;
 
-    public BattingResult swing(Batting batting, RandomGenerate randomGenerate) {
+    public String swing(Batting batting) {
         battingRepository.save(batting);
-        final Battings battings = new Battings(battingRepository.findAll(), randomGenerate);
-        final BattingResult battingResult = battings.battingResult(batting);
+        final Battings battings = new Battings(battingRepository.findAll());
+        final String battingResult = battings.battingResult();
 
-        if (isBattingsClearable(battings, battingResult)) {
+        if (battings.isFinishPlaceApperances(battingResult)) {
             battingRepository.clear();
         }
 
         return battingResult;
-    }
-
-    private boolean isBattingsClearable(final Battings battings, final BattingResult battingResult) {
-        return battings.isNotEmpty() && battingResult.isClearable();
     }
 
 }
