@@ -2,7 +2,6 @@ package com.hyunec.cosmicbaseballinit.hitter.ui;
 
 import com.hyunec.cosmicbaseballinit.hitter.application.BattingService;
 import com.hyunec.cosmicbaseballinit.hitter.domain.Batting;
-import com.hyunec.cosmicbaseballinit.hitter.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.hitter.domain.RandomGenerate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +15,8 @@ public class BattingController {
     private final RandomGenerate randomGenerate;
 
     @GetMapping("/game/batting")
-    public BattingResult batting() {
-        Batting batting = Batting.generate(randomGenerate);
-        return battingService.swing(batting, randomGenerate);
+    public String batting() {
+        Batting batting = randomGenerate.generate();
+        return battingService.swing(batting);
     }
-
 }
