@@ -2,8 +2,6 @@ package com.hyunec.cosmicbaseballinit.hitter.application;
 
 import com.hyunec.cosmicbaseballinit.hitter.domain.Batting;
 import com.hyunec.cosmicbaseballinit.hitter.domain.BattingRepository;
-import com.hyunec.cosmicbaseballinit.hitter.domain.RandomGenerate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,19 +23,7 @@ class BattingServiceTest {
     @Autowired
     BattingRepository battingRepository;
 
-    RandomGenerate randomGenerate;
-
     Batting[] battings;
-
-    @BeforeEach
-    void setUp() {
-        randomGenerate = new RandomGenerate() {
-            @Override
-            public int generate() {
-                return 20;
-            }
-        };
-    }
 
     @DisplayName("아웃, 폴넷, 히트면 데이터가 리셋된다.")
     @ParameterizedTest
@@ -45,12 +31,12 @@ class BattingServiceTest {
     void strikeTest(Batting batting, int count) {
         battings = new Batting[count - 1];
         for (int i = 1; i < count; i++) {
-            battingService.swing(batting, randomGenerate);
+            battingService.swing(batting);
             battings[i - 1] = batting;
         }
         assertThat(battingRepository.findAll()).containsExactly(battings);
 
-        battingService.swing(batting, randomGenerate);
+        battingService.swing(batting);
         assertThat(battingRepository.findAll()).hasSize(0);
     }
 

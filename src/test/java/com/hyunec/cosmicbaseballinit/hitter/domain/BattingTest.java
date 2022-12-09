@@ -15,24 +15,24 @@ class BattingTest {
 
     @ParameterizedTest
     @MethodSource("parameters")
-    void generateTest(int ordinal, Batting result) {
+    void generateTest(Batting result) {
         randomGenerate = new RandomGenerate() {
             @Override
-            public int generate() {
-                return ordinal;
+            public Batting generate() {
+                return result;
             }
         };
 
-        Batting actual = Batting.generate(randomGenerate);
+        Batting actual = randomGenerate.generate();
 
         assertThat(actual).isEqualTo(result);
     }
 
     private static Stream<Arguments> parameters() {
         return Stream.of(
-                arguments(0, Batting.STRIKE),
-                arguments(1, Batting.BALL),
-                arguments(2, Batting.HIT)
+                arguments(Batting.STRIKE),
+                arguments(Batting.BALL),
+                arguments(Batting.HIT)
         );
     }
 }
