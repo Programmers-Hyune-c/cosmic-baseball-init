@@ -1,33 +1,23 @@
 package com.hyunec.cosmicbaseballinit.hitter.domain;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
+import java.util.Set;
 
-@Getter
 @RequiredArgsConstructor
 public enum BattingResult {
 
-    OUT(3),
-    FOUR_BALL(4),
+    STRIKE,
+    BALL,
+    HIT;
 
-    STRIKE(null),
-    BALL(null),
-    HIT(null);
-
-    private final Integer value;
-
-    public boolean isClearable() {
-        return !this.name().equals(STRIKE.name()) &&
-                !this.name().equals(BALL.name());
-    }
+    private static final Set<String> CONTINUE_PLAY = Set.of(STRIKE.name(), BALL.name());
 
     public static BattingResult from(final Batting batting) {
-        return Arrays.stream(BattingResult.values())
-                .filter(battingResult -> battingResult.name().equals(batting.name()))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+        return BattingResult.valueOf(batting.name());
     }
 
+    public static boolean isNotFinishBaseBall(final String battingResult) {
+        return CONTINUE_PLAY.contains(battingResult);
+    }
 }
