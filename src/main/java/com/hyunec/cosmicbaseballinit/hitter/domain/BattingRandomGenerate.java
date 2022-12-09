@@ -12,7 +12,17 @@ public class BattingRandomGenerate implements RandomGenerate {
     private final Random random = new Random();
 
     @Override
-    public int generate() {
-        return random.nextInt(BATTING_CASE_COUNT) + 1;
+    public Batting generate() {
+        final int randomValue = random.nextInt(BATTING_CASE_COUNT);
+
+        if(Batting.STRIKE.ordinal() == randomValue) {
+            return Batting.STRIKE;
+        }
+
+        if(Batting.BALL.ordinal() == randomValue) {
+            return Batting.BALL;
+        }
+
+        return Batting.STRIKE;
     }
 }
