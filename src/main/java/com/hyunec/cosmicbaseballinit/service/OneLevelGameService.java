@@ -1,23 +1,22 @@
 package com.hyunec.cosmicbaseballinit.service;
 
 import com.hyunec.cosmicbaseballinit.vo.GameResult;
-import com.hyunec.cosmicbaseballinit.vo.OneHitterResult;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OneWeekGameService implements GameService {
-
-    private Integer rounds;
-    private Integer myTeamScore;
-    private Integer otherTeamScore;
-
-    public OneWeekGameService() {
-        this.myTeamScore = 0;
-        this.otherTeamScore = 0;
-    }
+@RequiredArgsConstructor
+public class OneLevelGameService {
 
     public String gameStarted(){
+        // 점수 초기화
+        Integer myTeamScore = 0;
+        Integer otherTeamScore = 0;
 
+        // 게임 진행
+        
+        
+        // 게임 승패 반환
         return this.gameFinished(myTeamScore, otherTeamScore).getResultName();
     }
 
@@ -29,7 +28,8 @@ public class OneWeekGameService implements GameService {
     public GameResult gameFinished(Integer myTeamScore, Integer otherTeamScore){
         if(myTeamScore > otherTeamScore){
             return GameResult.WIN;
-        }else if(myTeamScore < otherTeamScore){
+        }
+        if(myTeamScore < otherTeamScore){
             return GameResult.LOSE;
         }
         return GameResult.DRAW;

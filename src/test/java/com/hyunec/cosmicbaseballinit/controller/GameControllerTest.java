@@ -1,21 +1,21 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
-import com.hyunec.cosmicbaseballinit.service.OneWeekGameService;
-import org.assertj.core.api.Assertions;
+import com.hyunec.cosmicbaseballinit.service.OneLevelGameService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class GameControllerTest {
 
 
-    GameController gameController = new GameController(new OneWeekGameService());
+    GameController gameController = new GameController(new OneLevelGameService());
 
     @Test
+    @DisplayName("게임 시작 메서드가 게임의 결과값을 반환하는지 테스트")
     void gameStartTest(){
         String result = gameController.gameStart();
 
-        Assertions.assertThat(result).isEqualTo("DRAW");
+        assertThat(result).isEqualTo("DRAW");
     }
 }
