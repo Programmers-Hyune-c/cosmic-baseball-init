@@ -1,14 +1,10 @@
 package com.hyunec.cosmicbaseballinit.vo;
 
-
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
-public enum OneHitterResult {
-    GO("GO"),
-    OUT("OUT");
-
-    private final String OneHitterResultName;
-
-
+public enum ProbabilityType {
+    SAME();
 }
