@@ -4,10 +4,14 @@ import com.hyunec.cosmicbaseballinit.vo.ProbabilityType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Method;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class Lv1HitterGameTest {
+
+    Lv1HitterGame lv1HitterGame = new Lv1HitterGame(ProbabilityType.SAME);
 
     @Test
     @DisplayName("생성자 유효성 검사 테스트")
@@ -37,6 +41,27 @@ public class Lv1HitterGameTest {
         // then
         assertThat(strikeProbability).isEqualTo(ballProbability).isEqualTo(hitProbability).isEqualTo(1.0/3.0);
         System.out.println(strikeProbability);
+    }
+    
+    @Test
+    @DisplayName("타석이 끝났는지 체크하는 함수 테스트")
+    public void isHitterEndTest () throws Exception {
+        // given
+        Integer numberOfStike = 3;
+        Integer numberOfball = 0;
+        Integer numberOfHit = 0;
+        
+        // when // private method Test
+        Method method = lv1HitterGame.getClass()
+                .getDeclaredMethod("isHitterEnd", Integer.class, Integer.class, Integer.class);
+        method.setAccessible(true);
+
+        // then
+         Boolean result1 = (Boolean)method.invoke(lv1HitterGame, numberOfStike, numberOfball, numberOfHit);
+        Boolean result2 = (Boolean)method.invoke(lv1HitterGame, 2, 3, 0);
+
+         assertThat(result1).isEqualTo(true);
+        assertThat(result2).isEqualTo(false);
     }
 
 }

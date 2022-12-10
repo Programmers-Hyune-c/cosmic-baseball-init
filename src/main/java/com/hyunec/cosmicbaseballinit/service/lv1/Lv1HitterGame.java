@@ -50,4 +50,30 @@ public class Lv1HitterGame {
         return entireNumber / numberOfHitterResult;
     }
 
+    // 한 타석의 게임 시작
+    public void oneHitterGameStart() throws Exception{
+
+        Integer numberOfStike = 0;
+        Integer numberOfball = 0;
+        Integer numberOfhit = 0;
+        while(!isHitterEnd(numberOfStike, numberOfball, numberOfhit)) {
+            // TODO : 타구 확률에 따라 스트라이크, 볼, 히트 수 증가 함수 만들기
+        }
+
+        // 한 타석의 결과 로그 찍기
+        log.info("-------- One Hitter Game End ----------");
+        log.info("------ result -----");
+    }
+
+    /* 타석이 끝나는 규칙
+     * strike 3 -> end
+     * ball 4 -> end
+     * hit 1 -> end
+     * */
+    private Boolean isHitterEnd(Integer numberOfStike, Integer numberOfball, Integer numberOfHit) {
+        if(numberOfStike.intValue() >= 3 || numberOfball.intValue() >= 4 || numberOfHit >= 1) {
+            return true;
+        }
+        return false;
+    }
 }
