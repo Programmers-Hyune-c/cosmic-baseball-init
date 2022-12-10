@@ -14,9 +14,11 @@ public class GameController {
     private final Lv1GameService gameService;
 
     @GetMapping("/game/start")
-    public String gameStart(){
-        String gameResult = gameService.gameStarted();
-        log.info("----------gameResult : " + gameResult + "----------");
-        return gameResult;
+    public void gameStart(){
+        try {
+            gameService.gameStart();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
