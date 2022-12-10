@@ -17,7 +17,7 @@ public enum BattingResult {
         return BattingResult.valueOf(batting.name());
     }
 
-    public static boolean isNotFinishBaseBall(final String battingResult) {
-        return CONTINUE_PLAY.contains(battingResult);
+    public static boolean isFinishBaseBall(final String battingResult) {
+        return !CONTINUE_PLAY.contains(battingResult);
     }
 }
