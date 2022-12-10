@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-public class BattingRandomGenerate implements RandomGenerate {
+public class BattingRandomGenerate implements BattingGenerator {
 
-    private static final int BATTING_CASE_COUNT = 2;
+    private static final int BATTING_CASE_COUNT = 3;
 
     private final Random random = new Random();
 
@@ -15,14 +15,14 @@ public class BattingRandomGenerate implements RandomGenerate {
     public Batting generate() {
         final int randomValue = random.nextInt(BATTING_CASE_COUNT);
 
-        if(Batting.STRIKE.ordinal() == randomValue) {
+        if(Batting.STRIKE.getOrderNumber() == randomValue) {
             return Batting.STRIKE;
         }
 
-        if(Batting.BALL.ordinal() == randomValue) {
+        if(Batting.BALL.getOrderNumber() == randomValue) {
             return Batting.BALL;
         }
 
-        return Batting.STRIKE;
+        return Batting.HIT;
     }
 }
