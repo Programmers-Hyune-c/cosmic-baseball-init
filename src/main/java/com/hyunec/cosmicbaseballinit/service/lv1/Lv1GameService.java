@@ -1,4 +1,4 @@
-package com.hyunec.cosmicbaseballinit.service;
+package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.GameResult;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OneLevelGameService {
+public class Lv1GameService {
 
     public String gameStarted(){
         // 점수 초기화
