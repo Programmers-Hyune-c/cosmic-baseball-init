@@ -1,43 +1,34 @@
 package com.hyunec.cosmicbaseballinit.hitter.domain;
 
+import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Getter
 public class Battings {
 
-    private final List<Batting> battings;
+    private List<Batting> battings;
 
     public Battings(List<Batting> battings) {
         this.battings = Collections.unmodifiableList(battings);
     }
 
-    public String battingResult() {
-        final Batting lastBatting = battings.get(battings.size() - 1);
-
-        if (isBattingResult(Batting.STRIKE, BattingsResult.OUT)) {
-            return BattingsResult.OUT.name();
-        }
-
-        if (isBattingResult(Batting.BALL, BattingsResult.FOUR_BALL)) {
-            return BattingsResult.FOUR_BALL.name();
-        }
-
-        return lastBatting.name();
+    public Batting lastBatting() {
+        return battings.get(battings.size() - 1);
     }
 
-    private boolean isBattingResult(Batting batting, BattingsResult battingsResult) {
-        return battingTypeCount(batting) >= battingsResult.getValue();
-    }
-
-    private int battingTypeCount(Batting battingType) {
+    public long battingTypeCount(Batting battingType) {
         return battings.stream()
                 .filter(batting -> batting.equals(battingType))
-                .map(type -> 1)
-                .reduce(0, Integer::sum);
+                .count();
     }
 
-    public boolean isFinishPlaceApperances(final String battingResult) {
-        return !BattingResult.isNotFinishBaseBall(battingResult);
-    }
+    public void addBatting(Batting batting) {
+        List<Batting> updateBattings = new ArrayList<>(battings);
+        updateBattings.add(batting);
 
+        this.battings = Collections.unmodifiableList(updateBattings);
+    }
 }
