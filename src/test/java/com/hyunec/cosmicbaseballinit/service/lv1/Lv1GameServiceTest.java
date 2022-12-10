@@ -10,6 +10,17 @@ import static org.assertj.core.api.Assertions.*;
 class Lv1GameServiceTest {
 
     Lv1GameService lv1GameService = new Lv1GameService();
+    
+    @Test
+    @DisplayName("게임 진행 함수 테스트")
+    public void gameStartTest () throws Exception {
+        // given
+
+        // when
+        lv1GameService.gameStart();
+        
+        // then
+    }
 
     @Test
     @DisplayName("게임 끝남 메서드가 팀 스코어에 따라 올바른 결과 값을 반환하는지 테스트")
@@ -17,7 +28,7 @@ class Lv1GameServiceTest {
         Integer myTeamScore = 1;
         Integer otherTeamScore = 4;
 
-        GameResult gameResult = lv1GameService.gameFinished(myTeamScore, otherTeamScore);
+        GameResult gameResult = lv1GameService.returnGameResult(myTeamScore, otherTeamScore);
 
         assertThat(gameResult).isEqualTo(GameResult.LOSE);
 
