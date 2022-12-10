@@ -3,6 +3,7 @@ package com.hyunec.cosmicbaseballinit.hitter.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -17,6 +18,21 @@ class BattingResultTest {
     @MethodSource("parameters")
     void from(Batting batting, BattingResult expected) {
         BattingResult actual = BattingResult.from(batting);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @DisplayName("스트라이크와 볼이면 클리어하지 않는다고 false를 반환다.")
+    @ParameterizedTest
+    @CsvSource(value = {
+            "STRIKE=false",
+            "BALL=false",
+            "HIT=true",
+            "OUT=true",
+            "FOUR_BALL=true"
+    }, delimiter = '=')
+    void isNotFinishBaseBall(String battingResult, boolean expected) {
+        boolean actual = BattingResult.isFinishBaseBall(battingResult);
 
         assertThat(actual).isEqualTo(expected);
     }
