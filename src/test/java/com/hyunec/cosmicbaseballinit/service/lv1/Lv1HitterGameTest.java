@@ -1,5 +1,7 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
+import com.hyunec.cosmicbaseballinit.vo.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import com.hyunec.cosmicbaseballinit.vo.ProbabilityType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 
 public class Lv1HitterGameTest {
 
@@ -51,17 +54,42 @@ public class Lv1HitterGameTest {
         Integer numberOfball = 0;
         Integer numberOfHit = 0;
         
-        // when // private method Test
+        // private method Test
         Method method = lv1HitterGame.getClass()
                 .getDeclaredMethod("isHitterEnd", Integer.class, Integer.class, Integer.class);
         method.setAccessible(true);
 
-        // then
-         Boolean result1 = (Boolean)method.invoke(lv1HitterGame, numberOfStike, numberOfball, numberOfHit);
+        // when
+        Boolean result1 = (Boolean)method.invoke(lv1HitterGame, numberOfStike, numberOfball, numberOfHit);
         Boolean result2 = (Boolean)method.invoke(lv1HitterGame, 2, 3, 0);
 
-         assertThat(result1).isEqualTo(true);
+        // then
+        assertThat(result1).isEqualTo(true);
         assertThat(result2).isEqualTo(false);
     }
+    
+    @Test
+    @DisplayName("투구 결과로 타석의 결과를 반환하는 함수 테스트")
+    public void  judgeHitResultTest() throws Exception {
+        // given
+        PitchResult pitchResult = PitchResult.STRIKE;
+        Integer count = 3;
+        
+        // private method
+        Method method = lv1HitterGame.getClass()
+                .getDeclaredMethod("judgeHitResult", PitchResult.class, Integer.class);
+        method.setAccessible(true);
 
+        // when
+        HitterResult hitterResultStrikeOut = (HitterResult)method.invoke(lv1HitterGame, pitchResult, count);
+        HitterResult hitterResult4Ball = (HitterResult)method.invoke(lv1HitterGame, PitchResult.BALL, 4);
+        HitterResult hitterResult1Hit = (HitterResult)method.invoke(lv1HitterGame, PitchResult.HIT, 1);
+        //Throwable hitterResultException = catchThrowable(() -> { method.invoke(lv1HitterGame, PitchResult.BALL, 5); });
+        
+        // then
+        assertThat(hitterResultStrikeOut).isEqualTo(HitterResult.OUT);
+        assertThat(hitterResult4Ball).isEqualTo(hitterResult1Hit).isEqualTo(HitterResult.GO);
+//        assertThat(hitterResultException).isInstanceOf(Exception.class)
+//                .hasMessageContaining("judgeHitResult 에러입니다."); // null 반환...
+    }
 }
