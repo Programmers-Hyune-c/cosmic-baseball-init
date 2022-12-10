@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.IntHolder;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import com.hyunec.cosmicbaseballinit.vo.ProbabilityType;
 import lombok.Getter;
@@ -57,9 +58,10 @@ public class Lv1HitterGame {
     // 한 타석의 게임 시작
     public void oneHitterGameStart() throws Exception{
 
-        Integer numberOfStike = 0;
-        Integer numberOfball = 0;
-        Integer numberOfhit = 0;
+        IntHolder numberOfStike = new IntHolder(0);
+        IntHolder numberOfball = new IntHolder(0);
+        IntHolder numberOfhit = new IntHolder(0);
+
         while(!isHitterEnd(numberOfStike, numberOfball, numberOfhit)) {
             pitching(numberOfStike, numberOfball, numberOfhit);
         }
@@ -72,10 +74,11 @@ public class Lv1HitterGame {
 
         // 한 타석의 결과 로그 찍기
         log.info("-------- One Hitter Game End ----------");
-        log.info("------ result -----");
+        log.info("------ One Hitter Game result -----");
         log.info("HitterResult : {}", hitterResult.name());
         log.info("HitterResult : {}", pitchResult.name());
         log.info("HitterResult : {}", count.toString());
+        log.info("------ One Hitter Game result -----");
     }
 
     /* 타석이 끝나는 규칙
@@ -83,26 +86,30 @@ public class Lv1HitterGame {
      * ball 4 -> end
      * hit 1 -> end
      * */
-    private Boolean isHitterEnd(Integer numberOfStike, Integer numberOfball, Integer numberOfHit) {
-        if(numberOfStike.intValue() >= 3 || numberOfball.intValue() >= 4 || numberOfHit >= 1) {
+    private Boolean isHitterEnd(IntHolder numberOfStike, IntHolder numberOfball, IntHolder numberOfHit) {
+        if(numberOfStike.intValue() >= 3 || numberOfball.intValue() >= 4 || numberOfHit.intValue() >= 1) {
             return true;
         }
         return false;
     }
 
-    private void pitching(Integer numberOfStike, Integer numberOfball, Integer numberOfhit) throws Exception{
+    private void pitching(IntHolder numberOfStike, IntHolder numberOfball, IntHolder numberOfhit) throws Exception{
         Double randomNumber = Math.random();
+        log.info("randomNumber : {}", randomNumber);
         PitchResult pitchResult = returnPitchResultAccordingtoProbabilitySection(randomNumber);
         if(pitchResult == PitchResult.STRIKE){
-            numberOfStike += 1;
+            numberOfStike.add(1);
+            log.info("numberOfStike : {}", numberOfStike);
             return;
         }
         if(pitchResult == PitchResult.BALL){
-            numberOfball += 1;
+            numberOfball.add(1);
+            log.info("numberOfball : {}", numberOfball);
             return;
         }
         if(pitchResult == PitchResult.HIT){
-            numberOfhit += 1;
+            numberOfhit.add(1);
+            log.info("numberOfhit : {}", numberOfhit);
             return;
         }
     }
@@ -134,20 +141,23 @@ public class Lv1HitterGame {
     }
 
     // 피칭 결과를 필드 변수에 세팅
-    private void setPitchResultAndCount(Integer numberOfStike,
-                                        Integer numberOfball,
-                                        Integer numberOfhit) throws Exception{
-        if(numberOfStike >= 3) {
+    private void setPitchResultAndCount(IntHolder numberOfStike,
+                                        IntHolder numberOfball,
+                                        IntHolder numberOfhit) throws Exception{
+        if(numberOfStike.intValue() >= 3) {
             pitchResult = PitchResult.STRIKE;
             count = 3;
+            return;
         }
-        if(numberOfball >= 4) {
+        if(numberOfball.intValue() >= 4) {
             pitchResult = PitchResult.BALL;
             count = 4;
+            return;
         }
-        if(numberOfhit >= 1) {
+        if(numberOfhit.intValue() >= 1) {
             pitchResult = PitchResult.HIT;
             count = 1;
+            return;
         }
         throw new Exception("returnPitchResult 오류 입니다.");
     }
