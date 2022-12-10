@@ -19,7 +19,7 @@ public class Lv1GameService {
 
         // 게임 진행
         Lv1HitterGame lv1HitterGame = new Lv1HitterGame(ProbabilityType.SAME);
-        for (int i = 0; i < round; i ++){
+        for (int i = 0; i < round; i ++) {
             log.info("-------round {}--------", round);
             log.info("-------My team -----------");
             lv1HitterGame.oneHitterGameStart();
@@ -30,12 +30,11 @@ public class Lv1GameService {
         log.info("--------gameResult : {}-------", gameResult);
     }
 
-
-    public GameResult returnGameResult(Integer myTeamScore, Integer otherTeamScore){
-        if(myTeamScore > otherTeamScore){
+    public GameResult returnGameResult(Integer myTeamScore, Integer otherTeamScore) {
+        if(myTeamScore > otherTeamScore) {
             return GameResult.WIN;
         }
-        if(myTeamScore < otherTeamScore){
+        if(myTeamScore < otherTeamScore) {
             return GameResult.LOSE;
         }
         return GameResult.DRAW;

@@ -7,13 +7,7 @@ import org.springframework.context.annotation.Bean;
 @Getter
 @RequiredArgsConstructor
 public enum PitchResult {
-    STRIKE("STRIKE"),
-    BALL("BALL"),
-    HIT("HIT");
-
-
-    private final String resultName;
-
-
-
+    STRIKE(),
+    BALL(),
+    HIT();
 }

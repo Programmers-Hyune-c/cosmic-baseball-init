@@ -143,7 +143,7 @@ public class Lv1HitterGame {
     // 피칭 결과를 필드 변수에 세팅
     private void setPitchResultAndCount(IntHolder numberOfStike,
                                         IntHolder numberOfball,
-                                        IntHolder numberOfhit) throws Exception{
+                                        IntHolder numberOfhit) throws Exception {
         if(numberOfStike.intValue() >= 3) {
             pitchResult = PitchResult.STRIKE;
             count = 3;
@@ -163,7 +163,7 @@ public class Lv1HitterGame {
     }
 
     // 한 타석의 결과 판단
-    private HitterResult judgeHitResult(PitchResult pitchResult, Integer count) throws Exception{
+    private HitterResult judgeHitResult(PitchResult pitchResult, Integer count) throws Exception {
 
         if(pitchResult == PitchResult.STRIKE && count.equals(3)) { // 스트라이크 3
             return HitterResult.OUT;

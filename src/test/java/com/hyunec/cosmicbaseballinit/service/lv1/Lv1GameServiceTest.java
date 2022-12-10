@@ -23,14 +23,13 @@ class Lv1GameServiceTest {
     }
 
     @Test
-    @DisplayName("게임 끝남 메서드가 팀 스코어에 따라 올바른 결과 값을 반환하는지 테스트")
-    void gameFinishedTest(){
+    @DisplayName("게임 승패 반환 메서드 테스트")
+    void returnGameResultTest(){
         Integer myTeamScore = 1;
         Integer otherTeamScore = 4;
 
         GameResult gameResult = lv1GameService.returnGameResult(myTeamScore, otherTeamScore);
 
         assertThat(gameResult).isEqualTo(GameResult.LOSE);
-
     }
 }

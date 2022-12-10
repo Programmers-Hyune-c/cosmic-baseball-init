@@ -14,7 +14,7 @@ public class GameController {
     private final Lv1GameService gameService;
 
     @GetMapping("/game/start")
-    public void gameStart(){
+    public void gameStart() {
         try {
             gameService.gameStart();
         } catch(Exception e) {
