@@ -92,4 +92,26 @@ public class Lv1HitterGameTest {
 //        assertThat(hitterResultException).isInstanceOf(Exception.class)
 //                .hasMessageContaining("judgeHitResult 에러입니다."); // null 반환...
     }
+    
+    @Test
+    @DisplayName("랜덤 값이 주어질 때 확률 구간에 따른 PitchResult 반환")
+    public void returnPitchResultAccordingtoProbabilitySectionTest () throws Exception {
+        // given
+        Double randomNumber = 0.32;
+
+        // private method
+        Method method = lv1HitterGame.getClass()
+                .getDeclaredMethod("returnPitchResultAccordingtoProbabilitySection", Double.class);
+        method.setAccessible(true);
+        
+        // when
+        PitchResult pitchResultStike = (PitchResult)method.invoke(lv1HitterGame, randomNumber);
+        PitchResult pitchResultBall = (PitchResult)method.invoke(lv1HitterGame, 0.4);
+        PitchResult pitchResultHit = (PitchResult)method.invoke(lv1HitterGame, 0.77);
+        
+        // then
+        assertThat(pitchResultStike).isEqualTo(PitchResult.STRIKE);
+        assertThat(pitchResultBall).isEqualTo(PitchResult.BALL);
+        assertThat(pitchResultHit).isEqualTo(PitchResult.HIT);
+    }
 }

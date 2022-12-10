@@ -61,7 +61,7 @@ public class Lv1HitterGame {
         Integer numberOfball = 0;
         Integer numberOfhit = 0;
         while(!isHitterEnd(numberOfStike, numberOfball, numberOfhit)) {
-            // TODO : 타구 확률에 따라 스트라이크, 볼, 히트 수 증가 함수 만들기
+            pitching(numberOfStike, numberOfball, numberOfhit);
         }
 
         // 피칭 결과 필드 변수에 저장
@@ -88,6 +88,49 @@ public class Lv1HitterGame {
             return true;
         }
         return false;
+    }
+
+    private void pitching(Integer numberOfStike, Integer numberOfball, Integer numberOfhit) throws Exception{
+        Double randomNumber = Math.random();
+        PitchResult pitchResult = returnPitchResultAccordingtoProbabilitySection(randomNumber);
+        if(pitchResult == PitchResult.STRIKE){
+            numberOfStike += 1;
+            return;
+        }
+        if(pitchResult == PitchResult.BALL){
+            numberOfball += 1;
+            return;
+        }
+        if(pitchResult == PitchResult.HIT){
+            numberOfhit += 1;
+            return;
+        }
+    }
+
+    // 구간 별로 PitcherResult를 반환하기
+    private PitchResult returnPitchResultAccordingtoProbabilitySection(Double randomNumber) throws Exception{
+
+        Double startProbability = 0D;
+        Double endProbabilitty = 0D;
+
+        // 스트라이크 도출 확률 구간
+        endProbabilitty += strikeProbability;
+        if(startProbability <= randomNumber && randomNumber < endProbabilitty) {
+            return PitchResult.STRIKE;
+        }
+        // 볼 도출 확률 구간
+        startProbability = endProbabilitty;
+        endProbabilitty += ballProbability;
+        if(startProbability <= randomNumber && randomNumber < endProbabilitty){
+            return PitchResult.BALL;
+        }
+        // 타격 도출 확률 구간
+        startProbability = endProbabilitty;
+        endProbabilitty = 1D;
+        if(startProbability <= randomNumber && randomNumber < endProbabilitty){
+            return PitchResult.HIT;
+        }
+        throw new Exception("returnPitchResultAccordingtoProbabilitySection 에러입니다.");
     }
 
     // 피칭 결과를 필드 변수에 세팅
