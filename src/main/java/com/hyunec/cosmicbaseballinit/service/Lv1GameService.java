@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OneLevelGameService {
+public class Lv1GameService {
 
-    public String gameStarted(){
+    public String gameStart(){
         // 점수 초기화
         Integer myTeamScore = 0;
         Integer otherTeamScore = 0;

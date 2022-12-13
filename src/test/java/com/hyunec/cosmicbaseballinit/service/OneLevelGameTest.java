@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class OneLevelGameTest {
 
-    OneLevelGameService oneLevelGameService = new OneLevelGameService();
+    Lv1GameService lv1GameService = new Lv1GameService();
 
 
     @Test
@@ -17,7 +17,7 @@ class OneLevelGameTest {
         Integer myTeamScore = 1;
         Integer otherTeamScore = 4;
 
-        GameResult gameResult = oneLevelGameService.gameFinished(myTeamScore, otherTeamScore);
+        GameResult gameResult = lv1GameService.gameFinished(myTeamScore, otherTeamScore);
 
         assertThat(gameResult).isEqualTo(GameResult.LOSE);
 
