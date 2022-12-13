@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class Lv1HitterGameService {
-    public static final Map<PitchResult, Double> probabilityMap = new HashMap<>();
+    public final Map<PitchResult, Double> probabilityMap = new HashMap<>();
 
     public void playHittingGame(){
         PitchResult.settingProbability(probabilityMap);
