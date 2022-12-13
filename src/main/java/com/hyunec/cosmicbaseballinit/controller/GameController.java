@@ -1,6 +1,6 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
-import com.hyunec.cosmicbaseballinit.service.Lv1GameService;
+import com.hyunec.cosmicbaseballinit.service.Lv1HitterGameService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class GameController {
 
-    private final Lv1GameService gameService;
+    private final Lv1HitterGameService gameService;
 
-    @GetMapping("/game/start")
-    public String gameStart(){
-        String gameResult = gameService.gameStart();
-        log.info("----------gameResult : " + gameResult + "----------");
-        return gameResult;
+    @GetMapping("/game/setting")
+    public String gameSetting(){
+        gameService.setHitGameProbability();
+        return "Probability setting finished";
     }
+
+    @GetMapping("/game/hitting")
+    public String hitting(){
+        try {
+            return gameService.hitting();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
 }
