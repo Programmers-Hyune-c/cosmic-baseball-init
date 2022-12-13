@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 
 @Getter
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public enum PitchResult {
         return entireNumber / numberOfHitterResult;
     }
 
+    // 확률 세팅
     public static void settingProbability(Map<PitchResult, Double> probabilityMap){
         if(probabilityMap.size() == PitchResult.values().length){
             return;
@@ -30,4 +32,19 @@ public enum PitchResult {
         Arrays.stream(PitchResult.values()).forEach(pitchResult -> probabilityMap.put(pitchResult, sameProbability));
     }
 
+    public static PitchResult pitching(Map<PitchResult, Double> probabilityMap) throws Exception {
+        Double startProbability = 0D;
+        Double endProbabilitty = 0D;
+
+        Double randomDouble = Math.random();
+        System.out.println(randomDouble);
+        for (PitchResult pitchResult : PitchResult.values()) {
+            endProbabilitty += probabilityMap.get(pitchResult);
+            if (startProbability <= randomDouble && randomDouble >= endProbabilitty) {
+                return pitchResult;
+            }
+            startProbability = endProbabilitty;
+        }
+        throw new Exception("batting error");
+    }
 }
