@@ -23,6 +23,9 @@ public enum PitchResult {
     }
 
     public static void settingProbability(Map<PitchResult, Double> probabilityMap){
+        if(probabilityMap.size() == PitchResult.values().length){
+            return;
+        }
         Double sameProbability = PitchResult.calculateSameProbability();
         Arrays.stream(PitchResult.values()).forEach(pitchResult -> probabilityMap.put(pitchResult, sameProbability));
     }
