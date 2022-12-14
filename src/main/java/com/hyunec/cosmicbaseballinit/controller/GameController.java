@@ -1,6 +1,5 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
-import com.hyunec.cosmicbaseballinit.service.lv1.Lv1GameService;
 import com.hyunec.cosmicbaseballinit.service.lv1.Lv1HitterGameService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

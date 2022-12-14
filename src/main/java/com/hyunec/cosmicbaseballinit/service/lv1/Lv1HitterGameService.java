@@ -1,9 +1,6 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
-import com.hyunec.cosmicbaseballinit.vo.HitterResult;
-import com.hyunec.cosmicbaseballinit.vo.IntHolder;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
-import com.hyunec.cosmicbaseballinit.vo.ProbabilityType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
