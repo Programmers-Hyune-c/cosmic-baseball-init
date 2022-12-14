@@ -23,5 +23,9 @@ public class Lv1HitterGameService {
         PitchResult.settingProbability(probabilityMap);
     }
 
-
+    public String hitting() throws Exception{
+        PitchResult pitchResult = PitchResult.pitching(probabilityMap);
+        hittingResult.add(pitchResult);
+        return pitchResult.name();
+    }
 }
