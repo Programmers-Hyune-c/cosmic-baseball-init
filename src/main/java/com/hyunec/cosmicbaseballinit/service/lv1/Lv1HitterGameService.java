@@ -24,4 +24,8 @@ public class Lv1HitterGameService {
         hittingResult.add(pitchResult);
         return pitchResult.name();
     }
+
+    private Integer getCountByPitchResult(PitchResult pitchResult) {
+        return (int)hittingResult.stream().filter(x -> x.equals(pitchResult)).count();
+    }
 }
