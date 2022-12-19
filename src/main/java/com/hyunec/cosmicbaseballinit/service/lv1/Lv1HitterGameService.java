@@ -21,6 +21,7 @@ public class Lv1HitterGameService {
         PitchResult pitchResult = PitchResult.pitching(probabilityMap);
         hittingResult.add(pitchResult);
         if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){
+            initGameScore();
             return HitterResult.getHitterResultByPitchResult(pitchResult).name();
         }
         return pitchResult.name();
