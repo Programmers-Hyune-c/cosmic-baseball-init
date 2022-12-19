@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@Slf4j
 public class Lv1HitterGameService {
-    public final Map<PitchResult, Double> probabilityMap = new HashMap<>();
+    public final Map<PitchResult, Double> probabilityMap = new HashMap<>(); //TODO: 1급 컬렉션
     public final List<PitchResult> hittingResult = new ArrayList<>();
 
     // 확률 세팅

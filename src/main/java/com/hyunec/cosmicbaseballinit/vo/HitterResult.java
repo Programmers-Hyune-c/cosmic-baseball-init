@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum HitterResult {
-    GO(),
-    OUT();
+    GO,
+    OUT;
 }

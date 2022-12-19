@@ -16,10 +16,10 @@ public class GameController {
     @GetMapping("/game/setting")
     public String gameSetting(){
         gameService.setHitGameProbability();
-        return "Probability setting finished";
+        return "Probability setting finished"; //TODO: 하드코딩된 문자열 반환 처리하기
     }
 
-    @GetMapping("/game/hitting")
+    @GetMapping("/game/hitting") //TODO: try-catch 대신 ControllerAdvice
     public String hitting(){
         try {
             // TODO PitchResult에 따라 GO/OUt 판정하고, list 초기화 하도록 수정

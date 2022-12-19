@@ -12,9 +12,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public enum PitchResult {
-    STRIKE(),
-    BALL(),
-    HIT();
+    STRIKE,
+    BALL,
+    HIT;
 
     // 동일한 확률을 계산하는 함수
     private static Double calculateSameProbability() {
