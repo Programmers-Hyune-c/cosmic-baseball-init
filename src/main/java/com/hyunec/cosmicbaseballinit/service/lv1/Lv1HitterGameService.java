@@ -31,4 +31,8 @@ public class Lv1HitterGameService {
     private Integer getCountByPitchResult(PitchResult pitchResult) {
         return (int)hittingResult.stream().filter(x -> x.equals(pitchResult)).count();
     }
+
+    private void initGameScore() {
+        hittingResult.clear();
+    }
 }
