@@ -4,10 +4,7 @@ import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class Lv1HitterGameService {
@@ -23,6 +20,12 @@ public class Lv1HitterGameService {
         PitchResult pitchResult = PitchResult.pitching(probabilityMap);
         hittingResult.add(pitchResult);
         return pitchResult.name();
+    }
+
+    public Map<PitchResult, Integer> getScores() {
+        Map<PitchResult, Integer> scores = new HashMap<>();
+        Arrays.stream(PitchResult.values()).forEach(pr -> scores.put(pr, getCountByPitchResult(pr)));
+        return scores;
     }
 
     private Integer getCountByPitchResult(PitchResult pitchResult) {
