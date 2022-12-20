@@ -25,14 +25,12 @@ public class GameController {
     @GetMapping("/game/hitting") // TODO: try-catch 대신 ControllerAdvice
     public String hitting(){
         try {
-            // TODO PitchResult에 따라 GO/OUt 판정하고, list 초기화 하도록 수정
             return gameService.hitting();
         } catch (Exception e) {
             return e.getMessage();
         }
     }
 
-    // TODO 현재 STRIKE, BALL, OUT 갯수 리스트 반환
     @GetMapping("/game/hittingScore")
     public Map<PitchResult, Integer> hittingScore(){
         return gameService.getScores();
