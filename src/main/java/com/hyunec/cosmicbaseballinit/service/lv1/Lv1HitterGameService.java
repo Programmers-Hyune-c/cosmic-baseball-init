@@ -4,12 +4,15 @@ import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Getter
+@Service
 public class Lv1HitterGameService {
-    public final Map<PitchResult, Double> probabilityMap = new HashMap<>(); // TODO: 1급 컬렉션
+    // TODO: 1급 컬렉션 참고하기
+    public final Map<PitchResult, Double> probabilityMap = new HashMap<>(); 
     public final List<PitchResult> hittingResult = new ArrayList<>();
 
     // 확률 세팅
@@ -19,8 +22,16 @@ public class Lv1HitterGameService {
 
     public String hitting() throws Exception{
         PitchResult pitchResult = PitchResult.pitching(probabilityMap);
+        savePitchResultToMap(pitchResult);
+        return returnHittingResult(pitchResult);
+    }
+
+    private void savePitchResultToMap(PitchResult pitchResult) {
         hittingResult.add(pitchResult);
-        if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){
+    }
+
+    private String returnHittingResult(PitchResult pitchResult) throws Exception {
+        if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){ // S3,B4,H1
             initGameScore();
             return HitterResult.getHitterResultByPitchResult(pitchResult).name();
         }
