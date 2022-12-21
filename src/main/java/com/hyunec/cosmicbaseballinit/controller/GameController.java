@@ -31,8 +31,8 @@ public class GameController {
         }
     }
 
-    @GetMapping("/game/hittingScore")
-    public Map<PitchResult, Integer> hittingScore(){
+    @GetMapping("/game/hitterScore")
+    public Map<PitchResult, Integer> hitterScore(){
         return gameService.getScores();
     }
 }
