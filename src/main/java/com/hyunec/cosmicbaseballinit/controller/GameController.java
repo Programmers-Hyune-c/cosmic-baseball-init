@@ -1,7 +1,6 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.service.lv1.Lv1HitterGameService;
-import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ public class GameController {
     @GetMapping("/game/hitting")
     public String hitting() throws Exception{
         String hittingResult = gameService.hitting();
-        if(gameService.isWhenScoreInit(hittingResult)){
+        if(gameService.isHitterGameEnd(hittingResult)){
             gameService.initGameScore();
         }
         return hittingResult;

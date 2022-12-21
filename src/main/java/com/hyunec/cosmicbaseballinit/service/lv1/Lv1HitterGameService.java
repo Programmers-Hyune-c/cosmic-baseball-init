@@ -57,7 +57,7 @@ public class Lv1HitterGameService {
         hittingResult.clear();
     }
 
-    public boolean isWhenScoreInit(String hittingResult){
+    public boolean isHitterGameEnd(String hittingResult){
         for (HitterResult hr : HitterResult.values()){
             if (hr.name().equals(hittingResult)){
                 return true;

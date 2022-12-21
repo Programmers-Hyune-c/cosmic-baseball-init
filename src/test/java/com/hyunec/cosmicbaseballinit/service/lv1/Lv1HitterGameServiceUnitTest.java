@@ -1,6 +1,5 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
-import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import com.hyunec.cosmicbaseballinit.vo.SpecialHitterResult;
 import org.junit.jupiter.api.*;
@@ -23,7 +22,7 @@ public class Lv1HitterGameServiceUnitTest {
         String specialHitterResult = SpecialHitterResult.BULLSEYE_BALL.name();
 
         // when
-        Boolean result = lv1HitterGameService.isWhenScoreInit(specialHitterResult);
+        Boolean result = lv1HitterGameService.isHitterGameEnd(specialHitterResult);
 
         // then
         assertThat(result).isEqualTo(true);
@@ -43,7 +42,7 @@ public class Lv1HitterGameServiceUnitTest {
         // when
         PitchResult result2 = PitchResult.STRIKE;
         method1.invoke(lv1HitterGameService, result2);
-        Boolean result = lv1HitterGameService.isWhenScoreInit(result2.name());
+        Boolean result = lv1HitterGameService.isHitterGameEnd(result2.name());
 
         // then
         assertThat(result).isEqualTo(false);

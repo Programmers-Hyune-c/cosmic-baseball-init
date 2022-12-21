@@ -2,7 +2,6 @@ package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
-import com.hyunec.cosmicbaseballinit.vo.SpecialHitterResult;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,7 +68,7 @@ public class Lv1HitterGameServiceTest {
                 }),
                 dynamicTest("점수 초기화", () -> {
                     //when
-                   if (lv1HitterGameService.isWhenScoreInit(hitterResult)) {
+                   if (lv1HitterGameService.isHitterGameEnd(hitterResult)) {
                        lv1HitterGameService.initGameScore();
                    }
 
