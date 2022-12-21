@@ -1,14 +1,12 @@
 package com.hyunec.cosmicbaseballinit.vo;
 
 
-import lombok.RequiredArgsConstructor;
-
 public enum HitterResult {
     STRIKE_OUT,
     FOUR_BALL,
     HIT;
 
-    public static HitterResult getHitterResultByPitchResult(PitchResult lastPitchResult) throws Exception{
+    public static HitterResult judgeHitterResultByPitchResult(PitchResult lastPitchResult) throws Exception{
         if (lastPitchResult == PitchResult.STRIKE) {
             return STRIKE_OUT;
         }

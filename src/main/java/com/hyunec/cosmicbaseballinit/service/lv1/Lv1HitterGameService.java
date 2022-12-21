@@ -2,6 +2,7 @@ package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
+import com.hyunec.cosmicbaseballinit.vo.SpecialHitterResult;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,13 @@ public class Lv1HitterGameService {
         PitchResult.settingProbability(probabilityMap);
     }
 
-    public String hitting() throws Exception{
-        PitchResult pitchResult = PitchResult.pitching(probabilityMap);
+    public String hitting() throws Exception {
+        PitchResult pitchResult = PitchResult.pitching(probabilityMap, Math.random());
+        SpecialHitterResult specialHitterResult =
+                SpecialHitterResult.judgeSpecialHitterResultByPitchResult(pitchResult, Math.random());
+        if (specialHitterResult != null){
+            return specialHitterResult.name();
+        }
         savePitchResult(pitchResult);
         return returnHittingResult(pitchResult);
     }
@@ -30,8 +36,9 @@ public class Lv1HitterGameService {
     }
 
     private String returnHittingResult(PitchResult pitchResult) throws Exception {
+
         if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){ // S3,B4,H1
-            return HitterResult.getHitterResultByPitchResult(pitchResult).name();
+            return HitterResult.judgeHitterResultByPitchResult(pitchResult).name();
         }
         return pitchResult.name();
     }
@@ -53,6 +60,11 @@ public class Lv1HitterGameService {
     public boolean isWhenScoreInit(String hittingResult){
         for (HitterResult hr : HitterResult.values()){
             if (hr.name().equals(hittingResult)){
+                return true;
+            }
+        }
+        for (SpecialHitterResult shr : SpecialHitterResult.values()){
+            if (shr.name().equals(hittingResult)){
                 return true;
             }
         }

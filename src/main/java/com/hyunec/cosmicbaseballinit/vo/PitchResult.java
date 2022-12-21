@@ -39,14 +39,13 @@ public enum PitchResult {
         Arrays.stream(PitchResult.values()).forEach(pitchResult -> probabilityMap.put(pitchResult, sameProbability));
     }
 
-    public static PitchResult pitching(Map<PitchResult, Double> probabilityMap) throws Exception {
+    public static PitchResult pitching(Map<PitchResult, Double> probabilityMap, Double randomDouble) throws Exception {
         if(!isProbabilitySetting(probabilityMap)){
             throw new Exception("please setting first");
         }
         Double startProbability = 0D;
         Double endProbabilitty = 0D;
 
-        Double randomDouble = Math.random();
         log.info(randomDouble.toString());
         for (PitchResult pitchResult : PitchResult.values()) {
             endProbabilitty += probabilityMap.get(pitchResult);
