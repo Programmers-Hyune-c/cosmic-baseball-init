@@ -3,7 +3,6 @@ package com.hyunec.cosmicbaseballinit.service.lv1;
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,11 +21,11 @@ public class Lv1HitterGameService {
 
     public String hitting() throws Exception{
         PitchResult pitchResult = PitchResult.pitching(probabilityMap);
-        savePitchResultToMap(pitchResult);
+        savePitchResult(pitchResult);
         return returnHittingResult(pitchResult);
     }
 
-    private void savePitchResultToMap(PitchResult pitchResult) {
+    private void savePitchResult(PitchResult pitchResult) {
         hittingResult.add(pitchResult);
     }
 
