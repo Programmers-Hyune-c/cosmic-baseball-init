@@ -31,7 +31,6 @@ public class Lv1HitterGameService {
 
     private String returnHittingResult(PitchResult pitchResult) throws Exception {
         if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){ // S3,B4,H1
-            initGameScore();
             return HitterResult.getHitterResultByPitchResult(pitchResult).name();
         }
         return pitchResult.name();
@@ -47,7 +46,16 @@ public class Lv1HitterGameService {
         return (int)hittingResult.stream().filter(x -> x.equals(pitchResult)).count();
     }
 
-    private void initGameScore() {
+    public void initGameScore() {
         hittingResult.clear();
+    }
+
+    public boolean isWhenScoreInit(String hittingResult){
+        for (HitterResult hr : HitterResult.values()){
+            if (hr.name().equals(hittingResult)){
+                return true;
+            }
+        }
+        return false;
     }
 }
