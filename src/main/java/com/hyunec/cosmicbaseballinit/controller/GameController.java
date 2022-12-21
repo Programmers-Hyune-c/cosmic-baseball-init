@@ -23,17 +23,13 @@ public class GameController {
         return "Probability setting finished"; //TODO: 하드코딩된 문자열 반환 처리하기
     }
 
-    @GetMapping("/game/hitting") // TODO: try-catch 대신 ControllerAdvice
-    public String hitting(){
-        try {
-            String hittingResult = gameService.hitting();
-            if(gameService.isWhenScoreInit(hittingResult)){
-                gameService.initGameScore();
-            }
-            return hittingResult;
-        } catch (Exception e) {
-            return e.getMessage();
+    @GetMapping("/game/hitting")
+    public String hitting() throws Exception{
+        String hittingResult = gameService.hitting();
+        if(gameService.isWhenScoreInit(hittingResult)){
+            gameService.initGameScore();
         }
+        return hittingResult;
     }
 
     @GetMapping("/game/hitterScore")
