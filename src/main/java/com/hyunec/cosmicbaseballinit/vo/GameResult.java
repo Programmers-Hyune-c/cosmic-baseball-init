@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public enum GameResult {
-    WIN(),
-    LOSE(),
-    DRAW();
-
+    WIN,
+    LOSE,
+    DRAW;
 }
