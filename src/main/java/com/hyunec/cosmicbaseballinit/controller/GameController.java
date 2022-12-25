@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
+import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
 import com.hyunec.cosmicbaseballinit.service.lv1.Lv1HitterGameService;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.RequiredArgsConstructor;
@@ -15,24 +16,33 @@ import java.util.Map;
 public class GameController {
 
     private final Lv1HitterGameService gameService;
+    private final ReadMessageYml readMessageYml;
 
     @GetMapping("/game/setting")
     public String gameSetting(){
         gameService.setHitGameProbability();
-        return "Probability setting finished"; //TODO: 하드코딩된 문자열 반환 처리하기
+        return readMessageYml.getSettingFinished(); //TODO: 하드코딩된 문자열 반환 처리하기
     }
 
     @GetMapping("/game/hitting")
     public String hitting() throws Exception{
         String hittingResult = gameService.hitting();
-        if(gameService.isHitterGameEnd(hittingResult)){
-            gameService.initGameScore();
-        }
         return hittingResult;
+    }
+
+    @GetMapping("/game/initScore")
+    public void initScore() {
+        gameService.initGameScore();
     }
 
     @GetMapping("/game/hitterScore")
     public Map<PitchResult, Integer> hitterScore(){
         return gameService.getScores();
+    }
+
+    //FIXME 테스트용, 에러메세지를 반환하지 않는 에러
+    @GetMapping("test")
+    public void nonErrorMessageTest() throws Exception{
+        throw new Exception();
     }
 }

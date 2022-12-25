@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@EnableConfigurationProperties(value = ReadMessageYml.class)
 class ReadMessageYmlTest {
     @Autowired
     ReadMessageYml readMessageYml;
@@ -20,10 +19,12 @@ class ReadMessageYmlTest {
         // when
         String settingFirstMessage = readMessageYml.getSettingFirst();
         String scoreInitMessage = readMessageYml.getScoreInit();
+        String settingFinished = readMessageYml.getSettingFinished();
 
         // then
         assertThat(settingFirstMessage).isEqualTo("게임 확률 세팅을 먼저 해주세요");
         assertThat(scoreInitMessage).isEqualTo("점수가 초기화 되었습니다");
+        assertThat(settingFinished).isEqualTo("게임 세팅이 완료 되었습니다");
 
     }
 }

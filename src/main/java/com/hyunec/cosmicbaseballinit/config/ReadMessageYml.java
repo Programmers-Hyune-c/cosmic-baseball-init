@@ -21,5 +21,6 @@ import org.springframework.stereotype.Component;
 @Setter
 public class ReadMessageYml {
     private String settingFirst;
+    private String settingFinished;
     private String scoreInit;
 }
