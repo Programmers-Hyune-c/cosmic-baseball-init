@@ -15,9 +15,10 @@ public class Lv1HitterGameServiceUnitTest {
     @Autowired
     Lv1HitterGameService lv1HitterGameService;
 
+    //TODO: 수정하기
     @Test
     @DisplayName("SpecialHitterResult 일 때 점수 초기화 true를 반환하는지")
-    void isWhenScoreInitTestBullseyeBall(){
+    void isHitterGameEndTestBullseyeBall(){
         // given
         String specialHitterResult = SpecialHitterResult.BULLSEYE_BALL.name();
 
@@ -29,9 +30,10 @@ public class Lv1HitterGameServiceUnitTest {
         lv1HitterGameService.initGameScore();
     }
 
+    //TODO: 수정하기
     @Test
     @DisplayName("2스트라이크 일 때 점수 초기화 false를 반환하는지")
-    void isWhenScoreInitTestFalse() throws Exception{
+    void isHitterGameEndTestFalse() throws Exception{
         // given
         PitchResult result1 = PitchResult.STRIKE;
         Method method1 = lv1HitterGameService.getClass().getDeclaredMethod("savePitchResult"

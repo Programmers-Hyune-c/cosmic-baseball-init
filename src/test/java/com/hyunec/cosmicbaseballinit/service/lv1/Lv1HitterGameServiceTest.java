@@ -21,8 +21,6 @@ public class Lv1HitterGameServiceTest {
     @Autowired
     Lv1HitterGameService lv1HitterGameService;
 
-    String hitterResult;
-
     @DisplayName("Lv1 일반야구 게임 세팅, Strike_out")
     @TestFactory
     Stream<DynamicTest> lv1GeneralGameSettingToStrikeOut(){
@@ -63,8 +61,8 @@ public class Lv1HitterGameServiceTest {
                     method1.invoke(lv1HitterGameService, result3);
 
                     // then
-                    hitterResult = (String) returnHittingResult.invoke(lv1HitterGameService, result3);
-                    Assertions.assertThat(hitterResult).isEqualTo(HitterResult.STRIKE_OUT.name());
+                    HitterResult hitterResult = (HitterResult)returnHittingResult.invoke(lv1HitterGameService, result3);
+                    Assertions.assertThat(hitterResult.name()).isEqualTo(HitterResult.STRIKE_OUT.name());
                 })
         );
     }
@@ -110,8 +108,8 @@ public class Lv1HitterGameServiceTest {
                 method1.invoke(lv1HitterGameService, result4);
 
                 // then
-                String hitterResult = (String) returnHittingResult.invoke(lv1HitterGameService, result4);
-                Assertions.assertThat(hitterResult).isEqualTo(HitterResult.FOUR_BALL.name());
+                HitterResult hitterResult = (HitterResult) returnHittingResult.invoke(lv1HitterGameService, result4);
+                Assertions.assertThat(hitterResult.name()).isEqualTo(HitterResult.FOUR_BALL.name());
                 lv1HitterGameService.initGameScore();
             })
         );

@@ -22,25 +22,20 @@ public class Lv1HitterGameService {
 
     public String hitting() throws Exception {
         PitchResult pitchResult = PitchResult.pitching(probabilityMap, Math.random());
-        SpecialHitterResult specialHitterResult =
-                SpecialHitterResult.judgeSpecialHitterResultByPitchResult(pitchResult, Math.random());
-        if (specialHitterResult != null){
-            return specialHitterResult.name();
-        }
         savePitchResult(pitchResult);
-        return returnHittingResult(pitchResult);
+        HitterResult hitterResult = returnHittingResult(pitchResult);
+        if (hitterResult == null){
+            return pitchResult.name();
+        }
+        return hitterResult.name();
     }
 
     private void savePitchResult(PitchResult pitchResult) {
         hittingResult.add(pitchResult);
     }
 
-    private String returnHittingResult(PitchResult pitchResult) throws Exception {
-
-        if (getCountByPitchResult(pitchResult) == pitchResult.getValue()){ // S3,B4,H1
-            return HitterResult.judgeHitterResultByPitchResult(pitchResult).name();
-        }
-        return pitchResult.name();
+    private HitterResult returnHittingResult(PitchResult pitchResult) throws Exception {
+        return HitterResult.judgeHitterResultByPitchResult(pitchResult, getCountByPitchResult(pitchResult));
     }
 
     public Map<PitchResult, Integer> getScores() {
@@ -57,6 +52,7 @@ public class Lv1HitterGameService {
         hittingResult.clear();
     }
 
+    //TODO : hitterResult에 맞게 수정하기
     public boolean isHitterGameEnd(String hittingResult){
         for (HitterResult hr : HitterResult.values()){
             if (hr.name().equals(hittingResult)){
