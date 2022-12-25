@@ -10,16 +10,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class ControllerExceptionHandler {
 
+    // TODO: EXCEPTION 처리 공부해서 수정하기
     @ExceptionHandler
     protected ResponseEntity<String> handleException(Exception e){
         log.info(e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-//    @ExceptionHandler
-//    protected String handleException(Exception e){
-//        log.info(e.getMessage());
-//        return e.getMessage();
-//    }
-
 }
