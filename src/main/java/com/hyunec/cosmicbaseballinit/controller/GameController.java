@@ -21,7 +21,7 @@ public class GameController {
     @GetMapping("/game/setting")
     public String gameSetting(){
         gameService.setHitGameProbability();
-        return readMessageYml.getSettingFinished(); //TODO: 하드코딩된 문자열 반환 처리하기
+        return readMessageYml.getSettingFinished();
     }
 
     @GetMapping("/game/hitting")
