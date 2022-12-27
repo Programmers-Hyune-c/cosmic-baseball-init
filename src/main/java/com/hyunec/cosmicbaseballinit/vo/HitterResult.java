@@ -2,20 +2,22 @@ package com.hyunec.cosmicbaseballinit.vo;
 
 import lombok.RequiredArgsConstructor;
 
-import javax.swing.text.html.Option;
+import java.util.Arrays;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public enum HitterResult {
-    STRIKE_OUT(null, null),
-    FOUR_BALL(null, null),
-    HIT(null, null),
-    BULLSEYE_STRIKE(0.2, PitchResult.STRIKE),
-    BULLSEYE_BALL(0.2, PitchResult.BALL),
-    HOMERUN(0.2, PitchResult.HIT);
+    STRIKE_OUT(HitterResultType.GENERAL,null, null),
+    FOUR_BALL(HitterResultType.GENERAL,null, null),
+    HIT(HitterResultType.GENERAL,null, null),
+    BULLSEYE_STRIKE(HitterResultType.SPECIAL,0.2, PitchResult.STRIKE),
+    BULLSEYE_BALL(HitterResultType.SPECIAL,0.2, PitchResult.BALL),
+    HOMERUN(HitterResultType.SPECIAL,0.2, PitchResult.HIT);
 
+    private final HitterResultType hitterResultType;
     private final Double probability;
     private final PitchResult pitchResult;
+
 
     public static Optional<HitterResult> judgeHitterResultByPitchResult(PitchResult lastPitchResult, Integer count)
             throws Exception {
@@ -29,7 +31,7 @@ public enum HitterResult {
     public static Optional<HitterResult> judgeInCaseOfSpecial(PitchResult pitchResult,
                                                               Double randomDouble) throws Exception {
 
-        HitterResult hitterResult = findHitterResultByPitchResult(pitchResult);
+        HitterResult hitterResult = findSpecialHitterResultByPitchResult(pitchResult);
         return Optional.of(hitterResult)
                 .filter(hr -> randomDouble < hr.probability);
     }
@@ -47,13 +49,11 @@ public enum HitterResult {
         throw new Exception("HitterResult error");
     }
 
-    private static HitterResult findHitterResultByPitchResult(PitchResult pitchResult) throws Exception {
-        for (HitterResult hitterResult : HitterResult.values()) {
-            if (hitterResult.pitchResult == null) continue;
-            if (hitterResult.pitchResult.equals(pitchResult)) {
-                return hitterResult;
-            }
-        }
-        throw new Exception("findHitterResultByPitchResult error");
+    private static HitterResult findSpecialHitterResultByPitchResult(PitchResult pitchResult) throws Exception {
+        return Arrays.stream(HitterResult.values())
+                    .filter(hr -> hr.hitterResultType.equals(HitterResultType.SPECIAL))
+                    .filter(hr -> hr.pitchResult.equals(pitchResult))
+                    .findFirst()
+                    .orElseThrow(NoSuchFieldException::new);
     }
 }
