@@ -3,6 +3,8 @@ package com.hyunec.cosmicbaseballinit.vo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 
 class HitterResultTest {
@@ -11,11 +13,11 @@ class HitterResultTest {
     @DisplayName("Strike 이고, HitterScore가 Strike 2 일 때, STRIKE_OUT 반환")
     void judgeHitterResultByPitchResultNull() throws Exception{
         // when
-        HitterResult hitterResult = HitterResult.judgeHitterResultByPitchResult(
+        Optional<HitterResult> hitterResult = HitterResult.judgeHitterResultByPitchResult(
                 PitchResult.STRIKE, 3);
 
         //then
-        assertThat(hitterResult).isEqualTo(HitterResult.STRIKE_OUT);
+        assertThat(hitterResult.get()).isEqualTo(HitterResult.STRIKE_OUT);
 
     }
 
@@ -24,11 +26,11 @@ class HitterResultTest {
     void judgeInCaseOfSpecialTest() throws Exception{
 
         // when
-        HitterResult hitterResult = HitterResult.judgeInCaseOfSpecial(
+        Optional<HitterResult> hitterResult = HitterResult.judgeInCaseOfSpecial(
                 PitchResult.STRIKE, 0.1);
 
         // then
-        assertThat(hitterResult).isEqualTo(HitterResult.BULLSEYE_STRIKE);
+        assertThat(hitterResult.get()).isEqualTo(HitterResult.BULLSEYE_STRIKE);
     }
 
     @Test
@@ -36,10 +38,9 @@ class HitterResultTest {
     void judgeInCaseOfSpecialNullTest() throws Exception{
 
         // when
-        HitterResult hitterResult = HitterResult.judgeInCaseOfSpecial(
+        Optional<HitterResult> hitterResult = HitterResult.judgeInCaseOfSpecial(
                 PitchResult.STRIKE, 0.3);
-
         // then
-        assertThat(hitterResult).isEqualTo(null);
+        assertThat(hitterResult.isPresent()).isFalse();
     }
 }

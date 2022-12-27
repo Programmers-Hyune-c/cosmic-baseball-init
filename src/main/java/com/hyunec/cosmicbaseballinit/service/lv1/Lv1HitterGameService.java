@@ -2,7 +2,6 @@ package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
-import com.hyunec.cosmicbaseballinit.vo.SpecialHitterResult;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +22,15 @@ public class Lv1HitterGameService {
     public String hitting() throws Exception {
         PitchResult pitchResult = PitchResult.pitching(probabilityMap, Math.random());
         savePitchResult(pitchResult);
-        HitterResult hitterResult = returnHittingResult(pitchResult);
-        if (hitterResult == null){
-            return pitchResult.name();
-        }
-        return hitterResult.name();
+        Optional<HitterResult> hitterResult = returnHittingResult(pitchResult);
+        return hitterResult.map(Enum::name).orElseGet(pitchResult::name);
     }
 
     private void savePitchResult(PitchResult pitchResult) {
         hittingResult.add(pitchResult);
     }
 
-    private HitterResult returnHittingResult(PitchResult pitchResult) throws Exception {
+    private Optional<HitterResult> returnHittingResult(PitchResult pitchResult) throws Exception {
         return HitterResult.judgeHitterResultByPitchResult(pitchResult, getCountByPitchResult(pitchResult));
     }
 
@@ -53,17 +49,17 @@ public class Lv1HitterGameService {
     }
 
     //TODO : hitterResult에 맞게 수정하기
-    public boolean isHitterGameEnd(String hittingResult){
-        for (HitterResult hr : HitterResult.values()){
-            if (hr.name().equals(hittingResult)){
-                return true;
-            }
-        }
-        for (SpecialHitterResult shr : SpecialHitterResult.values()){
-            if (shr.name().equals(hittingResult)){
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean isHitterGameEnd(String hittingResult){
+//        for (HitterResult hr : HitterResult.values()){
+//            if (hr.name().equals(hittingResult)){
+//                return true;
+//            }
+//        }
+//        for (SpecialHitterResult shr : SpecialHitterResult.values()){
+//            if (shr.name().equals(hittingResult)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

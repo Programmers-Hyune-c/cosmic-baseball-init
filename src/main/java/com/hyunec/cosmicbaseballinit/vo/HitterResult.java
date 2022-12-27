@@ -2,6 +2,9 @@ package com.hyunec.cosmicbaseballinit.vo;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public enum HitterResult {
     STRIKE_OUT(null, null),
@@ -14,21 +17,21 @@ public enum HitterResult {
     private final Double probability;
     private final PitchResult pitchResult;
 
-    public static HitterResult judgeHitterResultByPitchResult(PitchResult lastPitchResult, Integer count)
+    public static Optional<HitterResult> judgeHitterResultByPitchResult(PitchResult lastPitchResult, Integer count)
             throws Exception {
-        if (lastPitchResult.getValue() == count) {
-            return judgeInCaseOfNotSpecial(lastPitchResult);
+
+        if (lastPitchResult.getValue().equals(count)) {
+            return Optional.of(judgeInCaseOfNotSpecial(lastPitchResult));
         }
         return judgeInCaseOfSpecial(lastPitchResult, Math.random());
     }
 
-    public static HitterResult judgeInCaseOfSpecial(PitchResult pitchResult,
-                                                     Double randomDouble) throws Exception {
+    public static Optional<HitterResult> judgeInCaseOfSpecial(PitchResult pitchResult,
+                                                              Double randomDouble) throws Exception {
+
         HitterResult hitterResult = findHitterResultByPitchResult(pitchResult);
-        if (randomDouble < hitterResult.probability) {
-            return hitterResult;
-        }
-        return null;
+        return Optional.of(hitterResult)
+                .filter(hr -> randomDouble < hr.probability);
     }
 
     public static HitterResult judgeInCaseOfNotSpecial(PitchResult pitchResult) throws Exception {
