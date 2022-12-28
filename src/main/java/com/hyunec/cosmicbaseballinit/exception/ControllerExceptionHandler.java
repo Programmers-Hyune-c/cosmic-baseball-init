@@ -12,10 +12,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ControllerExceptionHandler {
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    protected ErrorResponse handleIllegalArgumentException(IllegalArgumentException e){
+        log.error("handleIllegalArgumentException", e);
+        return ErrorResponse.of(ErrorCode.BAD_REQUEST, e);
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler
     protected ErrorResponse handleException(Exception e){
         log.error("exceptionHandler", e);
-        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR, e);
     }
 }

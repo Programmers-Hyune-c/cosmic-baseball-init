@@ -1,19 +1,33 @@
 package com.hyunec.cosmicbaseballinit.exception;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
+
 @Getter
-@AllArgsConstructor
+@Builder
+@RequiredArgsConstructor
 public class ErrorResponse {
 
-    //TODO: Error 정보 추가하기
-    private String message;
-    private String code;
+    private final String message;
+    private final String code;
+    private final LocalDateTime time = LocalDateTime.now();
 
-    public ErrorResponse(HttpStatus httpStatus) {
-        this.message = httpStatus.getReasonPhrase();
-        this.code = httpStatus.name();
+    public static ErrorResponse of(ErrorCode errorCode){
+        return ErrorResponse.builder()
+                .message(errorCode.getReason())
+                .code(errorCode.getCode())
+                .build();
+    }
+
+    public static ErrorResponse of(ErrorCode errorCode, Exception ex){
+        return ErrorResponse.builder()
+                .message(ex.getMessage())
+                .code(errorCode.getCode())
+                .build();
     }
 }

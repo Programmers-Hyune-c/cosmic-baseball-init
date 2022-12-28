@@ -41,7 +41,7 @@ public enum PitchResult {
 
     public static PitchResult pitching(Map<PitchResult, Double> probabilityMap, Double randomDouble) throws Exception {
         if(!isProbabilitySetting(probabilityMap)){
-            throw new Exception("please setting first");
+            throw new IllegalArgumentException("게임 확률 세팅을 하지 않았습니다.");
         }
         Double startProbability = 0D;
         Double endProbabilitty = 0D;

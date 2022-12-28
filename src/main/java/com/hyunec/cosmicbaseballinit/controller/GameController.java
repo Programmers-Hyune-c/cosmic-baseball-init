@@ -40,9 +40,4 @@ public class GameController {
         return gameService.getScores();
     }
 
-    //FIXME 테스트용, 에러메세지를 반환하지 않는 에러
-    @GetMapping("test")
-    public void nonErrorMessageTest() throws Exception{
-        throw new Exception();
-    }
 }
