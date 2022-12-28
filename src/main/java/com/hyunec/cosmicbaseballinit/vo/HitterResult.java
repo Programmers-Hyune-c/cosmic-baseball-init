@@ -54,6 +54,6 @@ public enum HitterResult {
                     .filter(hr -> hr.hitterResultType.equals(HitterResultType.SPECIAL))
                     .filter(hr -> hr.pitchResult.equals(pitchResult))
                     .findFirst()
-                    .orElseThrow(NoSuchFieldException::new);
+                    .orElseThrow(() -> new Exception("findHitterResultByPitchResult error"));
     }
 }
