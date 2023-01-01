@@ -18,17 +18,18 @@ public enum HitterResult {
     private final Double probability;
     private final PitchResult pitchResult;
 
-
-    public static Optional<HitterResult> judgeHitterResultByPitchResult(PitchResult lastPitchResult, Integer count)
+    public static Optional<HitterResult> judgeHitterResultByPitchResult(
+            PitchResult lastPitchResult, Integer count, Double RandomDouble)
             throws Exception {
 
         if (lastPitchResult.getValue().equals(count)) {
             return Optional.of(judgeInCaseOfNotSpecial(lastPitchResult));
         }
-        return judgeInCaseOfSpecial(lastPitchResult, Math.random());
+        return judgeInCaseOfSpecial(lastPitchResult, RandomDouble);
     }
 
-    public static Optional<HitterResult> judgeInCaseOfSpecial(PitchResult pitchResult,
+    //
+    private static Optional<HitterResult> judgeInCaseOfSpecial(PitchResult pitchResult,
                                                               Double randomDouble) throws Exception {
 
         HitterResult hitterResult = findSpecialHitterResultByPitchResult(pitchResult);
@@ -36,7 +37,7 @@ public enum HitterResult {
                 .filter(hr -> randomDouble < hr.probability);
     }
 
-    public static HitterResult judgeInCaseOfNotSpecial(PitchResult pitchResult) throws Exception {
+    private static HitterResult judgeInCaseOfNotSpecial(PitchResult pitchResult) throws Exception {
         if (pitchResult == PitchResult.STRIKE) {
             return STRIKE_OUT;
         }

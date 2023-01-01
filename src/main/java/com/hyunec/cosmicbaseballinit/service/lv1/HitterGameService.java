@@ -19,10 +19,10 @@ public class HitterGameService {
         PitchResult.settingProbability(probabilityMap);
     }
 
-    public String hitting() throws Exception {
-        PitchResult pitchResult = PitchResult.pitching(probabilityMap, Math.random());
+    public String hitting(Double pitchResultRandomDouble, Double hitterResultRandomDouble) throws Exception {
+        PitchResult pitchResult = PitchResult.pitching(probabilityMap, pitchResultRandomDouble);
         savePitchResult(pitchResult);
-        Optional<HitterResult> hitterResult = returnHittingResult(pitchResult);
+        Optional<HitterResult> hitterResult = returnHittingResult(pitchResult, hitterResultRandomDouble);
         return hitterResult.map(Enum::name).orElseGet(pitchResult::name);
     }
 
@@ -30,8 +30,9 @@ public class HitterGameService {
         hittingResult.add(pitchResult);
     }
 
-    private Optional<HitterResult> returnHittingResult(PitchResult pitchResult) throws Exception {
-        return HitterResult.judgeHitterResultByPitchResult(pitchResult, getCountByPitchResult(pitchResult));
+    private Optional<HitterResult> returnHittingResult(PitchResult pitchResult, Double randomDouble) throws Exception {
+        return HitterResult.judgeHitterResultByPitchResult(
+                pitchResult, getCountByPitchResult(pitchResult), randomDouble);
     }
 
     public Map<PitchResult, Integer> getScores() {
