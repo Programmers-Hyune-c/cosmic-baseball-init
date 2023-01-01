@@ -2,6 +2,7 @@ package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
 import com.hyunec.cosmicbaseballinit.service.lv1.HitterGameService;
+import com.hyunec.cosmicbaseballinit.vo.PitchProbabilitySettingVo;
 import com.hyunec.cosmicbaseballinit.vo.HittingParamVo;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class GameController {
     @GetMapping("/game/setting")
     public String gameSetting(){
         gameService.setHitGameProbability();
+        return readMessageYml.getSettingFinished();
+    }
+
+    @PostMapping("/game/setting")
+    public String gameSetting(@RequestBody PitchProbabilitySettingVo pitchProbabilitySettingVo){
+        gameService.setHitGameProbability(pitchProbabilitySettingVo);
         return readMessageYml.getSettingFinished();
     }
 
