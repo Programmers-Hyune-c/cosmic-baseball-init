@@ -32,6 +32,14 @@ public class GameController {
         return hittingResult;
     }
 
+    @GetMapping("/game/hitting/random")
+    public String hitting() throws Exception {
+        String hittingResult = gameService.hitting(
+                Math.random(),
+                Math.random());
+        return hittingResult;
+    }
+
     @GetMapping("/game/initScore")
     public void initScore() {
         gameService.initGameScore();
