@@ -1,0 +1,5 @@
+game:
+  setting-first: "게임 확률 세팅을 먼저 해주세요"
+  setting-finished: "게임 세팅이 완료 되었습니다"
+  score-init: "점수가 초기화 되었습니다"
+

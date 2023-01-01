@@ -1,11 +1,12 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
-import com.hyunec.cosmicbaseballinit.service.lv1.Lv1HitterGameService;
+import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
+import com.hyunec.cosmicbaseballinit.service.lv1.HitterGameService;
+import com.hyunec.cosmicbaseballinit.vo.HittingParamVo;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -14,25 +15,31 @@ import java.util.Map;
 @Slf4j
 public class GameController {
 
-    private final Lv1HitterGameService gameService;
+    private final HitterGameService gameService;
+    private final ReadMessageYml readMessageYml;
 
     @GetMapping("/game/setting")
     public String gameSetting(){
         gameService.setHitGameProbability();
-        return "Probability setting finished"; //TODO: 하드코딩된 문자열 반환 처리하기
+        return readMessageYml.getSettingFinished();
     }
 
-    @GetMapping("/game/hitting") // TODO: try-catch 대신 ControllerAdvice
-    public String hitting(){
-        try {
-            return gameService.hitting();
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+    @PostMapping("/game/hitting")
+    public String hitting(@RequestBody HittingParamVo hittingParamVo) throws Exception {
+        String hittingResult = gameService.hitting(
+                hittingParamVo.getPitchResultRandomDouble(),
+                hittingParamVo.getHitterResultRandomDouble());
+        return hittingResult;
     }
 
-    @GetMapping("/game/hittingScore")
-    public Map<PitchResult, Integer> hittingScore(){
+    @GetMapping("/game/initScore")
+    public void initScore() {
+        gameService.initGameScore();
+    }
+
+    @GetMapping("/game/hitterScore")
+    public Map<PitchResult, Integer> hitterScore(){
         return gameService.getScores();
     }
+
 }
