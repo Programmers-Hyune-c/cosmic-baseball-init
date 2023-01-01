@@ -9,7 +9,7 @@ import java.util.*;
 
 @Getter
 @Service
-public class Lv1HitterGameService {
+public class HitterGameService {
     // TODO: 1급 컬렉션 참고하기
     public final Map<PitchResult, Double> probabilityMap = new HashMap<>(); 
     public final List<PitchResult> hittingResult = new ArrayList<>();

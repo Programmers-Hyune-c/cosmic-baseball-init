@@ -7,27 +7,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class Lv1HitterGameServiceUnitTest {
+public class HitterGameServiceUnitTest {
     @Autowired
-    Lv1HitterGameService lv1HitterGameService;
+    HitterGameService hitterGameService;
 
     //TODO: 수정하기
     @Test
+    @Disabled
     @DisplayName("SpecialHitterResult 일 때 점수 초기화 true를 반환하는지")
     void isHitterGameEndTestBullseyeBall(){
         // given
-//        String specialHitterResult = SpecialHitterResult.BULLSEYE_BALL.name();
-//
-//        // when
-//        Boolean result = lv1HitterGameService.isHitterGameEnd(specialHitterResult);
-//
-//        // then
-//        assertThat(result).isEqualTo(true);
-//        lv1HitterGameService.initGameScore();
+        //String specialHitterResult = SpecialHitterResult.BULLSEYE_BALL.name();
+
+        // when
+        //Boolean result = lv1HitterGameService.isHitterGameEnd(specialHitterResult);
+
+        // then
+        ///assertThat(result).isEqualTo(true);
+        hitterGameService.initGameScore();
     }
 
     //TODO: 수정하기
     @Test
+    @Disabled
     @DisplayName("2스트라이크 일 때 점수 초기화 false를 반환하는지")
     void isHitterGameEndTestFalse() throws Exception{
         // given

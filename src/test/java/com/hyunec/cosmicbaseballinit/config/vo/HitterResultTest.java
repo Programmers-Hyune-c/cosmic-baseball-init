@@ -1,5 +1,7 @@
-package com.hyunec.cosmicbaseballinit.vo;
+package com.hyunec.cosmicbaseballinit.config.vo;
 
+import com.hyunec.cosmicbaseballinit.vo.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

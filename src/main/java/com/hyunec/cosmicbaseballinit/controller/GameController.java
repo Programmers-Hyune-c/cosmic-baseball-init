@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
-import com.hyunec.cosmicbaseballinit.service.lv1.Lv1HitterGameService;
+import com.hyunec.cosmicbaseballinit.service.lv1.HitterGameService;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 public class GameController {
 
-    private final Lv1HitterGameService gameService;
+    private final HitterGameService gameService;
     private final ReadMessageYml readMessageYml;
 
     @GetMapping("/game/setting")

@@ -17,27 +17,27 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.DynamicTest.*;
 
 @SpringBootTest
-public class Lv1HitterGameServiceTest {
+public class HitterGameServiceTest {
     @Autowired
-    Lv1HitterGameService lv1HitterGameService;
+    HitterGameService hitterGameService;
 
     @DisplayName("Lv1 일반야구 게임 세팅, Strike_out")
     @TestFactory
-    Stream<DynamicTest> lv1GeneralGameSettingToStrikeOut(){
+    Stream<DynamicTest> lv1GeneralGameSettingToStrikeOut() {
         return Stream.of(
                 dynamicTest("동일 확률로 PitchResult 반환하도록 게임 세팅", () -> {
                     // given
 
                     // when
-                    lv1HitterGameService.setHitGameProbability();
+                    hitterGameService.setHitGameProbability();
                     Double totalProbability = 0D;
 
                     // then
-                    assertThat(lv1HitterGameService.getProbabilityMap().size())
+                    assertThat(hitterGameService.getProbabilityMap().size())
                             .isEqualTo(PitchResult.values().length);
 
-                    for (PitchResult key : lv1HitterGameService.getProbabilityMap().keySet()) {
-                        totalProbability += lv1HitterGameService.getProbabilityMap().get(key);
+                    for (PitchResult key : hitterGameService.getProbabilityMap().keySet()) {
+                        totalProbability += hitterGameService.getProbabilityMap().get(key);
                     }
                     assertThat(totalProbability).isEqualTo(1);
                 }),
@@ -49,19 +49,19 @@ public class Lv1HitterGameServiceTest {
                     PitchResult result3 = PitchResult.STRIKE;
 
                     // when
-                    Method method1 = lv1HitterGameService.getClass().getDeclaredMethod("savePitchResult"
+                    Method method1 = hitterGameService.getClass().getDeclaredMethod("savePitchResult"
                             , PitchResult.class);
                     method1.setAccessible(true);
-                    Method returnHittingResult = lv1HitterGameService.getClass().getDeclaredMethod("returnHittingResult"
+                    Method returnHittingResult = hitterGameService.getClass().getDeclaredMethod("returnHittingResult"
                             , PitchResult.class);
                     returnHittingResult.setAccessible(true);
 
-                    method1.invoke(lv1HitterGameService, result1);
-                    method1.invoke(lv1HitterGameService, result2);
-                    method1.invoke(lv1HitterGameService, result3);
+                    method1.invoke(hitterGameService, result1);
+                    method1.invoke(hitterGameService, result2);
+                    method1.invoke(hitterGameService, result3);
 
                     // then
-                    HitterResult hitterResult = (HitterResult)returnHittingResult.invoke(lv1HitterGameService, result3);
+                    HitterResult hitterResult = (HitterResult)returnHittingResult.invoke(hitterGameService, result3);
                     Assertions.assertThat(hitterResult.name()).isEqualTo(HitterResult.STRIKE_OUT.name());
                 })
         );
@@ -75,15 +75,15 @@ public class Lv1HitterGameServiceTest {
                 // given
 
                 // when
-                lv1HitterGameService.setHitGameProbability();
+                hitterGameService.setHitGameProbability();
                 Double totalProbability = 0D;
 
                 // then
-                assertThat(lv1HitterGameService.getProbabilityMap().size())
+                assertThat(hitterGameService.getProbabilityMap().size())
                         .isEqualTo(PitchResult.values().length);
 
-                for (PitchResult key : lv1HitterGameService.getProbabilityMap().keySet()) {
-                    totalProbability += lv1HitterGameService.getProbabilityMap().get(key);
+                for (PitchResult key : hitterGameService.getProbabilityMap().keySet()) {
+                    totalProbability += hitterGameService.getProbabilityMap().get(key);
                 }
                 assertThat(totalProbability).isEqualTo(1);
             }),
@@ -95,22 +95,22 @@ public class Lv1HitterGameServiceTest {
                 PitchResult result4 = PitchResult.BALL;
 
                 // when
-                Method method1 = lv1HitterGameService.getClass().getDeclaredMethod("savePitchResult"
+                Method method1 = hitterGameService.getClass().getDeclaredMethod("savePitchResult"
                         , PitchResult.class);
                 method1.setAccessible(true);
-                Method returnHittingResult = lv1HitterGameService.getClass().getDeclaredMethod("returnHittingResult"
+                Method returnHittingResult = hitterGameService.getClass().getDeclaredMethod("returnHittingResult"
                         , PitchResult.class);
                 returnHittingResult.setAccessible(true);
 
-                method1.invoke(lv1HitterGameService, result1);
-                method1.invoke(lv1HitterGameService, result2);
-                method1.invoke(lv1HitterGameService, result3);
-                method1.invoke(lv1HitterGameService, result4);
+                method1.invoke(hitterGameService, result1);
+                method1.invoke(hitterGameService, result2);
+                method1.invoke(hitterGameService, result3);
+                method1.invoke(hitterGameService, result4);
 
                 // then
-                HitterResult hitterResult = (HitterResult) returnHittingResult.invoke(lv1HitterGameService, result4);
+                HitterResult hitterResult = (HitterResult) returnHittingResult.invoke(hitterGameService, result4);
                 Assertions.assertThat(hitterResult.name()).isEqualTo(HitterResult.FOUR_BALL.name());
-                lv1HitterGameService.initGameScore();
+                hitterGameService.initGameScore();
             })
         );
     }
