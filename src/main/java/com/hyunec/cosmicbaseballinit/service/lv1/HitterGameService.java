@@ -1,31 +1,56 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
+import com.hyunec.cosmicbaseballinit.vo.HitterGameProbabilities;
+import com.hyunec.cosmicbaseballinit.vo.PitchProbabilitySettingVo;
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Getter
 @Service
+@RequiredArgsConstructor
 public class HitterGameService {
     // TODO: 1급 컬렉션 참고하기
-    public final Map<PitchResult, Double> probabilityMap = new HashMap<>(); 
+    private HitterGameProbabilities pitchProbabilities;
     public final List<PitchResult> hittingResult = new ArrayList<>();
 
-    // 확률 세팅
-    public void setHitGameProbability(){
-        PitchResult.settingProbability(probabilityMap);
+    // 동일 확률로 게임 세팅
+    public void setHitGameProbability() {
+        Map<PitchResult, Double> probabilityMap = new HashMap<>();
+        Double sameProbability = calculateSameProbability();
+        Arrays.stream(PitchResult.values()).forEach(pitchResult -> probabilityMap.put(pitchResult, sameProbability));
+        pitchProbabilities = new HitterGameProbabilities(probabilityMap);
     }
 
+    // 입력 받은 확률로 게임 세팅
+    public void setHitGameProbability(PitchProbabilitySettingVo pitchProbabilitySettingVo) {
+        Map<PitchResult, Double> probabilityMap = new HashMap<>();
+        probabilityMap.put(PitchResult.STRIKE, pitchProbabilitySettingVo.getStrikeProbabiltiy());
+        probabilityMap.put(PitchResult.BALL, pitchProbabilitySettingVo.getBallProbabiltiy());
+        probabilityMap.put(PitchResult.HIT, pitchProbabilitySettingVo.getHitProbabiltiy());
+        pitchProbabilities = new HitterGameProbabilities(probabilityMap);
+    }
+
+    // 동일한 확률을 계산하는 함수
+    private static Double calculateSameProbability() {
+        Double entireNumber = 1.0;
+        Double numberOfHitterResult = (double) PitchResult.values().length;
+        return entireNumber / numberOfHitterResult;
+    }
+
+    // 타구
     public String hitting(Double pitchResultRandomDouble, Double hitterResultRandomDouble) throws Exception {
-        PitchResult pitchResult = PitchResult.pitching(probabilityMap, pitchResultRandomDouble);
+        PitchResult pitchResult = PitchResult.pitching(pitchProbabilities.getPitchResultProbabilities(), pitchResultRandomDouble);
         savePitchResult(pitchResult);
         Optional<HitterResult> hitterResult = returnHittingResult(pitchResult, hitterResultRandomDouble);
         return hitterResult.map(Enum::name).orElseGet(pitchResult::name);
     }
 
+    // 투구 결과 저장
     private void savePitchResult(PitchResult pitchResult) {
         hittingResult.add(pitchResult);
     }

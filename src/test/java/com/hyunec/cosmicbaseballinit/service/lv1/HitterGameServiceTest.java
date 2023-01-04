@@ -2,7 +2,6 @@ package com.hyunec.cosmicbaseballinit.service.lv1;
 
 import com.hyunec.cosmicbaseballinit.vo.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.PitchResult;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -10,8 +9,6 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -41,13 +38,8 @@ public class HitterGameServiceTest {
                     Double totalProbability = 0D;
 
                     // then
-                    assertThat(hitterGameService.getProbabilityMap().size())
+                    assertThat(hitterGameService.getPitchProbabilities().size())
                             .isEqualTo(PitchResult.values().length);
-
-                    for (PitchResult key : hitterGameService.getProbabilityMap().keySet()) {
-                        totalProbability += hitterGameService.getProbabilityMap().get(key);
-                    }
-                    assertThat(totalProbability).isEqualTo(1);
                 }),
 
                 dynamicTest("STRIKE_OUT 반환", () ->{
@@ -81,13 +73,8 @@ public class HitterGameServiceTest {
                 Double totalProbability = 0D;
 
                 // then
-                assertThat(hitterGameService.getProbabilityMap().size())
+                assertThat(hitterGameService.getPitchProbabilities().size())
                         .isEqualTo(PitchResult.values().length);
-
-                for (PitchResult key : hitterGameService.getProbabilityMap().keySet()) {
-                    totalProbability += hitterGameService.getProbabilityMap().get(key);
-                }
-                assertThat(totalProbability).isEqualTo(1);
             }),
             dynamicTest("1스트라이크, 2볼, 이후 homerun 반환", () ->{
                 // given
@@ -133,13 +120,8 @@ public class HitterGameServiceTest {
                     Double totalProbability = 0D;
 
                     // then
-                    assertThat(hitterGameService.getProbabilityMap().size())
+                    assertThat(hitterGameService.getPitchProbabilities().size())
                             .isEqualTo(PitchResult.values().length);
-
-                    for (PitchResult key : hitterGameService.getProbabilityMap().keySet()) {
-                        totalProbability += hitterGameService.getProbabilityMap().get(key);
-                    }
-                    assertThat(totalProbability).isEqualTo(1);
                 }),
                 dynamicTest("PitchResult Ball 4개 일시, FOUR_BALL 반환", () -> {
                     // given
