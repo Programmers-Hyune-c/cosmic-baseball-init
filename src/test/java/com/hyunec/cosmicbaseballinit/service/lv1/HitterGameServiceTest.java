@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
-import com.hyunec.cosmicbaseballinit.vo.HitterResult;
-import com.hyunec.cosmicbaseballinit.vo.PitchResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;

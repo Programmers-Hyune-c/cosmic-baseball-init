@@ -1,9 +1,9 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
-import com.hyunec.cosmicbaseballinit.vo.HitterGameProbabilities;
-import com.hyunec.cosmicbaseballinit.vo.PitchProbabilitySettingVo;
-import com.hyunec.cosmicbaseballinit.vo.HitterResult;
-import com.hyunec.cosmicbaseballinit.vo.PitchResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterGameProbabilities;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ public class HitterGameService {
     private HitterGameProbabilities pitchProbabilities;
     public final List<PitchResult> hittingResult = new ArrayList<>();
 
+    //TODO: 분리 어떻게?
     // 동일 확률로 게임 세팅
     public void setHitGameProbability() {
         Map<PitchResult, Double> probabilityMap = new HashMap<>();

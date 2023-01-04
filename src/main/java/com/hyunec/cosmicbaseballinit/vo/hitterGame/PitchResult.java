@@ -1,10 +1,9 @@
-package com.hyunec.cosmicbaseballinit.vo;
+package com.hyunec.cosmicbaseballinit.vo.hitterGame;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Getter
