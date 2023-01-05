@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
+import com.hyunec.cosmicbaseballinit.repository.HitterGameProbabilitiesRepository;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class HitterGameServiceUnitTest {
     @Autowired
     HitterGameService hitterGameService;
+
+    @Autowired
+    HitterGameProbabilitiesRepository probabilitiesRepository;
 
     @Test
     @DisplayName("확률이 입력값으로 들어 왔을 때, 올바르게 세팅되는지")
@@ -28,7 +32,7 @@ public class HitterGameServiceUnitTest {
         hitterGameService.setHitGameProbability(input);
 
         // then
-        assertThat(hitterGameService.getPitchProbabilities().size()).isEqualTo(3);
+        assertThat(probabilitiesRepository.size()).isEqualTo(3);
     }
 
     @Test

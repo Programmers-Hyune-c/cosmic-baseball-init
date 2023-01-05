@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.service.lv1;
 
+import com.hyunec.cosmicbaseballinit.repository.HitterGameProbabilitiesRepository;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,9 @@ public class HitterGameServiceTest {
     @Autowired
     HitterGameService hitterGameService;
 
+    @Autowired
+    HitterGameProbabilitiesRepository probabilitiesRepository;
+
     @BeforeEach
     public void InitHitterScore() {
         hitterGameService.initGameScore();
@@ -38,7 +42,7 @@ public class HitterGameServiceTest {
                     Double totalProbability = 0D;
 
                     // then
-                    assertThat(hitterGameService.getPitchProbabilities().size())
+                    assertThat(probabilitiesRepository.size())
                             .isEqualTo(PitchResult.values().length);
                 }),
 
@@ -73,7 +77,7 @@ public class HitterGameServiceTest {
                 Double totalProbability = 0D;
 
                 // then
-                assertThat(hitterGameService.getPitchProbabilities().size())
+                assertThat(probabilitiesRepository.size())
                         .isEqualTo(PitchResult.values().length);
             }),
             dynamicTest("1스트라이크, 2볼, 이후 homerun 반환", () ->{
@@ -120,7 +124,7 @@ public class HitterGameServiceTest {
                     Double totalProbability = 0D;
 
                     // then
-                    assertThat(hitterGameService.getPitchProbabilities().size())
+                    assertThat(probabilitiesRepository.size())
                             .isEqualTo(PitchResult.values().length);
                 }),
                 dynamicTest("PitchResult Ball 4개 일시, FOUR_BALL 반환", () -> {
