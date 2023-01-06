@@ -24,7 +24,7 @@ public class HitterGameService {
     }
 
     public void setHitGameProbability(PitchProbabilitySettingVo pitchProbabilitySettingVo) {
-        probabilitiesRepository.save();
+        probabilitiesRepository.save(pitchProbabilitySettingVo);
     }
 
     // 타구

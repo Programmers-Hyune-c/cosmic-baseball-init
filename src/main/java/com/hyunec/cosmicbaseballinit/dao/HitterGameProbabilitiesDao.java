@@ -3,6 +3,7 @@ package com.hyunec.cosmicbaseballinit.dao;
 import com.hyunec.cosmicbaseballinit.repository.HitterGameProbabilitiesRepository;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResultProbabilities;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
@@ -13,14 +14,14 @@ import java.util.Map;
 @Getter
 @Repository
 public class HitterGameProbabilitiesDao implements HitterGameProbabilitiesRepository {
-    private Map<PitchResult, Double> pitchResultProbabilities;
+    private PitchResultProbabilities pitchResultProbabilities;
 
     // 동일 확률로 게임 세팅
     public void save() {
         Map<PitchResult, Double> probabilityMap = new HashMap<>();
         Double sameProbability = calculateSameProbability();
         Arrays.stream(PitchResult.values()).forEach(pitchResult -> probabilityMap.put(pitchResult, sameProbability));
-        pitchResultProbabilities = probabilityMap;
+        pitchResultProbabilities = new PitchResultProbabilities(probabilityMap);
     }
 
     public void save(PitchProbabilitySettingVo pitchProbabilitySettingVo) {
@@ -29,10 +30,10 @@ public class HitterGameProbabilitiesDao implements HitterGameProbabilitiesReposi
         probabilityMap.put(PitchResult.BALL, pitchProbabilitySettingVo.getBallProbabiltiy());
         probabilityMap.put(PitchResult.HIT, pitchProbabilitySettingVo.getHitProbabiltiy());
         validateTotalProbability(probabilityMap);
-        pitchResultProbabilities = probabilityMap;
+        pitchResultProbabilities = new PitchResultProbabilities(probabilityMap);
     }
 
-    public Map<PitchResult, Double> get() {
+    public PitchResultProbabilities get() {
         return pitchResultProbabilities;
     }
 
