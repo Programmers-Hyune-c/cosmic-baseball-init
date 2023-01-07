@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public class HitterGameDao implements HitterGameRepository {
 
-    // Strike, Ball, out 확률
-    private HitterGameProbabilitiesDao pitchProbabilities;
     // 투구 결과
     public List<PitchResult> pitchResultList = new ArrayList<>();
 
