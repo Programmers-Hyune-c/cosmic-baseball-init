@@ -1,12 +1,10 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
-import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +30,7 @@ public class RoundGameService {
     public void judgeByHitterResult(String hitterResult) {
         if (hitterResult.equals(HitterResult.STRIKE_OUT.name())
                 || hitterResult.equals(HitterResult.BULLSEYE_STRIKE.name())) {
-            outPlusOne();   // 아웃
+            out();   // 아웃
             return;
         }
         if (hitterResult.equals(HitterResult.FOUR_BALL.name())
@@ -47,7 +45,7 @@ public class RoundGameService {
     }
 
     // 아웃
-    public void outPlusOne() {
+    public void out() {
         OutAndScoreDto now = roundRepository.getRoundScore();
         roundRepository.updateRoundScore(new OutAndScoreDto(now.getOutCount() + 1,
                 now.getScoreCount()));
