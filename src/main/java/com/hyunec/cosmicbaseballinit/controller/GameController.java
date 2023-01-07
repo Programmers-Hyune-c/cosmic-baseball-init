@@ -2,9 +2,9 @@ package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
 import com.hyunec.cosmicbaseballinit.service.lv1.HitterGameService;
-import com.hyunec.cosmicbaseballinit.vo.PitchProbabilitySettingVo;
-import com.hyunec.cosmicbaseballinit.vo.HittingParamVo;
-import com.hyunec.cosmicbaseballinit.vo.PitchResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +31,7 @@ public class GameController {
         return readMessageYml.getSettingFinished();
     }
 
+    // 타구 확률을 클라이언트로 부터 입력 받아서 타구
     @PostMapping("/game/hitting")
     public String hitting(@RequestBody HittingParamVo hittingParamVo) throws Exception {
         String hittingResult = gameService.hitting(
@@ -39,6 +40,7 @@ public class GameController {
         return hittingResult;
     }
 
+    // 타구 확률을 랜덤 값으로 하여 타구
     @GetMapping("/game/hitting/random")
     public String hitting() throws Exception {
         String hittingResult = gameService.hitting(

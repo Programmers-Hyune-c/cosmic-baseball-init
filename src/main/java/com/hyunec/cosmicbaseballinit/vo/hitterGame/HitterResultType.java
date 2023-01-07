@@ -1,4 +1,4 @@
-package com.hyunec.cosmicbaseballinit.vo;
+package com.hyunec.cosmicbaseballinit.vo.hitterGame;
 
 import lombok.RequiredArgsConstructor;
 
