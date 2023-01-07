@@ -21,9 +21,44 @@ public class RoundGameService {
         String hittingResult = hitterGameInterface.hitting(hittingParamVo);
 
         if(hitterGameInterface.isHitterGameEnd()) {
-            //TODO: hittingResult에 따라 득점, 아웃 여부 판별하기
+            // hittingResult에 따라 득점, 아웃 여부 판별하기
+            judgeByHitterResult(hittingResult);
         }
 
         return hittingResult;
+    }
+
+    // hittingResult에 따라 득점, 아웃 여부 판별하기
+    public void judgeByHitterResult(String hitterResult) {
+        if (hitterResult.equals(HitterResult.STRIKE_OUT.name())
+                || hitterResult.equals(HitterResult.BULLSEYE_STRIKE.name())) {
+            outPlusOne();   // 아웃
+            return;
+        }
+        if (hitterResult.equals(HitterResult.FOUR_BALL.name())
+                || hitterResult.equals(HitterResult.BULLSEYE_BALL.name())
+                || hitterResult.equals(HitterResult.HIT.name())) {
+            advancingBase();    // 진루
+            return;
+        }
+        if (hitterResult.equals(HitterResult.HOMERUN.name())) {
+            gotScored(); // 득점
+        }
+    }
+
+    // 아웃
+    public void outPlusOne() {
+        OutAndScoreDto now = roundRepository.getRoundScore();
+        roundRepository.updateRoundScore(new OutAndScoreDto(now.getOutCount() + 1,
+                now.getScoreCount()));
+    }
+
+    // 진루
+    public void advancingBase() {
+    }
+
+    // 득점
+    public void gotScored() {
+
     }
 }
