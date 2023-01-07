@@ -13,4 +13,5 @@ public interface HitterGameInterface {
     public String hitting() throws Exception;
     public void initScore();
     public Map<PitchResult, Integer> hitterScore();
+    public Boolean isHitterGameEnd();
 }

@@ -56,6 +56,10 @@ public class HitterGameService {
         hitterGameRepository.init();
     }
 
+    public Boolean isHitterGameEnd() {
+        return hitterGameRepository.isHitterGameEnd();
+    }
+
     //TODO : hitterResult에 맞게 수정하기
 //    public boolean isHitterGameEnd(String hittingResult){
 //        for (HitterResult hr : HitterResult.values()){
