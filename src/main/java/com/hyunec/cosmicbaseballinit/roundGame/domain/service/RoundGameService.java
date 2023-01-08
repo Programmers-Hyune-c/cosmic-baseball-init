@@ -1,12 +1,22 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.PastHitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.PastHitterGameResult;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.PitchResultAndCountVo;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
+import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.PastHitterGameResultDto;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +24,7 @@ public class RoundGameService {
     private final HitterGameInterface hitterGameInterface;
     private final RoundRepository roundRepository;
     private final BaseService baseService;
+    private final PastHitterGameResultListRepository pastHitterResultRepository;
 
     // 타구
     public String hit( HittingParamVo hittingParamVo) throws Exception{
@@ -22,11 +33,14 @@ public class RoundGameService {
         if(hitterGameInterface.isHitterGameEnd()) {
             // hittingResult에 따라 득점, 아웃 여부 판별하기
             judgeByHitterResult(hittingResult);
+
+            // 결과 저장하기
+            saveHitterGameResult(hittingResult);
         }
 
         return hittingResult;
     }
-
+    
     // hittingResult에 따라 득점, 아웃 여부 판별하기
     public void judgeByHitterResult(String hitterResult) {
         if (hitterResult.equals(HitterResult.STRIKE_OUT.name())
@@ -43,6 +57,20 @@ public class RoundGameService {
         if (hitterResult.equals(HitterResult.HOMERUN.name())) {
             plusScoreWhenHomerun(); // 홈런 시 득점
         }
+    }
+
+    // HitterGame결과 저장
+    private void saveHitterGameResult(String hittingResult) {
+        Map<PitchResult, Integer> pitchResultIntegerMap = hitterGameInterface.hitterScore();
+        PitchResultAndCountVo pitchResultAndCountVo = new PitchResultAndCountVo(pitchResultIntegerMap);
+        Optional<HitterResult> hitterResult = Arrays.stream(HitterResult.values())
+                .filter(x -> x.name().equals(hittingResult)).findFirst();
+
+        // PastHitterGameResult 생성
+        PastHitterGameResult pastHitterGameResult = new PastHitterGameResult(pitchResultAndCountVo, hitterResult.get());
+
+        // save
+        pastHitterResultRepository.save(new PastHitterGameResultDto(pastHitterGameResult));
     }
 
     // 아웃
