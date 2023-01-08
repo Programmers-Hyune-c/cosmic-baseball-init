@@ -1,8 +1,11 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.roundGame.domain.Base;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.BaseRepository;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.BaseDto;
+import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ import java.util.Queue;
 public class BaseService {
 
     private final BaseRepository baseRepository;
+    private final RoundRepository roundRepository;
 
     // 진루
     public void advancingBase() {
@@ -24,19 +28,30 @@ public class BaseService {
         // 진루 로직
         Base baseAfterAdvance = bases.advancingBase();
         Integer countOfHitterInHomeBase = baseAfterAdvance.getHitterCountInHomeBase();  // 홈베이스에 들어온 타자 수
-        //TODO: countOfHitterInHomeBase 만큼 득점 처리
-        Base baseAfterScored = baseAfterAdvance.removeHitterInHomeBase(countOfHitterInHomeBase); // 홈베이스에 들어온 인원 제거
+
+        // countOfHitterInHomeBase 만큼 득점 처리
+        plusScore(countOfHitterInHomeBase);
+        // 홈베이스에 들어온 인원 제거
+        Base baseAfterScored = baseAfterAdvance.removeHitterInHomeBase(countOfHitterInHomeBase);
 
         // update
         baseRepository.updateBase(new BaseDto(baseAfterScored.get()));
     }
 
     // 득점
-    public void plusScore() {
+    public void plusScore(Integer score) {
+        OutAndScoreDto roundDto = roundRepository.getRoundScore();
 
+        // Round로 변환
+        Round round = new Round(roundDto.getOutCount(), roundDto.getScoreCount());
+
+        // 득점 로직
+        Round roundAfterGotScored = round.plusScore(score);
+
+        // update
+        OutAndScoreDto roundDtoAfterGotScored = new OutAndScoreDto(
+                roundAfterGotScored.getOutCount(),
+                roundAfterGotScored.getScoreCount());
+        roundRepository.updateRoundScore(roundDtoAfterGotScored);
     }
-
-    //
-
-
 }

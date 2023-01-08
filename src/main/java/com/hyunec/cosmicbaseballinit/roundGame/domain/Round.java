@@ -19,10 +19,10 @@ public class Round {
                 .build();
     }
 
-    public Round plusScore() {
+    public Round plusScore(Integer score) {
         return Round.builder()
                 .outCount(outCount)
-                .scoreCount(scoreCount + 1)
+                .scoreCount(scoreCount + score)
                 .build();
     }
 

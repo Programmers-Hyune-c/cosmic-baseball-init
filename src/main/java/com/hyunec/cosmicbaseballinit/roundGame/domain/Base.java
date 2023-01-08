@@ -20,6 +20,10 @@ public class Base {
         return bases;
     }
 
+    public static Integer getTotalBaseCount() {
+        return TOTAL_BASE_COUNT;
+    }
+
     // 진루: 큐에 1 추가
     public Base advancingBase() {
         bases.offer(1);
