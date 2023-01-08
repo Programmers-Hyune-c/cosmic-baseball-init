@@ -8,4 +8,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class PastHitterGameResultDto {
     private final PastHitterGameResult pastHitterGameResults;
+
+    public PastHitterGameResult get() {
+        return pastHitterGameResults;
+    }
 }

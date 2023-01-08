@@ -14,9 +14,7 @@ import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -94,5 +92,28 @@ public class RoundGameService {
         roundRepository.initRoundScore();
         baseService.init();
         hitterGameInterface.initScore();
+    }
+
+    public PastHitterGameResultList getScore() {
+
+        List<PastHitterGameResult> returnList = new ArrayList<>();
+
+        // 과거 HitterResult
+        List<PastHitterGameResultDto> pastDtos = pastHitterResultRepository.getPastHitterGameResults();
+        // dto -> PastHitterGameResult
+        for (PastHitterGameResultDto dto : pastDtos) {
+            PastHitterGameResult pastResult = dto.get();
+            returnList.add(new PastHitterGameResult(
+                    pastResult.getPitchResultAndCountVo()
+                    , pastResult.getHitterResult()));
+        }
+
+        // 지금 진행되는 hitting 상태 저장
+        Map<PitchResult, Integer> nowHitteringStatus = hitterGameInterface.hitterScore();
+        PitchResultAndCountVo nowPitchResultAndCountVo = new PitchResultAndCountVo(nowHitteringStatus);
+        PastHitterGameResult nowHitterGameResult = new PastHitterGameResult(nowPitchResultAndCountVo, null);
+        returnList.add(nowHitterGameResult);
+
+        return new PastHitterGameResultList(returnList);
     }
 }

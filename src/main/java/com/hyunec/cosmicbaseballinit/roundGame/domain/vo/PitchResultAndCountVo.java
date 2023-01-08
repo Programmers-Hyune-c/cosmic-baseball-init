@@ -2,10 +2,12 @@ package com.hyunec.cosmicbaseballinit.roundGame.domain.vo;
 
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.util.Map;
 
 @RequiredArgsConstructor
+@ToString
 public class PitchResultAndCountVo {
     /**
      * ex)
