@@ -35,7 +35,6 @@ public class RoundGameService {
             // 결과 저장하기
             saveHitterGameResult(hittingResult);
         }
-
         return hittingResult;
     }
     
@@ -61,14 +60,16 @@ public class RoundGameService {
     private void saveHitterGameResult(String hittingResult) {
         Map<PitchResult, Integer> pitchResultIntegerMap = hitterGameInterface.hitterScore();
         PitchResultAndCountVo pitchResultAndCountVo = new PitchResultAndCountVo(pitchResultIntegerMap);
-        Optional<HitterResult> hitterResult = Arrays.stream(HitterResult.values())
-                .filter(x -> x.name().equals(hittingResult)).findFirst();
+        HitterResult hitterGameResult = hitterGameInterface.getHitterGameResult();
 
         // PastHitterGameResult 생성
-        PastHitterGameResult pastHitterGameResult = new PastHitterGameResult(pitchResultAndCountVo, hitterResult.get());
+        PastHitterGameResult pastHitterGameResult = new PastHitterGameResult(pitchResultAndCountVo, hitterGameResult);
 
         // save
         pastHitterResultRepository.save(new PastHitterGameResultDto(pastHitterGameResult));
+
+        // hitterGame 초기화
+        hitterGameInterface.initScore();
     }
 
     // 아웃
@@ -108,7 +109,7 @@ public class RoundGameService {
                     , pastResult.getHitterResult()));
         }
 
-        // 지금 진행되는 hitting 상태 저장
+        // 지금 진행되는 hitting 상태 merge
         Map<PitchResult, Integer> nowHitteringStatus = hitterGameInterface.hitterScore();
         PitchResultAndCountVo nowPitchResultAndCountVo = new PitchResultAndCountVo(nowHitteringStatus);
         PastHitterGameResult nowHitterGameResult = new PastHitterGameResult(nowPitchResultAndCountVo, null);

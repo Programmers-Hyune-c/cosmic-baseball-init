@@ -1,17 +1,25 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
-//import static com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult.*;
-
+import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
+import com.hyunec.cosmicbaseballinit.controller.HitterGameInterfaceImpl;
+import com.hyunec.cosmicbaseballinit.repository.HitterGameRepository;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.PastHitterGameResultList;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.BaseRepository;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
+import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.PastHitterGameResultDto;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Queue;
 
 import static org.assertj.core.api.Assertions.*;
@@ -21,11 +29,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoundGameServiceTest {
 
     @Autowired
+    HitterGameInterface hitterGameInterface;
+    @Autowired
     RoundGameService roundGameService;
     @Autowired
     RoundRepository roundRepository;
     @Autowired
     BaseRepository baseRepository;
+
+    @Autowired
+    PastHitterGameResultListRepository  pastResultRepository;
 
     @AfterEach
     void init(){
@@ -98,6 +111,29 @@ class RoundGameServiceTest {
 
         Queue<Integer> bases = baseRepository.getBases().getBases();
         assertThat(bases.size()).isEqualTo(0);
+    }
+
+    @Test
+    void hit_getScore_Test_STRIKE_OUT_BULLSEYE_STRIKE() throws Exception{
+        // 게임 세팅
+        hitterGameInterface.gameSetting();
+
+        HittingParamVo strikeParam = new HittingParamVo(0.1, 0.4);
+        HittingParamVo bullseyeStrikeParam = new HittingParamVo(0.1, 0.1);
+
+        roundGameService.hit(strikeParam);
+        roundGameService.hit(strikeParam);
+        roundGameService.hit(strikeParam);
+        roundGameService.hit(strikeParam);
+        roundGameService.hit(bullseyeStrikeParam);
+        roundGameService.hit(bullseyeStrikeParam);
+
+        PastHitterGameResultList score = roundGameService.getScore();
+        System.out.println(score);
+        assertThat(score.get().get(0).getHitterResult().equals(HitterResult.STRIKE_OUT));
+        assertThat(score.get().get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(3));
+        assertThat(score.get().get(0).getHitterResult().equals(HitterResult.BULLSEYE_STRIKE));
+        assertThat(score.get().get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(2));
     }
 
 }

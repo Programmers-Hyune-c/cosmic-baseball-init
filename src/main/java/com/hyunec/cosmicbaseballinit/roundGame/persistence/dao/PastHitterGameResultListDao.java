@@ -4,11 +4,12 @@ import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameR
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.PastHitterGameResultDto;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class PastHitterGameResultListDao implements PastHitterGameResultListRepository {
-    private List<PastHitterGameResultDto> pastHitterGameResults;
+    private List<PastHitterGameResultDto> pastHitterGameResults = new ArrayList<>();
 
     @Override
     public List<PastHitterGameResultDto> getPastHitterGameResults() {
