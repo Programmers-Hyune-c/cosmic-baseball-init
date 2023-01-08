@@ -11,13 +11,11 @@ public class Round {
 
     private final Integer outCount;
     private final Integer scoreCount;
-    private final Base base;
 
     public Round plusOut() {
         return Round.builder()
                 .outCount(outCount + 1)
-                .scoreCount(scoreCount + 1)
-                .base(base)
+                .scoreCount(scoreCount)
                 .build();
     }
 
@@ -25,7 +23,6 @@ public class Round {
         return Round.builder()
                 .outCount(outCount)
                 .scoreCount(scoreCount + 1)
-                .base(base)
                 .build();
     }
 
