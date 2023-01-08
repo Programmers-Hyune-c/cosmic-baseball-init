@@ -4,10 +4,12 @@ import com.hyunec.cosmicbaseballinit.roundGame.domain.Base;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.BaseRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.BaseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Queue;
 
 @RequiredArgsConstructor
+@Service
 public class BaseService {
 
     private final BaseRepository baseRepository;
