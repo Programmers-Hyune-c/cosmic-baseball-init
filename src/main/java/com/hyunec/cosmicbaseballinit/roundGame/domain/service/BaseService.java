@@ -54,4 +54,16 @@ public class BaseService {
                 roundAfterGotScored.getScoreCount());
         roundRepository.updateRoundScore(roundDtoAfterGotScored);
     }
+
+    public void homerun() {
+        BaseDto bases = baseRepository.getBases();
+        
+        // Base로 변환
+        Base base = new Base(bases.getBases());
+        Integer countOfHitterInBase = base.size(); // 베이스에 나가 있는 총 인원 수
+        // 득점
+        plusScore(countOfHitterInBase + 1);
+        // Bases 초기화
+        baseRepository.initBases();
+    }
 }

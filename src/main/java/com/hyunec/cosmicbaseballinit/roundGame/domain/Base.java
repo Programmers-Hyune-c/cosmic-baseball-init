@@ -23,6 +23,9 @@ public class Base {
     public static Integer getTotalBaseCount() {
         return TOTAL_BASE_COUNT;
     }
+    public Integer size() {
+        return bases.size();
+    }
 
     // 진루: 큐에 1 추가
     public Base advancingBase() {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class RoundGameService {
     private final HitterGameInterface hitterGameInterface;
     private final RoundRepository roundRepository;
+    private final BaseService baseService;
 
     // 타구
     public String hit( HittingParamVo hittingParamVo) throws Exception{
@@ -40,7 +41,7 @@ public class RoundGameService {
             return;
         }
         if (hitterResult.equals(HitterResult.HOMERUN.name())) {
-            gotScored(); // 득점
+            plusScoreWhenHomerun(); // 홈런 시 득점
         }
     }
 
@@ -53,10 +54,11 @@ public class RoundGameService {
 
     // 진루
     public void advancingBase() {
+        baseService.advancingBase();
     }
 
-    // 득점
-    public void gotScored() {
-
+    // 홈런시 득점 로직
+    public void plusScoreWhenHomerun() {
+        baseService.homerun();
     }
 }
