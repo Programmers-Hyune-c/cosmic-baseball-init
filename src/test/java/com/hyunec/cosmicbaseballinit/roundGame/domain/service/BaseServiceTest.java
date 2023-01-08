@@ -27,6 +27,12 @@ class BaseServiceTest {
     @Autowired
     RoundRepository roundRepository;
 
+    @AfterEach
+    void initData() {
+        baseRepository.initBases();
+        roundRepository.initRoundScore();
+    }
+
     @Test
     void advancingBaseTest_1루_진루() {
 

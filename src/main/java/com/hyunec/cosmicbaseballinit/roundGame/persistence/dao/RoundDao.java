@@ -26,7 +26,7 @@ public class RoundDao implements RoundRepository {
     }
 
     @Override
-    public void deleteRoundScore(OutAndScoreDto outAndScoreDto) {
+    public void initRoundScore() {
         this.outCount = 0;
         this.scoreCount = 0;
     }

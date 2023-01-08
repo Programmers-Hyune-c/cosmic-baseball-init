@@ -24,7 +24,7 @@ public class BaseDao implements BaseRepository {
     }
 
     @Override
-    public void deleteBases(BaseDto baseDto) {
+    public void initBases() {
         bases.clear();
     }
 }
