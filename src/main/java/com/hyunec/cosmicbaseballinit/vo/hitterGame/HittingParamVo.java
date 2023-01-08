@@ -7,6 +7,14 @@ import org.springframework.stereotype.Component;
 @Getter
 @RequiredArgsConstructor
 public class HittingParamVo {
+    /**
+     * pitchResultRandomDouble
+     * - 확률 값을 입력 받음
+     * - 처음 세팅한 확률 구간에 따라 STRIKE, BALL, OUT 반환
+     * hitterResultRandomDouble
+     * - 확률 값을 입력 받음
+     * - 0.2 보다 작으면 BULLSEYE_STRIKE, BULLSEYE_BALL, HOMERUN 반환
+     */
     private final Double pitchResultRandomDouble;
     private final Double hitterResultRandomDouble;
 }

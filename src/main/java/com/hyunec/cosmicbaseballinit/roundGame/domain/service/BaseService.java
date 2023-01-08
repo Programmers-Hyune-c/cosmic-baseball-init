@@ -66,4 +66,8 @@ public class BaseService {
         // Bases 초기화
         baseRepository.initBases();
     }
+
+    public void init() {
+        baseRepository.initBases();
+    }
 }

@@ -61,4 +61,10 @@ public class RoundGameService {
     public void plusScoreWhenHomerun() {
         baseService.homerun();
     }
+
+    public void init() {
+        roundRepository.initRoundScore();
+        baseService.init();
+        hitterGameInterface.initScore();
+    }
 }
