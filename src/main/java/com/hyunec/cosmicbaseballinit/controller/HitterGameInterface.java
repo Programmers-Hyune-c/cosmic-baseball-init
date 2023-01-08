@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
@@ -14,4 +15,5 @@ public interface HitterGameInterface {
     public void initScore();
     public Map<PitchResult, Integer> hitterScore();
     public Boolean isHitterGameEnd();
+    public HitterResult getHitterGameResult();
 }

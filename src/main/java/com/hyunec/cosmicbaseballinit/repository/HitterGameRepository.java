@@ -13,7 +13,7 @@ public interface HitterGameRepository {
     void init();
     // 최종 hitterGame 결과 저장
     void saveHitterGameResult(HitterResult hitterResult);
-
-    // 게임 끝났는지 확인
     Boolean isHitterGameEnd();
+
+    HitterResult getHitterResult();
 }

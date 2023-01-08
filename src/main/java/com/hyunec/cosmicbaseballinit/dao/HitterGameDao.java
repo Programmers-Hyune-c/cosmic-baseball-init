@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Getter
 @Repository
 public class HitterGameDao implements HitterGameRepository {
 
@@ -45,9 +44,13 @@ public class HitterGameDao implements HitterGameRepository {
         this.hitterResult = Optional.of(hitterResult);
     }
 
-    // hitterResult 값이 존재하면 게임이 끝났다고 간주
     @Override
     public Boolean isHitterGameEnd() {
-        return (this.hitterResult.isPresent());
+        return hitterResult.isPresent();
+    }
+
+    @Override
+    public HitterResult getHitterResult() {
+        return hitterResult.get();
     }
 }

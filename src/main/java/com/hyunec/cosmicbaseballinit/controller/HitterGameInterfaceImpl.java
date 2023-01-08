@@ -2,6 +2,7 @@ package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
 import com.hyunec.cosmicbaseballinit.service.lv1.HitterGameService;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
@@ -56,5 +57,10 @@ public class HitterGameInterfaceImpl implements HitterGameInterface{
     @Override
     public Boolean isHitterGameEnd() {
         return gameService.isHitterGameEnd();
+    }
+
+    @Override
+    public HitterResult getHitterGameResult() {
+        return gameService.getHitterResult();
     }
 }

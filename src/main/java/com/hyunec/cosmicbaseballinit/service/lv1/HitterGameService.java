@@ -32,7 +32,12 @@ public class HitterGameService {
         PitchResult pitchResult = PitchResult.pitching(probabilitiesRepository.get(), pitchResultRandomDouble);
         savePitchResult(pitchResult);
         Optional<HitterResult> hitterResult = returnHittingResult(pitchResult, hitterResultRandomDouble);
-        return hitterResult.map(Enum::name).orElseGet(pitchResult::name);
+        if (hitterResult.isPresent()){
+            // 결과 저장
+            hitterGameRepository.saveHitterGameResult(hitterResult.get());
+            return hitterResult.get().name();
+        }
+        return pitchResult.name();
     }
 
     // 투구 결과 저장
@@ -60,18 +65,7 @@ public class HitterGameService {
         return hitterGameRepository.isHitterGameEnd();
     }
 
-    //TODO : hitterResult에 맞게 수정하기
-//    public boolean isHitterGameEnd(String hittingResult){
-//        for (HitterResult hr : HitterResult.values()){
-//            if (hr.name().equals(hittingResult)){
-//                return true;
-//            }
-//        }
-//        for (SpecialHitterResult shr : SpecialHitterResult.values()){
-//            if (shr.name().equals(hittingResult)){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public HitterResult getHitterResult() {
+        return hitterGameRepository.getHitterResult();
+    }
 }
