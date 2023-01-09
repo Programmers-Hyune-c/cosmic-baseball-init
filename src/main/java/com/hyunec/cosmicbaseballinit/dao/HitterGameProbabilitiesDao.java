@@ -14,7 +14,7 @@ import java.util.Map;
 @Getter
 @Repository
 public class HitterGameProbabilitiesDao implements HitterGameProbabilitiesRepository {
-    private PitchResultProbabilities pitchResultProbabilities;
+    private PitchResultProbabilities pitchResultProbabilities = new PitchResultProbabilities(new HashMap<>());
 
     // 동일 확률로 게임 세팅
     public void save() {

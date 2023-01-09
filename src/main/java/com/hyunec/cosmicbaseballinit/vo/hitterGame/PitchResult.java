@@ -18,7 +18,7 @@ public enum PitchResult {
 
     // 확률 세팅 되었는지 체크
     private static Boolean isProbabilitySetting(PitchResultProbabilities probabilityMap){
-        return probabilityMap.size() == PitchResult.values().length;
+        return (!probabilityMap.isEmpty());
     }
 
     public static PitchResult pitching(PitchResultProbabilities probabilityMap, Double randomDouble) throws Exception {
