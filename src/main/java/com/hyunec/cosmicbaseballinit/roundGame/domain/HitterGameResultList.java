@@ -1,17 +1,19 @@
-package com.hyunec.cosmicbaseballinit.roundGame.persistence.dto;
+package com.hyunec.cosmicbaseballinit.roundGame.domain;
 
 import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.HitterGameResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@RequiredArgsConstructor
-@Getter
-@ToString
-public class PastHitterGameResultDto {
-    private final HitterGameResult hitterGameResults;
+import java.util.List;
 
-    public HitterGameResult get() {
+@RequiredArgsConstructor
+@ToString
+@Getter
+public class HitterGameResultList {
+    private final List<HitterGameResult> hitterGameResults;
+
+    public List<HitterGameResult> get() {
         return hitterGameResults;
     }
 }
