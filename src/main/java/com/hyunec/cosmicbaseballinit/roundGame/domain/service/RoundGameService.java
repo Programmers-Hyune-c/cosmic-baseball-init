@@ -1,10 +1,11 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.PastHitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.PastHitterGameResult;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.HitterGameResult;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.PitchResultAndCountVo;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.PastHitterGameResultDto;
@@ -63,7 +64,7 @@ public class RoundGameService {
         HitterResult hitterGameResult = hitterGameInterface.getHitterGameResult();
 
         // PastHitterGameResult 생성
-        PastHitterGameResult pastHitterGameResult = new PastHitterGameResult(pitchResultAndCountVo, hitterGameResult);
+        HitterGameResult pastHitterGameResult = new HitterGameResult(pitchResultAndCountVo, hitterGameResult);
 
         // save
         pastHitterResultRepository.save(new PastHitterGameResultDto(pastHitterGameResult));
@@ -95,16 +96,16 @@ public class RoundGameService {
         hitterGameInterface.initScore();
     }
 
-    public PastHitterGameResultList getScore() {
+    public HitterGameResultList getHitterGameResults() {
 
-        List<PastHitterGameResult> returnList = new ArrayList<>();
+        List<HitterGameResult> returnList = new ArrayList<>();
 
         // 과거 HitterResult
         List<PastHitterGameResultDto> pastDtos = pastHitterResultRepository.getPastHitterGameResults();
         // dto -> PastHitterGameResult
         for (PastHitterGameResultDto dto : pastDtos) {
-            PastHitterGameResult pastResult = dto.get();
-            returnList.add(new PastHitterGameResult(
+            HitterGameResult pastResult = dto.get();
+            returnList.add(new HitterGameResult(
                     pastResult.getPitchResultAndCountVo()
                     , pastResult.getHitterResult()));
         }
@@ -112,9 +113,14 @@ public class RoundGameService {
         // 지금 진행되는 hitting 상태 merge
         Map<PitchResult, Integer> nowHitteringStatus = hitterGameInterface.hitterScore();
         PitchResultAndCountVo nowPitchResultAndCountVo = new PitchResultAndCountVo(nowHitteringStatus);
-        PastHitterGameResult nowHitterGameResult = new PastHitterGameResult(nowPitchResultAndCountVo, null);
+        HitterGameResult nowHitterGameResult = new HitterGameResult(nowPitchResultAndCountVo, null);
         returnList.add(nowHitterGameResult);
 
-        return new PastHitterGameResultList(returnList);
+        return new HitterGameResultList(returnList);
+    }
+
+    public Round getScoreAndOut() {
+        OutAndScoreDto roundScore = roundRepository.getRoundScore();
+        return new Round(roundScore.getOutCount(), roundScore.getScoreCount());
     }
 }

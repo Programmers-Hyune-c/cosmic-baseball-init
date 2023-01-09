@@ -1,6 +1,9 @@
 package com.hyunec.cosmicbaseballinit.roundGame.controller;
 
+import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.service.RoundGameService;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.RoundGameResult;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,7 +33,14 @@ public class RoundGameInterfaceImpl implements RoundGameInterface {
     }
 
     @Override
-    public void getScore() {
+    public HitterGameResultList getHitterGameResults() {
+        return roundGameService.getHitterGameResults();
+    }
 
+    @Override
+    public RoundGameResult getRoundGameResult() {
+        HitterGameResultList hitterGameResults = roundGameService.getHitterGameResults();
+        Round roundGameResult = roundGameService.getScoreAndOut();
+        return new RoundGameResult(hitterGameResults, roundGameResult);
     }
 }
