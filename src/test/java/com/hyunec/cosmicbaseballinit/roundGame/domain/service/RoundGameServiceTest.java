@@ -68,6 +68,30 @@ class RoundGameServiceTest {
     }
 
     @Test
+    void 연속4타자_안타_1득점_Test() {
+        // given
+        String hitterResult1 = HitterResult.HIT.name();
+        String hitterResult2 = HitterResult.HIT.name();
+        String hitterResult3 = HitterResult.HIT.name();
+        String hitterResult4 = HitterResult.HIT.name();
+
+        roundGameService.judgeByHitterResult(hitterResult1);
+        roundGameService.judgeByHitterResult(hitterResult2);
+        roundGameService.judgeByHitterResult(hitterResult3);
+        roundGameService.judgeByHitterResult(hitterResult4);
+
+        System.out.println();
+
+        // then
+        OutAndScoreDto roundScore = roundRepository.getRoundScore();
+        assertThat(roundScore.getScoreCount()).isEqualTo(1);
+
+
+        Queue<Integer> bases = baseRepository.getBases().getBases();
+        assertThat(bases.size()).isEqualTo(3);
+    }
+
+    @Test
     void judgeByHitterResultTest_HitterResult가_FOURBALL_AND_HIT_일때_2루_진루() {
         // given
         String hitterResult1 = HitterResult.FOUR_BALL.name();

@@ -47,6 +47,7 @@ class BaseServiceTest {
     }
 
     @Test
+    @Disabled // TODO: 삭제 예정
     void plusScoreTest_1점_득점() {
         // when
         baseService.plusScore(1);
@@ -57,6 +58,7 @@ class BaseServiceTest {
     }
 
     @Test
+    @Disabled //TODO: 삭제 예정
     void advancingBaseTest_홈베이스_진루후_1점득점() {
         // given
         Integer repeatCount = Base.getTotalBaseCount() + 1;

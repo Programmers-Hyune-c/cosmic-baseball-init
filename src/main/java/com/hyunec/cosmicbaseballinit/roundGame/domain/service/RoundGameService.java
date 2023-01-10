@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.Base;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResults;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
@@ -97,14 +98,41 @@ public class RoundGameService {
      * 진루
      */
     public void advancingBase() {
-        baseService.advancingBase();
+        Integer hitterCountInHomeBase = baseService.advancingBase();
+        if (hitterCountInHomeBase > 0) {
+            gotScored(hitterCountInHomeBase);
+        }
     }
 
     /**
-     * 홈런 일시 점수 추가
+     * 득점
+     * @param score : 추가할 점수
+     */
+    private void gotScored(Integer score) {
+        // 현재 round 상황 조회
+        OutAndScoreDto roundDto = roundRepository.getRoundScore();
+        Round roundNow = new Round(roundDto.getOutCount(), roundDto.getScoreCount());
+
+        // 득점
+        Round roundAfterPlusScore = roundNow.score(score);
+
+        // update
+        OutAndScoreDto roundDtoAfterScored = new OutAndScoreDto(
+                roundAfterPlusScore.getOutCount(), roundAfterPlusScore.getScoreCount());
+        roundRepository.updateRoundScore(roundDtoAfterScored);
+    }
+
+
+    /**
+     * 홈런 일시 점수 추가 (현재 베이스 인원수 + 진루할 인원 1명)
      */
     public void plusScoreWhenHomerun() {
-        baseService.homerun();
+        Base bases = baseService.getBases();
+        Integer countOfHitterInBase = bases.size(); // 베이스에 나가 있는 총 인원 수
+        // 득점
+        gotScored(countOfHitterInBase + 1);
+        // Bases 초기화
+        baseService.init();
     }
 
     public void init() {

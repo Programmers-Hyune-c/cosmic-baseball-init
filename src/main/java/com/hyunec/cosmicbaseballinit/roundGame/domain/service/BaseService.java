@@ -18,8 +18,9 @@ public class BaseService {
 
     /**
      * 진루
+     * @return 홈베이스에 들어온 인원 반환
      */
-    public void advancingBase() {
+    public Integer advancingBase() {
         BaseDto baseDto = baseRepository.getBases();
 
         // Base로 변환
@@ -29,18 +30,28 @@ public class BaseService {
         Base baseAfterAdvance = bases.advancingBase();
         Integer countOfHitterInHomeBase = baseAfterAdvance.getHitterCountInHomeBase();  // 홈베이스에 들어온 타자 수
 
-        // countOfHitterInHomeBase 만큼 득점 처리
-        plusScore(countOfHitterInHomeBase);
         // 홈베이스에 들어온 인원 제거
         Base baseAfterScored = baseAfterAdvance.removeHitterInHomeBase(countOfHitterInHomeBase);
 
         // update
         baseRepository.updateBase(new BaseDto(baseAfterScored.get()));
+
+        return countOfHitterInHomeBase;
+    }
+
+    /**
+     * 베이스 조회
+     * @return Base: 현재 베이스 상황
+     */
+    public Base getBases() {
+        BaseDto baseDto = baseRepository.getBases();
+        return new Base(baseDto.getBases());
     }
 
     /**
      * 득점
      * @param score : 득점 처리할 점수
+     * @deprecated : RoundGameService로 득점 로직 이동으로 삭제 예정
      */
     public void plusScore(Integer score) {
         OutAndScoreDto roundDto = roundRepository.getRoundScore();
@@ -58,6 +69,10 @@ public class BaseService {
         roundRepository.updateRoundScore(roundDtoAfterGotScored);
     }
 
+    /**
+     * 홈런
+     * @deprecated 득점 로직의 RoundGameService 이동으로 삭제 예정
+     */
     public void homerun() {
         BaseDto bases = baseRepository.getBases();
         

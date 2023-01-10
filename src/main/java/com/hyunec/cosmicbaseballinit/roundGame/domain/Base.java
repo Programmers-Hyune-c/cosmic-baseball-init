@@ -41,7 +41,7 @@ public class Base {
      * @return Integer : 홈베이스에 들어온 타자의 수
      */
     public Integer getHitterCountInHomeBase() {
-        if (bases.size() >= TOTAL_BASE_COUNT) {
+        if (bases.size() > TOTAL_BASE_COUNT) {
             return (bases.size() - TOTAL_BASE_COUNT);
         }
         return 0;
