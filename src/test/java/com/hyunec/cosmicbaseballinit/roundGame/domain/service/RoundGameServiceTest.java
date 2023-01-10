@@ -147,10 +147,10 @@ class RoundGameServiceTest {
 
         HitterGameResults score = roundGameService.getHitterGameResults();
         System.out.println(score);
-        assertThat(score.get().get(0).getHitterResult().equals(HitterResult.STRIKE_OUT));
-        assertThat(score.get().get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(3));
-        assertThat(score.get().get(0).getHitterResult().equals(HitterResult.BULLSEYE_STRIKE));
-        assertThat(score.get().get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(2));
+        assertThat(score.get(0).getHitterResult().equals(HitterResult.STRIKE_OUT));
+        assertThat(score.get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(3));
+        assertThat(score.get(0).getHitterResult().equals(HitterResult.BULLSEYE_STRIKE));
+        assertThat(score.get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(2));
     }
 
 }

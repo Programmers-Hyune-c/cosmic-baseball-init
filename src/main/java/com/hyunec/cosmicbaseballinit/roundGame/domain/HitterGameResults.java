@@ -13,7 +13,7 @@ import java.util.List;
 public class HitterGameResults {
     private final List<HitterGameResult> hitterGameResults;
 
-    public List<HitterGameResult> get() {
-        return hitterGameResults;
+    public HitterGameResult get(Integer index) {
+        return hitterGameResults.get(index);
     }
 }
