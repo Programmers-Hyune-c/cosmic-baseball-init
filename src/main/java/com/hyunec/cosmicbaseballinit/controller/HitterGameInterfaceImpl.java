@@ -55,7 +55,7 @@ public class HitterGameInterfaceImpl implements HitterGameInterface{
     }
 
     @Override
-    public Boolean isHitterGameEnd() {
+    public Boolean isEnd() {
         return gameService.isHitterGameEnd();
     }
 
