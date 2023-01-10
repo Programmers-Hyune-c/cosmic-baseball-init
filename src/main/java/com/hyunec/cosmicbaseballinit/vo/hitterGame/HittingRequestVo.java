@@ -2,11 +2,10 @@ package com.hyunec.cosmicbaseballinit.vo.hitterGame;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Getter
 @RequiredArgsConstructor
-public class HittingParamVo {
+public class HittingRequestVo {
     /**
      * pitchResultRandomDouble
      * - 확률 값을 입력 받음

@@ -4,27 +4,27 @@ import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.service.RoundGameService;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.RoundGameResult;
-import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingRequestVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class RoundGameInterfaceImpl implements RoundGameInterface {
+public class RoundGameImpl implements RoundGameInterface {
 
     private final RoundGameService roundGameService;
 
     // 확률 랜덤값을 클라이언트로 부터 입력 받음
     @Override
-    public String hitting(HittingParamVo hittingParamVo) throws Exception{
-        return roundGameService.hit(hittingParamVo);
+    public String hitting(HittingRequestVo hittingRequestVo) throws Exception{
+        return roundGameService.hit(hittingRequestVo);
     }
 
     // 확률 랜덤값을 백엔드에서 정함
     @Override
     public String hitting() throws Exception{
-        HittingParamVo hittingParamVo = new HittingParamVo(Math.random(), Math.random());
-        return roundGameService.hit(hittingParamVo);
+        HittingRequestVo hittingRequestVo = new HittingRequestVo(Math.random(), Math.random());
+        return roundGameService.hit(hittingRequestVo);
     }
 
     @Override

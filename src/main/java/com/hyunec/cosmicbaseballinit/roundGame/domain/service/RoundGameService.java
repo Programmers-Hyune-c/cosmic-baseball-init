@@ -10,7 +10,7 @@ import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.PitchResultAndCountVo;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.PastHitterGameResultDto;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
-import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingRequestVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,8 +26,8 @@ public class RoundGameService {
     private final PastHitterGameResultListRepository pastHitterResultRepository;
 
     // 타구
-    public String hit( HittingParamVo hittingParamVo) throws Exception{
-        String hittingResult = hitterGameInterface.hitting(hittingParamVo);
+    public String hit( HittingRequestVo hittingRequestVo) throws Exception{
+        String hittingResult = hitterGameInterface.hitting(hittingRequestVo);
 
         if(hitterGameInterface.isHitterGameEnd()) {
             // hittingResult에 따라 득점, 아웃 여부 판별하기

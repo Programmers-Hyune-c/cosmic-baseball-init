@@ -7,7 +7,7 @@ import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameR
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.HitterResult;
-import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingRequestVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchResult;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -111,8 +111,8 @@ class RoundGameServiceTest {
         // 게임 세팅
         hitterGameInterface.gameSetting();
 
-        HittingParamVo strikeParam = new HittingParamVo(0.1, 0.4);
-        HittingParamVo bullseyeStrikeParam = new HittingParamVo(0.1, 0.1);
+        HittingRequestVo strikeParam = new HittingRequestVo(0.1, 0.4);
+        HittingRequestVo bullseyeStrikeParam = new HittingRequestVo(0.1, 0.1);
 
         roundGameService.hit(strikeParam);
         roundGameService.hit(strikeParam);

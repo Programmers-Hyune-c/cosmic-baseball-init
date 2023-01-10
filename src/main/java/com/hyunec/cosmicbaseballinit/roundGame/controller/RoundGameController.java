@@ -2,9 +2,8 @@ package com.hyunec.cosmicbaseballinit.roundGame.controller;
 
 import com.hyunec.cosmicbaseballinit.config.ReadMessageYml;
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.vo.RoundGameResult;
-import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingParamVo;
+import com.hyunec.cosmicbaseballinit.vo.hitterGame.HittingRequestVo;
 import com.hyunec.cosmicbaseballinit.vo.hitterGame.PitchProbabilitySettingVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +37,8 @@ public class RoundGameController {
     }
 
     @PostMapping("/hitting")
-    public String hitting(@RequestBody HittingParamVo hittingParamVo) throws Exception {
-        return roundGameInterface.hitting(hittingParamVo);
+    public String hitting(@RequestBody HittingRequestVo hittingRequestVo) throws Exception {
+        return roundGameInterface.hitting(hittingRequestVo);
     }
 
     @GetMapping("/init")
