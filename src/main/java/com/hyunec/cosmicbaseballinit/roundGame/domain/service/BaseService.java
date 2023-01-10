@@ -18,7 +18,9 @@ public class BaseService {
     private final BaseRepository baseRepository;
     private final RoundRepository roundRepository;
 
-    // 진루
+    /**
+     * 진루
+     */
     public void advancingBase() {
         BaseDto baseDto = baseRepository.getBases();
 
@@ -38,7 +40,10 @@ public class BaseService {
         baseRepository.updateBase(new BaseDto(baseAfterScored.get()));
     }
 
-    // 득점
+    /**
+     * 득점
+     * @param score : 득점 처리할 점수
+     */
     public void plusScore(Integer score) {
         OutAndScoreDto roundDto = roundRepository.getRoundScore();
 

@@ -32,7 +32,12 @@ public class HitterGameImpl implements HitterGameInterface{
         return readMessageYml.getSettingFinished();
     }
 
-    // 타구 확률을 클라이언트로 부터 입력 받아서 타구
+    /**
+     * 입력받은 확률 값을 이용하여 타구를 실시하고 타구 결과를 반환
+     * @param hittingRequestVo : Hitting 결과 값에 영향을 미치는 확률을 입력으로 받음
+     * @return String : 상황에 따라 PitchResult 또는 HitterResult를 String으로 변환하여 반환
+     * @throws Exception
+     */
     @Override
     public String hitting(HittingRequestVo hittingRequestVo) throws Exception {
         String hittingResult = gameService.hitting(
@@ -41,7 +46,11 @@ public class HitterGameImpl implements HitterGameInterface{
         return hittingResult;
     }
 
-    // 타구 확률을 랜덤 값으로 하여 타구
+    /**
+     * 타구 결과에 영향을 미치는 값을 랜덤으로 설정하여 타구
+     * @return String : 상황에 따라 PitchResult 또는 HitterResult를 String으로 변환하여 반환
+     * @throws Exception
+     */
     @Override
     public String hitting() throws Exception {
         String hittingResult = gameService.hitting(

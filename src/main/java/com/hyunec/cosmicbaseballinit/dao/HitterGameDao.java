@@ -13,9 +13,13 @@ import java.util.Optional;
 @Repository
 public class HitterGameDao implements HitterGameRepository {
 
-    // 투구 결과
+    /**
+     * 투구 결과
+     */
     private List<PitchResult> pitchResultList = new ArrayList<>();
-    // 타구 게임 결과
+    /**
+     * 타구 게임의 결과
+     */
     private Optional<HitterResult> hitterResult = Optional.empty();
 
     @Override

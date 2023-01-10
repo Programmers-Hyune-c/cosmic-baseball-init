@@ -25,7 +25,12 @@ public class RoundGameService {
     private final BaseService baseService;
     private final PastHitterGameResultListRepository pastHitterResultRepository;
 
-    // 타구
+    /**
+     * 타구
+     * @param hittingRequestVo : 타구 결과에 반영되는 확률
+     * @return String : 상황에 따라 PitchResult 또는 HitterResult를 String으로 변환하여 반환
+     * @throws Exception
+     */
     public String hit( HittingRequestVo hittingRequestVo) throws Exception{
         String hittingResult = hitterGameInterface.hitting(hittingRequestVo);
 
@@ -38,8 +43,11 @@ public class RoundGameService {
         }
         return hittingResult;
     }
-    
-    // hittingResult에 따라 득점, 아웃 여부 판별하기
+
+    /**
+     * hittingResult에 따라 득점, 아웃 여부 판별하기
+     * @param hitterResult
+     */
     public void judgeByHitterResult(String hitterResult) {
         if (hitterResult.equals(HitterResult.STRIKE_OUT.name())
                 || hitterResult.equals(HitterResult.BULLSEYE_STRIKE.name())) {
@@ -57,7 +65,10 @@ public class RoundGameService {
         }
     }
 
-    // HitterGame결과 저장
+    /**
+     * HittingGame 결과 저장
+     * @param hittingResult : hittingGame의 결과
+     */
     private void saveHitterGameResult(String hittingResult) {
         Map<PitchResult, Integer> pitchResultIntegerMap = hitterGameInterface.hitterScore();
         PitchResultAndCountVo pitchResultAndCountVo = new PitchResultAndCountVo(pitchResultIntegerMap);
@@ -73,19 +84,25 @@ public class RoundGameService {
         hitterGameInterface.initScore();
     }
 
-    // 아웃
+    /**
+     * 아웃 + 1 후 저장
+     */
     public void out() {
         OutAndScoreDto now = roundRepository.getRoundScore();
         roundRepository.updateRoundScore(new OutAndScoreDto(now.getOutCount() + 1,
                 now.getScoreCount()));
     }
 
-    // 진루
+    /**
+     * 진루
+     */
     public void advancingBase() {
         baseService.advancingBase();
     }
 
-    // 홈런시 득점 로직
+    /**
+     * 홈런 일시 점수 추가
+     */
     public void plusScoreWhenHomerun() {
         baseService.homerun();
     }

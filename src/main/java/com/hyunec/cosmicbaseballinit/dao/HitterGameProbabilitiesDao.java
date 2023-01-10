@@ -16,7 +16,9 @@ import java.util.Map;
 public class HitterGameProbabilitiesDao implements HitterGameProbabilitiesRepository {
     private PitchResultProbabilities pitchResultProbabilities = new PitchResultProbabilities(new HashMap<>());
 
-    // 동일 확률로 게임 세팅
+    /**
+     * 동일한 확률로 Pitch 확률을 세팅한다.
+     */
     public void save() {
         Map<PitchResult, Double> probabilityMap = new HashMap<>();
         Double sameProbability = calculateSameProbability();
@@ -24,6 +26,10 @@ public class HitterGameProbabilitiesDao implements HitterGameProbabilitiesReposi
         pitchResultProbabilities = new PitchResultProbabilities(probabilityMap);
     }
 
+    /**
+     * 입력받은 확률값으로 Pitch 확률을 세팅한다.
+     * @param pitchProbabilitySettingVo : : Strike, Ball, Hit 반환에 대한 확률값
+     */
     public void save(PitchProbabilitySettingVo pitchProbabilitySettingVo) {
         Map<PitchResult, Double> probabilityMap = new HashMap<>();
         probabilityMap.put(PitchResult.STRIKE, pitchProbabilitySettingVo.getStrikeProbabiltiy());
