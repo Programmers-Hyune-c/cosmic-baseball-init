@@ -12,14 +12,14 @@ public class Round {
     private final Integer outCount;
     private final Integer scoreCount;
 
-    public Round plusOut() {
+    public Round out() {
         return Round.builder()
                 .outCount(outCount + 1)
                 .scoreCount(scoreCount)
                 .build();
     }
 
-    public Round plusScore(Integer score) {
+    public Round score(Integer score) {
         return Round.builder()
                 .outCount(outCount)
                 .scoreCount(scoreCount + score)

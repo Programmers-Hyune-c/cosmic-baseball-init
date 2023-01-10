@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public class HitterGameResultList {
+public class HitterGameResults {
     private final List<HitterGameResult> hitterGameResults;
 
     public List<HitterGameResult> get() {

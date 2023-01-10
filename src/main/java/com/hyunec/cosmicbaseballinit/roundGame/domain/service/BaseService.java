@@ -9,8 +9,6 @@ import com.hyunec.cosmicbaseballinit.roundGame.persistence.dto.OutAndScoreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Queue;
-
 @RequiredArgsConstructor
 @Service
 public class BaseService {
@@ -51,7 +49,7 @@ public class BaseService {
         Round round = new Round(roundDto.getOutCount(), roundDto.getScoreCount());
 
         // 득점 로직
-        Round roundAfterGotScored = round.plusScore(score);
+        Round roundAfterGotScored = round.score(score);
 
         // update
         OutAndScoreDto roundDtoAfterGotScored = new OutAndScoreDto(

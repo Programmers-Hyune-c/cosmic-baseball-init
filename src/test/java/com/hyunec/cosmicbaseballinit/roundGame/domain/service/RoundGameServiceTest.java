@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResults;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.BaseRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
@@ -121,7 +121,7 @@ class RoundGameServiceTest {
         roundGameService.hit(bullseyeStrikeParam);
         roundGameService.hit(bullseyeStrikeParam);
 
-        HitterGameResultList score = roundGameService.getHitterGameResults();
+        HitterGameResults score = roundGameService.getHitterGameResults();
         System.out.println(score);
         assertThat(score.get().get(0).getHitterResult().equals(HitterResult.STRIKE_OUT));
         assertThat(score.get().get(0).getPitchResultAndCountVo().get().get(PitchResult.STRIKE).equals(3));

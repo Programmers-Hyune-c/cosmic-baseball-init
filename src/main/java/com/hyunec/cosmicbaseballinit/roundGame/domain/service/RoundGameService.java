@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.roundGame.domain.service;
 
 import com.hyunec.cosmicbaseballinit.controller.HitterGameInterface;
-import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResultList;
+import com.hyunec.cosmicbaseballinit.roundGame.domain.HitterGameResults;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.Round;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.PastHitterGameResultListRepository;
 import com.hyunec.cosmicbaseballinit.roundGame.domain.repository.RoundRepository;
@@ -113,7 +113,7 @@ public class RoundGameService {
         hitterGameInterface.initScore();
     }
 
-    public HitterGameResultList getHitterGameResults() {
+    public HitterGameResults getHitterGameResults() {
 
         List<HitterGameResult> returnList = new ArrayList<>();
 
@@ -133,7 +133,7 @@ public class RoundGameService {
         HitterGameResult nowHitterGameResult = new HitterGameResult(nowPitchResultAndCountVo, null);
         returnList.add(nowHitterGameResult);
 
-        return new HitterGameResultList(returnList);
+        return new HitterGameResults(returnList);
     }
 
     public Round getScoreAndOut() {
