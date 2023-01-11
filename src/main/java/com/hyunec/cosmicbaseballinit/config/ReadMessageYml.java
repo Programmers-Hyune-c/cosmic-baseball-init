@@ -23,4 +23,5 @@ public class ReadMessageYml {
     private String settingFirst;
     private String settingFinished;
     private String scoreInit;
+    private String initFinish;
 }

@@ -1,7 +1,9 @@
 package com.hyunec.cosmicbaseballinit.vo.hitterGame;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -16,4 +18,7 @@ public class PitchResultProbabilities {
         return pitchResultAndProbabilities.get(pitchResult);
     }
 
+    public Boolean isEmpty() {
+        return pitchResultAndProbabilities.size() == 0;
+    }
 }
