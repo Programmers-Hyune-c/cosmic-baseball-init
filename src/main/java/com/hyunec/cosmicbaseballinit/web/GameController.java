@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.web;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameController {
 
     private final PlateAppearances plateAppearances;
+    private final BattingGenerator battingGenerator;
 
     @GetMapping("/game/batting")
     public BattingResult batting() {
-        plateAppearances.batting(Batting.generate());
+        plateAppearances.batting(battingGenerator.generator());
         log.info("### plateAppearances.result()={}", plateAppearances.result());
         return plateAppearances.result();
     }

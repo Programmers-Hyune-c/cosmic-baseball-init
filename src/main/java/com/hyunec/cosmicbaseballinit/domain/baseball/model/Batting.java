@@ -1,20 +1,21 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
+import java.util.Objects;
 import lombok.Getter;
-
-import java.util.Arrays;
-import java.util.Random;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum Batting {
-    STRIKE, BALL, HIT;
+  STRIKE(0), BALL(1), HIT(2);
 
-    private static final Random random = new Random();
+  private final Integer value;
 
-    public static Batting generate() {
-        return Arrays.stream(Batting.values())
-                .filter(e -> e.ordinal() == random.nextInt(2) + 1)
-                .findFirst()
-                .orElse(STRIKE);
-    }
+  public static Batting convertBatting(Integer value) {
+    if (Objects.equals(value, Batting.STRIKE.value))
+      return Batting.STRIKE;
+    else if (Objects.equals(value, Batting.BALL.value))
+      return Batting.BALL;
+    return HIT;
+  }
 }
