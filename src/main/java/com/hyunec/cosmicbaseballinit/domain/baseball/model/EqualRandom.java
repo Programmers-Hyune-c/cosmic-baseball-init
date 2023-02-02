@@ -9,7 +9,7 @@ public class EqualRandom implements RandomStrategy{
   private final Random random = new Random();
 
   @Override
-  public int getRandomNumber() {
+  public int getNumber() {
     return random.nextInt();
   }
 }

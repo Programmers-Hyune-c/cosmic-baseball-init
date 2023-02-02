@@ -29,7 +29,7 @@ class NormalBaseballLv1Test {
     //given
     int MAX_NUMBER = 3;
     BattingGenerator battingGenerator = new RandomBattingGenerator(randomStrategy);
-    given(randomStrategy.getRandomNumber()).willReturn(number);
+    given(randomStrategy.getNumber()).willReturn(number);
 
     //when
     Batting generateValue = battingGenerator.generator();

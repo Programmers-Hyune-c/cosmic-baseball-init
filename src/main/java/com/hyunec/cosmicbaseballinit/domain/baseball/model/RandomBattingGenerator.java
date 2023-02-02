@@ -1,6 +1,5 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +12,6 @@ public class RandomBattingGenerator implements BattingGenerator {
 
   @Override
   public Batting generator() {
-    return Batting.of(random.getRandomNumber() % MAX_BATTING_NUMBER);
+    return Batting.of(random.getNumber() % MAX_BATTING_NUMBER);
   }
 }
