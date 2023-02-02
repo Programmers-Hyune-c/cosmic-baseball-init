@@ -16,15 +16,3 @@ public class RandomBattingGenerator implements BattingGenerator {
     return Batting.of(random.nextInt() % MAX_BATTING_NUMBER);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
