@@ -1,6 +1,6 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
-import java.util.Objects;
+import java.util.Arrays;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,11 +11,10 @@ public enum Batting {
 
   private final Integer value;
 
-  public static Batting convertBatting(Integer value) {
-    if (Objects.equals(value, Batting.STRIKE.value))
-      return Batting.STRIKE;
-    else if (Objects.equals(value, Batting.BALL.value))
-      return Batting.BALL;
-    return HIT;
+  public static Batting of(Integer value) {
+    return Arrays.stream(Batting.values())
+        .filter(e -> e.value.equals(value))
+        .findFirst()
+        .orElseThrow();
   }
 }
