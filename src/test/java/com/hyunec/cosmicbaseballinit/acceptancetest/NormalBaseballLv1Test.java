@@ -14,7 +14,7 @@ class NormalBaseballLv1Test {
 
   @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
   @ParameterizedTest
-  @ValueSource(ints = {0, 1, 2, 3, 4, 5})
+  @ValueSource(ints = {0, 1, 2, 3, 4, 5, Integer.MAX_VALUE})
   void t1(int number) {
     //given
     int MAX_NUMBER = 3;
