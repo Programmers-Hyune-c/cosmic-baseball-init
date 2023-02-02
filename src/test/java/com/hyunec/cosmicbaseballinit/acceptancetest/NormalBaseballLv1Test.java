@@ -4,19 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class NormalBaseballLv1Test {
-    @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
+    @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
     @Test
     void t1() {
         throw new RuntimeException("Not yet implemented");
     }
 
-    @DisplayName("3B 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 됩니다.")
+    @DisplayName("2 strike 상태의 타석에서 타격 결과가 strike 이면 타석 결과는 out 입니다.")
     @Test
     void t2() {
         throw new RuntimeException("Not yet implemented");
     }
 
-    @DisplayName("2S 타석에서 타격 결과가 strike 이면 타석 결과는 out 됩니다.")
+    @DisplayName("3 ball 상태의 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 입니다.")
     @Test
     void t3() {
         throw new RuntimeException("Not yet implemented");

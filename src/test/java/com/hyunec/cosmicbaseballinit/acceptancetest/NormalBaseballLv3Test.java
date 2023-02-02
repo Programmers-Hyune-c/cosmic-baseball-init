@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class NormalBaseballLv3Test {
-    @DisplayName("3번째 회가 3 out 되면 게임을 종료합니다.")
+    @DisplayName("3번째 회가 종료되면 게임이 종료됩니다.")
     @Test
     void t1() {
         throw new RuntimeException("Not yet implemented");
