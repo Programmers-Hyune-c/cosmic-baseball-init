@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.radom.RandomStrategy;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.radom;
+package com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import java.util.Random;
