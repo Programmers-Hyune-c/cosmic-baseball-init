@@ -16,21 +16,15 @@ class CosmicBaseballLv2Test {
         throw new RuntimeException("Not yet implemented");
     }
 
-    @DisplayName("hit 의 20% 는 homerun 입니다.")
+    @DisplayName("타격 결과가 bullseye_strike 이면 타석 결과는 out 입니다.")
     @Test
     void t3() {
         throw new RuntimeException("Not yet implemented");
     }
 
-    @DisplayName("타격 결과가 bullseye_strike 이면 타석 결과는 out 입니다.")
+    @DisplayName("타격 결과가 bullseye_ball 이면 타석 결과는 four_ball 으로 진루 입니다.")
     @Test
     void t4() {
-        throw new RuntimeException("Not yet implemented");
-    }
-
-    @DisplayName("타격 결과가 bullseye_ball 이면 타석 결과는 hit 입니다.")
-    @Test
-    void t5() {
         throw new RuntimeException("Not yet implemented");
     }
 }
