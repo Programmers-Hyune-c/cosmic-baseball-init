@@ -35,7 +35,16 @@ class NormalBaseballLv1Test {
     @DisplayName("2S 타석에서 타격 결과가 strike 이면 타석 결과는 out 됩니다.")
     @Test
     void t3() {
-        throw new RuntimeException("Not yet implemented");
+        //given
+        PlateAppearances plateAppearances = new PlateAppearances();
+        plateAppearances.batting(Batting.STRIKE);
+        plateAppearances.batting(Batting.STRIKE);
+
+        //when
+        plateAppearances.batting(Batting.STRIKE);
+
+        //then
+        assertThat(plateAppearances.result()).isEqualTo(BattingResult.OUT);
     }
 
     @DisplayName("진행 중인 타석이 있는 상태에서 새로운 타석을 진행할 수 없습니다.")
