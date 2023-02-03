@@ -10,6 +10,6 @@ public class EqualRandom implements RandomStrategy{
 
   @Override
   public int getNumber() {
-    return random.nextInt();
+    return random.nextInt(Batting.getBattingSize());
   }
 }
