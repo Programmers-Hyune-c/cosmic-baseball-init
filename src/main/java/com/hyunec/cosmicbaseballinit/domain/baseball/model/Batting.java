@@ -6,17 +6,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public enum Batting {
-  STRIKE(0), BALL(1), HIT(2);
+  STRIKE, BALL, HIT;
 
-  private final Integer value;
-
-  public static Batting of(Integer value) {
-    return Arrays.stream(Batting.values())
-        .filter(e -> e.value.equals(value))
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE));
+  public static Batting of(Integer index) {
+    Batting[] battings = Batting.values();
+    if (index > battings.length || index < 0) {
+      throw new IllegalArgumentException(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
+    }
+    return battings[index];
   }
 
   public static int getBattingSize() {
