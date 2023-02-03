@@ -17,4 +17,8 @@ public enum Batting {
         .findFirst()
         .orElseThrow();
   }
+
+  public static int getBattingSize() {
+    return Batting.values().length;
+  }
 }
