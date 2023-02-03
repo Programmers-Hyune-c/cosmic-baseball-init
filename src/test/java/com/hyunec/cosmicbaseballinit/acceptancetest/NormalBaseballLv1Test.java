@@ -1,5 +1,11 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
+import static org.assertj.core.api.Assertions.*;
+
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +19,17 @@ class NormalBaseballLv1Test {
     @DisplayName("3B 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 됩니다.")
     @Test
     void t2() {
-        throw new RuntimeException("Not yet implemented");
+        //given
+        PlateAppearances plateAppearances = new PlateAppearances();
+        plateAppearances.batting(Batting.BALL);
+        plateAppearances.batting(Batting.BALL);
+        plateAppearances.batting(Batting.BALL);
+
+        //when
+        plateAppearances.batting(Batting.BALL);
+
+        //then
+        assertThat(plateAppearances.result()).isEqualTo(BattingResult.FOUR_BALL);
     }
 
     @DisplayName("2S 타석에서 타격 결과가 strike 이면 타석 결과는 out 됩니다.")
