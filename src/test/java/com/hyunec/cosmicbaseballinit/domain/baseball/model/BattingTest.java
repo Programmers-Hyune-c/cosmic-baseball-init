@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
@@ -19,11 +20,11 @@ class BattingTest {
     int number2 = -1;
 
     //when, then
-    Assertions.assertThatThrownBy(() -> Batting.of(number1))
+    assertThatThrownBy(() -> Batting.of(number1))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
 
-    Assertions.assertThatThrownBy(() -> Batting.of(number2))
+    assertThatThrownBy(() -> Batting.of(number2))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
   }
