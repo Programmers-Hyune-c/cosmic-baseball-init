@@ -2,7 +2,6 @@ package com.hyunec.cosmicbaseballinit.domain.baseball.model.base;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.hit.HitType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +11,8 @@ public class Base {
   private final List<Boolean> base = new ArrayList<>(BaseType.getBaseTypeSize());
   private static final Boolean existPlate = true;
 
-  public List<Boolean> getBase() {
-    return Collections.unmodifiableList(base);
+  public Boolean checkPlateExist(BaseType baseType) {
+    return base.get(baseType.getBasePosition());
   }
 
   public int hit(HitType hitType) {
