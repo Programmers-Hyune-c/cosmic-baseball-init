@@ -1,8 +1,7 @@
 package com.hyunec.cosmicbaseballinit.web;
 
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GameController {
 
-    private final PlateAppearances plateAppearances;
+    private final BaseballService baseballService;
 
     @GetMapping("/game/batting")
     public BattingResult batting() {
-        plateAppearances.batting(Batting.generate());
-        log.info("### plateAppearances.result()={}", plateAppearances.result());
-        return plateAppearances.result();
+        baseballService.batting();
+        log.info("### plateAppearances.result()={}", baseballService.getBattingResult());
+        return baseballService.getBattingResult();
     }
 }
