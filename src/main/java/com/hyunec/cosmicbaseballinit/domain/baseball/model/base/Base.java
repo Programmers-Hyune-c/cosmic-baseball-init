@@ -1,18 +1,21 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model.base;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.hit.HitType;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Base {
 
-  private final List<Boolean> base = new ArrayList<>(BaseType.getBaseTypeSize());
+  private final HashMap<BaseType, Boolean> base = new HashMap<>();
   private static final Boolean existPlate = true;
 
+  public Base() {
+    init();
+  }
+
   public Boolean checkPlateExist(BaseType baseType) {
-    return base.get(baseType.getBasePosition());
+    return base.get(baseType);
   }
 
   public int hit(HitType hitType) {
@@ -24,20 +27,26 @@ public class Base {
 
   private int singleHit() {
     int score = 0;
-    if (!base.get(BaseType.FIRST_BASE.getBasePosition())) {
-      base.set(BaseType.FIRST_BASE.getBasePosition(), existPlate);
+    if (Boolean.TRUE.equals(!base.get(BaseType.FIRST_BASE))) {
+      base.put(BaseType.FIRST_BASE, existPlate);
       return score;
     }
 
-    if (base.get(BaseType.SECOND_BASE.getBasePosition())) {
-      if (base.get(BaseType.THIRD_BASE.getBasePosition())) {
+    if (Boolean.TRUE.equals(base.get(BaseType.SECOND_BASE))) {
+      if (Boolean.TRUE.equals(base.get(BaseType.THIRD_BASE))) {
         score++;
         return score;
       }
-      base.set(BaseType.THIRD_BASE.getBasePosition(), existPlate);
+      base.put(BaseType.THIRD_BASE, existPlate);
       return score;
     }
-    base.set(BaseType.SECOND_BASE.getBasePosition(), existPlate);
+    base.put(BaseType.SECOND_BASE, existPlate);
     return score;
+  }
+
+  private void init() {
+    for (BaseType baseType : BaseType.values()) {
+      base.put(baseType, !existPlate);
+    }
   }
 }
