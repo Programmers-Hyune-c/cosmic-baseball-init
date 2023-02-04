@@ -5,7 +5,9 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Single;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Base {
 
   private final List<Boolean> base = new ArrayList<>(BaseType.getBaseTypeSize());
