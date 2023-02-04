@@ -1,7 +1,6 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model.base;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.hit.HitType;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Single;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +23,7 @@ public class Base {
     return 0;
   }
 
-  public int singleHit() {
+  private int singleHit() {
     int score = 0;
     if (!base.get(BaseType.FIRST_BASE.getBasePosition())) {
       base.set(BaseType.FIRST_BASE.getBasePosition(), existPlate);
