@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.given;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballService;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
@@ -24,6 +25,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class NormalBaseballLv1Test {
@@ -110,6 +112,17 @@ class NormalBaseballLv1Test {
   @DisplayName("타석이 종료되면 초기화하여 새로 진행할 수 있습니다.")
   @Test
   void t5() {
-    throw new RuntimeException("Not yet implemented");
+    //given
+    given(battingGenerator.generator()).willReturn(Batting.STRIKE);
+    baseballService.batting();
+    baseballService.batting();
+    baseballService.batting();
+
+    //when
+    NewGameResponse result = baseballService.newGame();
+
+    //then
+    assertThat(result.getHttpStatus()).isEqualTo(HttpStatus.OK);
+    assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.NOTHING);
   }
 }
