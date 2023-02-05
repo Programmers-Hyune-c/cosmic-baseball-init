@@ -1,16 +1,19 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballService;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
+import com.hyunec.cosmicbaseballinit.web.GameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,6 +37,9 @@ class NormalBaseballLv1Test {
 
   @InjectMocks
   private PlateAppearances plateAppearances;
+
+  @InjectMocks
+  private GameController gameController;
 
   @BeforeEach
   public void setUp() {
@@ -92,7 +98,13 @@ class NormalBaseballLv1Test {
   @DisplayName("진행 중인 타석이 있는 상태에서 새로운 타석을 진행할 수 없습니다.")
   @Test
   void t4() {
-    throw new RuntimeException("Not yet implemented");
+    //given
+    baseballService.batting();
+
+    //when, then
+    assertThatThrownBy(() -> baseballService.newGame())
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessageContaining(ExceptionMessage.FAILURE_PLATE_IS_EXIST_DO_NOT_PLAY_NEW_GAME);
   }
 
   @DisplayName("타석이 종료되면 초기화하여 새로 진행할 수 있습니다.")
