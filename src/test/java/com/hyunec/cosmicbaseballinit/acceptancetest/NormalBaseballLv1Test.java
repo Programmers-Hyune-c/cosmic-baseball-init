@@ -101,6 +101,7 @@ class NormalBaseballLv1Test {
   @Test
   void t4() {
     //given
+    given(battingGenerator.generator()).willReturn(Batting.BALL);
     baseballService.batting();
 
     //when, then
