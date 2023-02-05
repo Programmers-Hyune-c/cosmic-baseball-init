@@ -6,16 +6,13 @@ import static org.mockito.BDDMockito.given;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballService;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
 import com.hyunec.cosmicbaseballinit.web.GameController;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,13 +20,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class NormalBaseballLv1Test {
-  private BaseballService baseballService;
+
+  @InjectMocks
+  private BaseballServiceImpl baseballService;
 
   @Mock
   private RandomStrategy randomStrategy;
@@ -38,16 +36,7 @@ class NormalBaseballLv1Test {
   private BattingGenerator battingGenerator;
 
   @InjectMocks
-  private PlateAppearances plateAppearances;
-
-  @InjectMocks
   private GameController gameController;
-
-  @BeforeEach
-  public void setUp() {
-    MockitoAnnotations.openMocks(this);
-    baseballService = new BaseballServiceImpl(plateAppearances,battingGenerator);
-  }
 
   @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
   @ParameterizedTest

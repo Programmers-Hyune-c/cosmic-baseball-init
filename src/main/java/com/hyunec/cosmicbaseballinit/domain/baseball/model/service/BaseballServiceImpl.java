@@ -12,19 +12,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BaseballServiceImpl implements BaseballService{
+public class BaseballServiceImpl implements BaseballService {
 
   private static final String SUCCESS_NEW_GAME = "다음 게임을 시작합니다";
   private static final boolean END_GAME = true;
 
-  private final PlateAppearances plateAppearances;
+  private final PlateAppearances plateAppearances = new PlateAppearances();
   private final BattingGenerator battingGenerator;
 
   public BaseballServiceImpl(
-      final PlateAppearances plateAppearances,
-      @Qualifier("randomBattingGenerator")
-      final BattingGenerator battingGenerator) {
-    this.plateAppearances = plateAppearances;
+      @Qualifier("randomBattingGenerator") final BattingGenerator battingGenerator) {
     this.battingGenerator = battingGenerator;
   }
 
@@ -57,8 +54,9 @@ public class BaseballServiceImpl implements BaseballService{
 
   private boolean checkFourBallOrOut() {
     BattingResult result = plateAppearances.result();
-    if (result == BattingResult.OUT || result == BattingResult.FOUR_BALL)
+    if (result == BattingResult.OUT || result == BattingResult.FOUR_BALL) {
       return END_GAME;
+    }
     return !END_GAME;
   }
 }
