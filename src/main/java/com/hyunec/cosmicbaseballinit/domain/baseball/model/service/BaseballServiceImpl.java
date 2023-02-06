@@ -40,15 +40,15 @@ public class BaseballServiceImpl implements BaseballService {
 
   @Override
   public NewGameResponse newGame() {
-    if (checkFourBallOrOut()) {
-      plateAppearances.clear();
-
-      NewGameResponse result = new NewGameResponse();
-      result.setMessage(SUCCESS_NEW_GAME);
-      result.setDateTime(LocalDateTime.now());
-      return result;
+    if (!checkFourBallOrOut()) {
+      throw new IllegalStateException(ExceptionMessage.FAILURE_PLATE_IS_EXIST_DO_NOT_PLAY_NEW_GAME);
     }
-    throw new IllegalStateException(ExceptionMessage.FAILURE_PLATE_IS_EXIST_DO_NOT_PLAY_NEW_GAME);
+
+    plateAppearances.clear();
+    NewGameResponse result = new NewGameResponse();
+    result.setMessage(SUCCESS_NEW_GAME);
+    result.setDateTime(LocalDateTime.now());
+    return result;
   }
 
   private boolean checkFourBallOrOut() {
