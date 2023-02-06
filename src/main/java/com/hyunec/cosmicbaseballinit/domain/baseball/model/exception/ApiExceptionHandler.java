@@ -13,11 +13,7 @@ public class ApiExceptionHandler {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = {IllegalStateException.class})
   public NewGameResponse handleNewGameException(IllegalStateException e) {
-    NewGameResponse result = new NewGameResponse();
-    result.setMessage(e.getMessage());
-    result.setDateTime(LocalDateTime.now());
-
-    return result;
+    return new NewGameResponse(e.getMessage(), LocalDateTime.now());
   }
 
 }

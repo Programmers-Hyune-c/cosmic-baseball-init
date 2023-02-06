@@ -1,9 +1,11 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model.dto;
 
 import java.time.LocalDateTime;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class NewGameResponse {
   private String message;
   private LocalDateTime dateTime;

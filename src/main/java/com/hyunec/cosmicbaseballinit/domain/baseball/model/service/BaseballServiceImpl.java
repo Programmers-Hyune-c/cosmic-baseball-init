@@ -58,10 +58,7 @@ public class BaseballServiceImpl implements BaseballService {
     }
 
     plateAppearances.clear();
-    NewGameResponse result = new NewGameResponse();
-    result.setMessage(SUCCESS_NEW_GAME);
-    result.setDateTime(LocalDateTime.now());
-    return result;
+    return new NewGameResponse(SUCCESS_NEW_GAME, LocalDateTime.now());
   }
 
   private boolean checkFourBallOrOut() {
