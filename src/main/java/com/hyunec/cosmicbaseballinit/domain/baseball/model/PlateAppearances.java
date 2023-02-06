@@ -24,18 +24,12 @@ public class PlateAppearances {
         return Math.toIntExact(battings.stream().filter(BALL::equals).count());
     }
 
-    public BattingResult result() {
-        if (strikeCount().equals(BattingResult.OUT.getValue())) {
-            return BattingResult.OUT;
-        }
-
-        if (ballCount().equals(BattingResult.FOUR_BALL.getValue())) {
-            return BattingResult.FOUR_BALL;
-        }
-
-        if (battings.isEmpty())
-            return BattingResult.PLAYING;
+    public BattingResult getLastBattingResult() {
         return BattingResult.of(battings.get(battings.size() - 1));
+    }
+
+    public boolean isNotPlaying() {
+        return battings.isEmpty();
     }
 
     public void clear() {

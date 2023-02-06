@@ -35,7 +35,20 @@ public class BaseballServiceImpl implements BaseballService {
 
   @Override
   public BattingResult getBattingResult() {
-    return plateAppearances.result();
+    Integer strikeCount = plateAppearances.strikeCount();
+    if (strikeCount.equals(BattingResult.OUT.getValue())) {
+      return BattingResult.OUT;
+    }
+
+    Integer ballCount = plateAppearances.ballCount();
+    if (ballCount.equals(BattingResult.FOUR_BALL.getValue())) {
+      return BattingResult.FOUR_BALL;
+    }
+
+    if (plateAppearances.isNotPlaying())
+      return BattingResult.PLAYING;
+
+    return plateAppearances.getLastBattingResult();
   }
 
   @Override
