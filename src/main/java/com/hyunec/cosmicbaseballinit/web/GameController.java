@@ -17,10 +17,10 @@ public class GameController {
   private final BaseballService baseballService;
 
   @GetMapping("/game/batting")
-  public BattingResult batting() {
+  public ResponseEntity<BattingResult> batting() {
     baseballService.batting();
     log.info("### plateAppearances.result()={}", baseballService.getBattingResult());
-    return baseballService.getBattingResult();
+    return ResponseEntity.ok().body(baseballService.getBattingResult());
   }
 
   @GetMapping("/game/new-game")
