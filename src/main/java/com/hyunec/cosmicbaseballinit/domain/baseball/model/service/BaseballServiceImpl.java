@@ -26,10 +26,11 @@ public class BaseballServiceImpl implements BaseballService {
 
   @Override
   public void batting() {
-    if (!checkFourBallOrOut()) {
-      Batting generateValue = battingGenerator.generator();
-      plateAppearances.batting(generateValue);
+    if (checkFourBallOrOut()) {
+      return;
     }
+    Batting generateValue = battingGenerator.generator();
+    plateAppearances.batting(generateValue);
   }
 
   @Override
