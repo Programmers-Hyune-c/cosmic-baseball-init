@@ -113,6 +113,6 @@ class NormalBaseballLv1Test {
 
     //then
     assertThat(result.getHttpStatus()).isEqualTo(HttpStatus.OK);
-    assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.NOTHING);
+    assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.PLAYING);
   }
 }

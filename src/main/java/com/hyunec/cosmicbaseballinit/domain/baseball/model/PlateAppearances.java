@@ -34,7 +34,7 @@ public class PlateAppearances {
         }
 
         if (battings.isEmpty())
-            return BattingResult.NOTHING;
+            return BattingResult.PLAYING;
         return BattingResult.of(battings.get(battings.size() - 1));
     }
 

@@ -24,6 +24,6 @@ class BaseballServiceImplTest {
   @DisplayName("배팅을 시작하지 않았을 경우 result 반환시 NOTHING이 나와야합니다.")
   @Test
   void atBattingIsNotStartingThenReturnNOTHING() {
-    assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.NOTHING);
+    assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.PLAYING);
   }
 }

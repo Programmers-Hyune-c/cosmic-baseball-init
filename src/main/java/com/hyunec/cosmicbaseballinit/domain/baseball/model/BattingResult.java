@@ -13,7 +13,7 @@ public enum BattingResult {
     OUT(3),
     FOUR_BALL(4),
     HIT(null),
-    NOTHING(null)
+    PLAYING(null)
     ;
 
     private final Integer value;
