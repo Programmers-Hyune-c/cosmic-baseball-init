@@ -2,11 +2,10 @@ package com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.rado
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import java.util.Random;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("equalRandom")
+@EqualRandomQualifier
 public class EqualRandom implements RandomStrategy{
 
   private final Random random = new Random();

@@ -6,8 +6,8 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingQualifier;
 import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +20,7 @@ public class BaseballServiceImpl implements BaseballService {
   private final BattingGenerator battingGenerator;
 
   public BaseballServiceImpl(
-      @Qualifier("randomBattingGenerator") final BattingGenerator battingGenerator) {
+      @RandomBattingQualifier final BattingGenerator battingGenerator) {
     this.battingGenerator = battingGenerator;
   }
 

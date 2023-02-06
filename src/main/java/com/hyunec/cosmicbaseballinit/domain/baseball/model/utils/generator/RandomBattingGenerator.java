@@ -1,18 +1,18 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.EqualRandomQualifier;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("randomBattingGenerator")
+@RandomBattingQualifier
 public class RandomBattingGenerator implements BattingGenerator {
 
   private final RandomStrategy randomStrategy;
 
   public RandomBattingGenerator(
-      @Qualifier("equalRandom")
+      @EqualRandomQualifier
       final RandomStrategy randomStrategy) {
     this.randomStrategy = randomStrategy;
   }
