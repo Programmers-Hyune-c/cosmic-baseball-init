@@ -1,12 +1,11 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
-import org.springframework.stereotype.Component;
+import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
+import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
-import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PlateAppearances {
@@ -25,16 +24,12 @@ public class PlateAppearances {
         return Math.toIntExact(battings.stream().filter(BALL::equals).count());
     }
 
-    public BattingResult result() {
-        if (strikeCount().equals(BattingResult.OUT.getValue())) {
-            return BattingResult.OUT;
-        }
-
-        if (ballCount().equals(BattingResult.FOUR_BALL.getValue())) {
-            return BattingResult.FOUR_BALL;
-        }
-
+    public BattingResult getLastBattingResult() {
         return BattingResult.of(battings.get(battings.size() - 1));
+    }
+
+    public boolean isNotPlaying() {
+        return battings.isEmpty();
     }
 
     public void clear() {
