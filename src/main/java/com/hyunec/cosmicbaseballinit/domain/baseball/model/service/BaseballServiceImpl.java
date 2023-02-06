@@ -65,7 +65,7 @@ public class BaseballServiceImpl implements BaseballService {
   }
 
   private boolean checkFourBallOrOut() {
-    BattingResult result = plateAppearances.result();
+    BattingResult result = getBattingResult();
     if (result == BattingResult.OUT || result == BattingResult.FOUR_BALL) {
       return END_GAME;
     }

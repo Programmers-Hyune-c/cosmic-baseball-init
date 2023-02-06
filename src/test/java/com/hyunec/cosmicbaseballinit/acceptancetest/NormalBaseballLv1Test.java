@@ -6,7 +6,6 @@ import static org.mockito.BDDMockito.given;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
@@ -14,6 +13,7 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.Rando
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
 import com.hyunec.cosmicbaseballinit.web.GameController;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +21,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class NormalBaseballLv1Test {
@@ -109,10 +108,59 @@ class NormalBaseballLv1Test {
     baseballService.batting();
 
     //when
-    NewGameResponse result = baseballService.newGame();
+    baseballService.newGame();
 
     //then
-    assertThat(result.getHttpStatus()).isEqualTo(HttpStatus.OK);
     assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.PLAYING);
+  }
+
+  @Nested
+  class PlateAppearancesTest {
+    @DisplayName("타석 결과 - 아웃")
+    @Test
+    void atBatResultOut() {
+      // given
+      given(battingGenerator.generator()).willReturn(Batting.STRIKE);
+      baseballService.batting();
+      baseballService.batting();
+
+
+      // when
+      assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.STRIKE);
+      baseballService.batting();
+
+      // then
+      assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.OUT);
+    }
+
+    @DisplayName("타석 결과 - 포볼")
+    @Test
+    void atBatResultsFourBall() {
+      // given
+      given(battingGenerator.generator()).willReturn(Batting.BALL);
+      baseballService.batting();
+      baseballService.batting();
+      baseballService.batting();
+
+      // when
+      assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.BALL);
+      baseballService.batting();
+
+      // then
+      assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.FOUR_BALL);
+    }
+
+    @DisplayName("타석 결과 - 안타")
+    @Test
+    void atBatResultHits() {
+      // given
+      given(battingGenerator.generator()).willReturn(Batting.HIT);
+
+      // when
+      baseballService.batting();
+
+      // then
+      assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.HIT);
+    }
   }
 }
