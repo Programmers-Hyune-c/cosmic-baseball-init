@@ -58,11 +58,11 @@ class NormalBaseballLv1Test {
   void t2() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.BALL);
+    baseballService.batting();
+    baseballService.batting();
+    baseballService.batting();
 
     //when
-    baseballService.batting();
-    baseballService.batting();
-    baseballService.batting();
     baseballService.batting();
 
     //then
@@ -74,10 +74,10 @@ class NormalBaseballLv1Test {
   void t3() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.STRIKE);
+    baseballService.batting();
+    baseballService.batting();
 
     //when
-    baseballService.batting();
-    baseballService.batting();
     baseballService.batting();
 
     //then
