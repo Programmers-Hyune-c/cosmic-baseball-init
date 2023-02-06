@@ -8,7 +8,6 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMe
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,7 +45,6 @@ public class BaseballServiceImpl implements BaseballService {
       NewGameResponse result = new NewGameResponse();
       result.setMessage(SUCCESS_NEW_GAME);
       result.setDateTime(LocalDateTime.now());
-      result.setHttpStatus(HttpStatus.OK);
       return result;
     }
     throw new IllegalStateException(ExceptionMessage.FAILURE_PLATE_IS_EXIST_DO_NOT_PLAY_NEW_GAME);
