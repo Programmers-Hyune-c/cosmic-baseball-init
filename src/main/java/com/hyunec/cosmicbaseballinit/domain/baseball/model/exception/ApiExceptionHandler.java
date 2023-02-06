@@ -15,7 +15,6 @@ public class ApiExceptionHandler {
     HttpStatus status = HttpStatus.BAD_REQUEST;
 
     NewGameResponse result = new NewGameResponse();
-    result.setHttpStatus(status);
     result.setMessage(e.getMessage());
     result.setDateTime(LocalDateTime.now());
 
