@@ -11,7 +11,6 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServi
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
-import com.hyunec.cosmicbaseballinit.web.GameController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -33,9 +32,6 @@ class NormalBaseballLv1Test {
 
   @Mock
   private BattingGenerator battingGenerator;
-
-  @InjectMocks
-  private GameController gameController;
 
   @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
   @ParameterizedTest
