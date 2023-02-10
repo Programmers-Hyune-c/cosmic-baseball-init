@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class GameController {
+	private final PlateAppearances plateAppearances;
 
-    private final PlateAppearances plateAppearances;
-
-    @GetMapping("/game/batting")
-    public BattingResult batting() {
-        plateAppearances.batting(Batting.generate());
-        log.info("### plateAppearances.result()={}", plateAppearances.result());
-        return plateAppearances.result();
-    }
+	@GetMapping("/game/batting")
+	public BattingResult batting() {
+		plateAppearances.batting(Batting.generate());
+		log.info("### plateAppearances.result()={}", plateAppearances.result());
+		return plateAppearances.result();
+	}
 }
