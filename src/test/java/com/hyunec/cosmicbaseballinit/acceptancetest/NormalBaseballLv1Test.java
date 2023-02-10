@@ -8,9 +8,7 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingGenerator;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.radom.RandomStrategy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,20 +25,16 @@ class NormalBaseballLv1Test {
   @InjectMocks
   private BaseballServiceImpl baseballService;
 
-  @Mock
-  private RandomStrategy randomStrategy;
-
-  @Mock
-  private BattingGenerator battingGenerator;
+  @Spy
+  private RandomBattingGenerator battingGenerator;
 
   @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
   @ParameterizedTest
-  @ValueSource(ints = {0, 1, 2, 3, 4, 5, Integer.MAX_VALUE})
+  @ValueSource(ints = {0, 1, 2})
   void t1(int number) {
     //given
     int MAX_NUMBER = 3;
-    BattingGenerator battingGenerator = new RandomBattingGenerator(randomStrategy);
-    given(randomStrategy.getNumber()).willReturn(number);
+    given(battingGenerator.getRandomNumber(Batting.getBattingSize())).willReturn(number);
 
     //when
     Batting generateValue = battingGenerator.generator();
