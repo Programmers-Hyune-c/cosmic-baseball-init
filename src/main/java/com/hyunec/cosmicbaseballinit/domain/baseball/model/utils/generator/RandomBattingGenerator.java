@@ -15,10 +15,24 @@ public class RandomBattingGenerator implements BattingGenerator {
   @Override
   public Batting generator() {
     final Batting result = Batting.of(getRandomNumber(Batting.getBattingSize()));
-    return result;
+    return checkBullEyes(result);
   }
 
   public int getRandomNumber(int range) {
     return random.nextInt(range);
+  }
+
+  @Override
+  public int getBullEyesNumber() {
+    return random.nextInt(MAX_PROBABILITY_SIZE);
+  }
+
+  @Override
+  public Batting checkBullEyes(final Batting result) {
+    if (result == Batting.STRIKE) {
+      if (getBullEyesNumber() < BULLSEYE_PROBABILITY)
+        return Batting.BULLSEYE_STRIKE;
+    }
+    return result;
   }
 }

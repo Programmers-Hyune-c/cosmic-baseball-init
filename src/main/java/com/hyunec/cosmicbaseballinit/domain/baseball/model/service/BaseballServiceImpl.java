@@ -36,7 +36,7 @@ public class BaseballServiceImpl implements BaseballService {
   @Override
   public BattingResult getBattingResult() {
     Integer strikeCount = plateAppearances.strikeCount();
-    if (strikeCount.equals(BattingResult.OUT.getValue())) {
+    if (strikeCount.equals(BattingResult.OUT.getValue()) || plateAppearances.isBullseyeStrike()) {
       return BattingResult.OUT;
     }
 

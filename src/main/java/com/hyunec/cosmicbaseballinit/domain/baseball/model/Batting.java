@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public enum Batting {
-  STRIKE, BALL, HIT, BULLS_EYES_STRIKE;
+  STRIKE, BALL, HIT, BULLSEYE_STRIKE;
 
   private final static int BATTING_SIZE = 3;
 
