@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BaseballServiceImpl implements BaseballService {
+public class BaseballManagerImpl implements BaseballManager {
 
   private static final String SUCCESS_NEW_GAME = "다음 게임을 시작합니다";
   private static final boolean END_GAME = true;
@@ -24,7 +24,7 @@ public class BaseballServiceImpl implements BaseballService {
   private final BattingGenerator battingGenerator;
   private final Score score = new Score();
 
-  public BaseballServiceImpl(
+  public BaseballManagerImpl(
       @RandomBattingQualifier final BattingGenerator battingGenerator) {
     this.battingGenerator = battingGenerator;
   }

@@ -7,7 +7,7 @@ import static org.mockito.BDDMockito.given;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballServiceImpl;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.service.BaseballManagerImpl;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,7 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class NormalBaseballLv1Test {
 
   @InjectMocks
-  private BaseballServiceImpl baseballService;
+  private BaseballManagerImpl baseballService;
 
   @Spy
   private RandomBattingGenerator battingGenerator;
