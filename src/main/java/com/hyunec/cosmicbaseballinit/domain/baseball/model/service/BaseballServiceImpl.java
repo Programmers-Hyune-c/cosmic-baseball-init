@@ -79,8 +79,11 @@ public class BaseballServiceImpl implements BaseballService {
     if (generateRandomNumber(MAX_PROBABILITY_SIZE)) {
       if (generatedBatting == Batting.STRIKE) {
         makeBullEyesStrike();
-        return BULLEYES;
       }
+      else if (generatedBatting == Batting.BALL) {
+        makeBullEyesBall();
+      }
+      return BULLEYES;
     }
     return !BULLEYES;
   }
@@ -98,5 +101,9 @@ public class BaseballServiceImpl implements BaseballService {
     for (int i = strikeCount; i < BattingResult.OUT.getValue(); i++) {
       plateAppearances.batting(Batting.STRIKE);
     }
+  }
+
+  private void makeBullEyesBall() {
+    plateAppearances.batting(Batting.HIT);
   }
 }
