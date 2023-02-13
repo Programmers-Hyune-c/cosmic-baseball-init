@@ -1,12 +1,13 @@
-package com.hyunec.cosmicbaseballinit.domain.baseball.model;
-
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.hyunec.cosmicbaseballinit.domain.baseball.repository;
 
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
+
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PlateAppearances {
