@@ -35,13 +35,4 @@ public class PlateAppearances {
     public void clear() {
         battings.clear();
     }
-
-    public boolean isBullseyeStrike() {
-        if (battings.isEmpty())
-            return false;
-
-        if (battings.get(battings.size() - 1) == Batting.BULLSEYE_STRIKE)
-            return true;
-        return false;
-    }
 }

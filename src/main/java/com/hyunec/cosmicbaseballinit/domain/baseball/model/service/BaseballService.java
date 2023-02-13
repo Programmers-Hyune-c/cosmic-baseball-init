@@ -7,4 +7,5 @@ public interface BaseballService {
   void batting();
   BattingResult getBattingResult();
   NewGameResponse newGame();
+  boolean generateRandomNumber(int range);
 }

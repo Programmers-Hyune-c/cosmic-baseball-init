@@ -15,6 +15,9 @@ public class BaseballServiceImpl implements BaseballService {
 
   private static final String SUCCESS_NEW_GAME = "다음 게임을 시작합니다";
   private static final boolean END_GAME = true;
+  private static final int MAX_PROBABILITY_SIZE = 10;
+  private static final int BULLSEYE_PROBABILITY = 2;
+  private static final boolean BULLEYES = true;
 
   private final PlateAppearances plateAppearances = new PlateAppearances();
   private final BattingGenerator battingGenerator;
@@ -30,13 +33,15 @@ public class BaseballServiceImpl implements BaseballService {
       return;
     }
     Batting generateValue = battingGenerator.generator();
+    if (confirmBullEyes(generateValue))
+      return;
     plateAppearances.batting(generateValue);
   }
 
   @Override
   public BattingResult getBattingResult() {
     Integer strikeCount = plateAppearances.strikeCount();
-    if (strikeCount.equals(BattingResult.OUT.getValue()) || plateAppearances.isBullseyeStrike()) {
+    if (strikeCount.equals(BattingResult.OUT.getValue())) {
       return BattingResult.OUT;
     }
 
@@ -45,8 +50,9 @@ public class BaseballServiceImpl implements BaseballService {
       return BattingResult.FOUR_BALL;
     }
 
-    if (plateAppearances.isNotPlaying())
+    if (plateAppearances.isNotPlaying()) {
       return BattingResult.PLAYING;
+    }
 
     return plateAppearances.getLastBattingResult();
   }
@@ -67,5 +73,30 @@ public class BaseballServiceImpl implements BaseballService {
       return END_GAME;
     }
     return !END_GAME;
+  }
+
+  private boolean confirmBullEyes(Batting generatedBatting) {
+    if (generateRandomNumber(MAX_PROBABILITY_SIZE)) {
+      if (generatedBatting == Batting.STRIKE) {
+        makeBullEyesStrike();
+        return BULLEYES;
+      }
+    }
+    return !BULLEYES;
+  }
+
+  public boolean generateRandomNumber(int range) {
+    final int randomNumber = battingGenerator.getRandomNumber(range);
+    if (randomNumber < BULLSEYE_PROBABILITY) {
+      return BULLEYES;
+    }
+    return !BULLEYES;
+  }
+
+  private void makeBullEyesStrike() {
+    final Integer strikeCount = plateAppearances.strikeCount();
+    for (int i = strikeCount; i < BattingResult.OUT.getValue(); i++) {
+      plateAppearances.batting(Batting.STRIKE);
+    }
   }
 }

@@ -5,9 +5,13 @@ import lombok.Getter;
 
 @Getter
 public enum Batting {
-  STRIKE, BALL, HIT, BULLSEYE_STRIKE;
+  STRIKE(0), BALL(1), HIT(2);
 
-  private final static int BATTING_SIZE = 3;
+  private final int value;
+
+  Batting(final int value) {
+    this.value = value;
+  }
 
   public static Batting of(Integer index) {
     Batting[] battings = Batting.values();
@@ -18,6 +22,6 @@ public enum Batting {
   }
 
   public static int getBattingSize() {
-    return BATTING_SIZE;
+    return Batting.values().length;
   }
 }

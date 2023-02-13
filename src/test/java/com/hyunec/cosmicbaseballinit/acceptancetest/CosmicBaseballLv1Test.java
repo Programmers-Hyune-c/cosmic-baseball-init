@@ -27,8 +27,8 @@ class CosmicBaseballLv1Test {
     @Test
     void t1() {
         //given
-        given(battingGenerator.getBullEyesNumber()).willReturn(1);
-        given(battingGenerator.getRandomNumber(Batting.getBattingSize())).willReturn(0);
+        given(battingGenerator.getRandomNumber(10)).willReturn(1);
+        given(battingGenerator.getRandomNumber(Batting.getBattingSize())).willReturn(Batting.STRIKE.getValue());
 
         //when
         baseballService.batting();
