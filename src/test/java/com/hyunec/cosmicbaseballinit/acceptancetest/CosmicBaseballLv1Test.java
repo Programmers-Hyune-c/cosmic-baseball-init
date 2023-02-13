@@ -79,6 +79,14 @@ class CosmicBaseballLv1Test {
     @DisplayName("타격 결과가 bullseye_ball 이면 타석 결과는 hit 됩니다.")
     @Test
     void t5() {
-        throw new RuntimeException("Not yet implemented");
+        //given
+        given(battingGenerator.getRandomNumber(10)).willReturn(1);
+        given(battingGenerator.getRandomNumber(Batting.getBattingSize())).willReturn(Batting.BALL.getValue());
+
+        //when
+        baseballService.batting();
+
+        //then
+        assertThat(baseballService.getBattingResult()).isEqualTo(BattingResult.HIT);
     }
 }
