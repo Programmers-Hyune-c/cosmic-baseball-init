@@ -48,6 +48,7 @@ class NormalBaseballLv1Test {
   void t2() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.BALL);
+    given(battingGenerator.getRandomNumber(10)).willReturn(10);
     baseballService.batting();
     baseballService.batting();
     baseballService.batting();
@@ -64,6 +65,7 @@ class NormalBaseballLv1Test {
   void t3() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.STRIKE);
+    given(battingGenerator.getRandomNumber(10)).willReturn(10);
     baseballService.batting();
     baseballService.batting();
 
@@ -80,6 +82,7 @@ class NormalBaseballLv1Test {
   void t4() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.BALL);
+    given(battingGenerator.getRandomNumber(10)).willReturn(10);
     baseballService.batting();
 
     //when, then
@@ -93,6 +96,7 @@ class NormalBaseballLv1Test {
   void t5() {
     //given
     given(battingGenerator.generator()).willReturn(Batting.STRIKE);
+    given(battingGenerator.getRandomNumber(10)).willReturn(10);
     baseballService.batting();
     baseballService.batting();
     baseballService.batting();
