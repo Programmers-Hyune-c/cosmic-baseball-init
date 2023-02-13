@@ -7,6 +7,7 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingQualifier;
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.score.Score;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class BaseballServiceImpl implements BaseballService {
 
   private final PlateAppearances plateAppearances = new PlateAppearances();
   private final BattingGenerator battingGenerator;
+  private final Score score = new Score();
 
   public BaseballServiceImpl(
       @RandomBattingQualifier final BattingGenerator battingGenerator) {
@@ -83,6 +85,9 @@ public class BaseballServiceImpl implements BaseballService {
       else if (generatedBatting == Batting.BALL) {
         makeBullEyesBall();
       }
+      else if (generatedBatting == Batting.HIT) {
+        makeHomeRun();
+      }
       return BULLEYES;
     }
     return !BULLEYES;
@@ -103,7 +108,15 @@ public class BaseballServiceImpl implements BaseballService {
     }
   }
 
+  private void makeHomeRun() {
+    score.addScore(1);
+  }
+
   private void makeBullEyesBall() {
     plateAppearances.batting(Batting.HIT);
+  }
+
+  public int getScore() {
+    return score.getScore();
   }
 }

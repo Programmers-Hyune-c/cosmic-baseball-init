@@ -57,9 +57,18 @@ class CosmicBaseballLv1Test {
     }
 
     @DisplayName("hit 의 20% 는 homerun 입니다.")
-    @Test
-    void t3() {
-        throw new RuntimeException("Not yet implemented");
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1})
+    void t3(int number) {
+        //given
+        given(battingGenerator.getRandomNumber(10)).willReturn(number);
+        given(battingGenerator.getRandomNumber(Batting.getBattingSize())).willReturn(Batting.HIT.getValue());
+
+        //when
+        baseballService.batting();
+
+        //then
+        assertThat(baseballService.getScore()).isEqualTo(1);
     }
 
     @DisplayName("타격 결과가 bullseye_strike 이면 타석 결과는 out 됩니다.")

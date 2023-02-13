@@ -8,4 +8,5 @@ public interface BaseballService {
   BattingResult getBattingResult();
   NewGameResponse newGame();
   boolean generateRandomNumber(int range);
+  int getScore();
 }
