@@ -38,6 +38,17 @@ public class PlateAppearances {
         return BattingResult.of(battings.get(battings.size() - 1));
     }
 
+    public boolean notYetStarted() {
+        return battings.isEmpty();
+    }
+
+    public boolean isFinished() {
+        if (notYetStarted()) {
+            return false;
+        }
+        return result() == BattingResult.HIT || result() == BattingResult.OUT || result() == BattingResult.FOUR_BALL;
+    }
+
     public void clear() {
         battings.clear();
     }
