@@ -5,7 +5,6 @@ import java.util.Random;
 import org.springframework.stereotype.Component;
 
 @Component
-@RandomBattingQualifier
 public class RandomBattingGenerator implements BattingGenerator {
   private static Random random = new Random();
 

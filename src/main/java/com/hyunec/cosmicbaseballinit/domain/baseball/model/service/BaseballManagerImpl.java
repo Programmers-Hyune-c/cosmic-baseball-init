@@ -6,12 +6,13 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.dto.NewGameResponse;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.BattingGenerator;
-import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.generator.RandomBattingQualifier;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.utils.score.Score;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BaseballManagerImpl implements BaseballManager {
 
   private static final String SUCCESS_NEW_GAME = "다음 게임을 시작합니다";
@@ -23,11 +24,6 @@ public class BaseballManagerImpl implements BaseballManager {
   private final PlateAppearances plateAppearances = new PlateAppearances();
   private final BattingGenerator battingGenerator;
   private final Score score = new Score();
-
-  public BaseballManagerImpl(
-      @RandomBattingQualifier final BattingGenerator battingGenerator) {
-    this.battingGenerator = battingGenerator;
-  }
 
   @Override
   public void batting() {
