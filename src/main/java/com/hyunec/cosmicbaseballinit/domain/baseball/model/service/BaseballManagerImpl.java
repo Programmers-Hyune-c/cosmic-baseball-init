@@ -74,16 +74,19 @@ public class BaseballManagerImpl implements BaseballManager {
   }
 
   private boolean confirmBullEyes(Batting generatedBatting) {
-    if (generateRandomNumber(MAX_PROBABILITY_SIZE)) {
-      if (generatedBatting == Batting.STRIKE) {
-        makeBullEyesStrike();
-      }
-      else if (generatedBatting == Batting.BALL) {
-        makeBullEyesBall();
-      }
-      else if (generatedBatting == Batting.HIT) {
-        makeHomeRun();
-      }
+    if (!generateRandomNumber(MAX_PROBABILITY_SIZE)) {
+      return !BULLEYES;
+    }
+    if (generatedBatting == Batting.STRIKE) {
+      makeBullEyesStrike();
+      return BULLEYES;
+    }
+    if (generatedBatting == Batting.BALL) {
+      makeBullEyesBall();
+      return BULLEYES;
+    }
+    if (generatedBatting == Batting.HIT) {
+      makeHomeRun();
       return BULLEYES;
     }
     return !BULLEYES;
