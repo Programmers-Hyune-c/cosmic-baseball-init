@@ -1,13 +1,37 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 class NormalBaseballLv1Test {
+
     @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
-    @Test
+    @RepeatedTest(value = 100)
+//    @Test
     void t1() {
-        throw new RuntimeException("Not yet implemented");
+        // Given
+        // 확률이 1/n 이고 3만번 시행했을 때 평균인 tc/n 으로부터 신뢰수준 99%을 만족함
+        int tc = 3 * 10000;
+        double deviation = 0.05;
+
+        // When
+        Map<Batting, Integer> counter = new HashMap<>();
+        for (int i = 0; i < tc; i++) {
+            Batting result = Batting.generate();
+            counter.put(result, counter.getOrDefault(result, 0) + 1);
+        }
+
+        int lowerBound = (int) Math.floor((double) (tc / 3) * (1.0 - deviation));
+        int upperBound = (int) Math.floor((double) (tc / 3) * (1.0 + deviation));
+        for (Integer val : counter.values()) {
+            assertThat(val).isBetween(lowerBound, upperBound);
+        }
     }
 
     @DisplayName("3B 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 됩니다.")

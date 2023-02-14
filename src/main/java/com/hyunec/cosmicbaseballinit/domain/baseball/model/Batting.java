@@ -1,9 +1,7 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
-import lombok.Getter;
-
-import java.util.Arrays;
 import java.util.Random;
+import lombok.Getter;
 
 @Getter
 public enum Batting {
@@ -12,9 +10,7 @@ public enum Batting {
     private static final Random random = new Random();
 
     public static Batting generate() {
-        return Arrays.stream(Batting.values())
-                .filter(e -> e.ordinal() == random.nextInt(2) + 1)
-                .findFirst()
-                .orElse(STRIKE);
+        int pick = random.nextInt(Batting.values().length);
+        return Batting.values()[pick];
     }
 }

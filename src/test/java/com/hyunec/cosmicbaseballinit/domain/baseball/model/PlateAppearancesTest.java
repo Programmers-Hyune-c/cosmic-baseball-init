@@ -1,9 +1,10 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.hyunec.cosmicbaseballinit.domain.baseball.repository.PlateAppearances;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class PlateAppearancesTest {
 
