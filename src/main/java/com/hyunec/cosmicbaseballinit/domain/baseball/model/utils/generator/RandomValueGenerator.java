@@ -5,10 +5,10 @@ import java.util.Random;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RandomBattingGenerator implements BattingGenerator {
-  private static Random random = new Random();
+public class RandomValueGenerator {
 
-  @Override
+  private static final Random random = new Random();
+
   public Batting generator() {
     return Batting.of(getRandomNumber(Batting.getBattingSize()));
   }

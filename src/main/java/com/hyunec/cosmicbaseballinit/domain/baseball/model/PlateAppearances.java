@@ -32,7 +32,15 @@ public class PlateAppearances {
         return battings.isEmpty();
     }
 
+
     public void clear() {
         battings.clear();
+    }
+
+    public void makeOut() {
+        final Integer strikeCount = strikeCount();
+        for (int i = strikeCount; i < BattingResult.OUT.getValue(); i++) {
+            batting(Batting.STRIKE);
+        }
     }
 }
