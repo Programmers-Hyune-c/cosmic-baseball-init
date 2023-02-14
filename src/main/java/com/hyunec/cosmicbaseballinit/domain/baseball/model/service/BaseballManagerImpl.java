@@ -19,7 +19,7 @@ public class BaseballManagerImpl implements BaseballManager {
   private static final boolean END_GAME = true;
   private static final int MAX_PROBABILITY_SIZE = 10;
   private static final int BULLSEYE_PROBABILITY = 2;
-  private static final boolean BULLEYES = true;
+  private static final boolean BULLSEYES = true;
 
   private final PlateAppearances plateAppearances = new PlateAppearances();
   private final BattingGenerator battingGenerator;
@@ -31,7 +31,7 @@ public class BaseballManagerImpl implements BaseballManager {
       return;
     }
     Batting generateValue = battingGenerator.generator();
-    if (confirmBullEyes(generateValue))
+    if (confirmBullsEyes(generateValue))
       return;
     plateAppearances.batting(generateValue);
   }
@@ -73,34 +73,34 @@ public class BaseballManagerImpl implements BaseballManager {
     return !END_GAME;
   }
 
-  private boolean confirmBullEyes(Batting generatedBatting) {
+  private boolean confirmBullsEyes(Batting generatedBatting) {
     if (!generateRandomNumber(MAX_PROBABILITY_SIZE)) {
-      return !BULLEYES;
+      return !BULLSEYES;
     }
     if (generatedBatting == Batting.STRIKE) {
-      makeBullEyesStrike();
-      return BULLEYES;
+      makeBullsEyesStrike();
+      return BULLSEYES;
     }
     if (generatedBatting == Batting.BALL) {
-      makeBullEyesBall();
-      return BULLEYES;
+      makeBullsEyesBall();
+      return BULLSEYES;
     }
     if (generatedBatting == Batting.HIT) {
       makeHomeRun();
-      return BULLEYES;
+      return BULLSEYES;
     }
-    return !BULLEYES;
+    return !BULLSEYES;
   }
 
   public boolean generateRandomNumber(int range) {
     final int randomNumber = battingGenerator.getRandomNumber(range);
     if (randomNumber < BULLSEYE_PROBABILITY) {
-      return BULLEYES;
+      return BULLSEYES;
     }
-    return !BULLEYES;
+    return !BULLSEYES;
   }
 
-  private void makeBullEyesStrike() {
+  private void makeBullsEyesStrike() {
     final Integer strikeCount = plateAppearances.strikeCount();
     for (int i = strikeCount; i < BattingResult.OUT.getValue(); i++) {
       plateAppearances.batting(Batting.STRIKE);
@@ -111,7 +111,7 @@ public class BaseballManagerImpl implements BaseballManager {
     score.addScore(1);
   }
 
-  private void makeBullEyesBall() {
+  private void makeBullsEyesBall() {
     plateAppearances.batting(Batting.HIT);
   }
 
