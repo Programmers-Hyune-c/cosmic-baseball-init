@@ -9,19 +9,20 @@ import java.util.Random;
 @Getter
 
 public enum Batting {
-	STRIKE,HIT, BALL;
-	private static final Random random = new Random();
+    STRIKE, HIT, BALL;
+    private static final Random random = new Random();
 
-	public static Batting generate() {
-		int nResult = random.nextInt(3) + 1;
-		if(nResult == 1) {
-			return STRIKE;
-		} else if(nResult == 2) {
-			return BALL;
-		} else {
-			return HIT;
-		}
-	}
+    public static Batting generate() {
+        int nResult = random.nextInt(3) + 1;
+        switch (nResult) {
+            case 1:
+                return STRIKE;
+            case 2:
+                return BALL;
+            default:
+                return HIT;
+        }
+    }
 
 
 }
