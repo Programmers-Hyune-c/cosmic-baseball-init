@@ -11,29 +11,26 @@ public class BullseyeManager {
 
   private static final int MAX_PROBABILITY_SIZE = 10;
   private static final int BULLSEYE_PROBABILITY = 2;
-  private static final boolean BULLSEYE = true;
   private final RandomValueGenerator randomValueGenerator;
+
   public BullseyeState confirmBullseye(Batting generatedBatting) {
     if (!generateRandomNumber(MAX_PROBABILITY_SIZE)) {
       return BullseyeState.NOT_BULLSEYE;
     }
-    if (generatedBatting == Batting.STRIKE) {
-      return BullseyeState.BULLSEYE_STRIKE;
+    switch (generatedBatting) {
+      case STRIKE:
+        return BullseyeState.BULLSEYE_STRIKE;
+      case HIT:
+        return BullseyeState.HOME_RUN;
+      case BALL:
+        return BullseyeState.BULLSEYE_BALL;
+      default:
+        return BullseyeState.NOT_BULLSEYE;
     }
-    if (generatedBatting == Batting.BALL) {
-      return BullseyeState.BULLSEYE_BALL;
-    }
-    if (generatedBatting == Batting.HIT) {
-      return BullseyeState.HOME_RUN;
-    }
-    return BullseyeState.NOT_BULLSEYE;
   }
 
   public boolean generateRandomNumber(int range) {
-      final int randomNumber = randomValueGenerator.getRandomNumber(range);
-      if (randomNumber < BULLSEYE_PROBABILITY) {
-        return BULLSEYE;
-      }
-      return !BULLSEYE;
+    final int randomNumber = randomValueGenerator.getRandomNumber(range);
+    return randomNumber < BULLSEYE_PROBABILITY;
   }
 }

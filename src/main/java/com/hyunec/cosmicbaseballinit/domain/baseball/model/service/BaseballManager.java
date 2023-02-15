@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class BaseballManager{
 
   private static final String SUCCESS_NEW_GAME = "다음 게임을 시작합니다";
-  private static final boolean END_GAME = true;
   private final PlateAppearances plateAppearances = new PlateAppearances();
   private final Score score = new Score();
   private final BullseyeManager bullseyeManager;
@@ -66,11 +65,13 @@ public class BaseballManager{
   }
 
   private boolean checkFourBallOrOut() {
-    BattingResult result = getBattingResult();
-    if (result == BattingResult.OUT || result == BattingResult.FOUR_BALL) {
-      return END_GAME;
+    switch (getBattingResult()) {
+      case OUT:
+      case  FOUR_BALL:
+        return true;
+      default:
+        return false;
     }
-    return !END_GAME;
   }
 
   public void doBullseye(final BullseyeState bullseyeState) {
