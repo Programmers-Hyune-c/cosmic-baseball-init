@@ -18,8 +18,8 @@ public class PlateAppearances {
     private final Map<String, String> player = new HashMap<String, String>();
 
     private static PlateAppearances pa;
-    Integer totOut = 0;
-    boolean bPlaying = false;
+    Integer totalOut = 0;
+    boolean isPlaying = false;
 
     public PlateAppearances() {
         player.put("1player", "N"); //N 게임 미진행, U: 게임진행중, E: 게임끝
@@ -35,19 +35,19 @@ public class PlateAppearances {
     }
 
     public boolean getPlaying() {
-        return this.bPlaying;
+        return this.isPlaying;
     }
 
     public void setPlaying(boolean is) {
-        this.bPlaying = is;
+        this.isPlaying = is;
     }
 
-    public Integer getTotOutCount() {
-        return this.totOut;
+    public Integer gettotalOutCount() {
+        return this.totalOut;
     }
 
-    public void setTotOutCount() {
-        this.totOut++;
+    public void settotalOutCount() {
+        this.totalOut++;
     }
 
     public void batting(final Batting batting) {
@@ -83,7 +83,7 @@ public class PlateAppearances {
 
     //1플레이어 OUT 체크
     public boolean getPlayCheck() {
-        if (bPlaying) {
+        if (isPlaying) {
             return true;
         }
         return false;
@@ -103,38 +103,36 @@ public class PlateAppearances {
         setPlaying(true);
 
         if(fourBallCheck()){
-            setTotOutCount();
+            settotalOutCount();
             battings.clear();
             setPlaying(false);
 
             //3OUT - NEW CHANGE GAME
-            if(getTotOutCount() == 3) {
-                this.totOut = 0;
+            if(gettotalOutCount() == 3) {
+                this.totalOut = 0;
             }
             return;
         }
         pa.batting(Batting.generate());	//4볼이나 OUT이 아니면 리스트에 계속 담는다 > 플레이어 끝
         batting();
     }
-    public void newGame(String str) {
+  
+
+    public String newGame(String str) {
         if("force".equals(str)) {
-            totOut = 0;
+            totalOut = 0;
             battings.clear();
+            return null;
         }
-    }
-
-    public String newGame() {
-
         if(fourBallCheck()) {
-            totOut = 0;
+            totalOut = 0;
             battings.clear();
 //            throw new IllegalStateException(ExceptionMessage.CANNOT_PROCEED_ATBAT);
             return ExceptionMessage.NEW_GAME_START;
 
-        } else {
-//            throw new IllegalStateException(ExceptionMessage.NEW_GAME_START);
+        } 
             return ExceptionMessage.CANNOT_PROCEED_ATBAT;
-        }
+        
 
     }
 

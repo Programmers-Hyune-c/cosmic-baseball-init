@@ -108,7 +108,7 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("STRIKE"));
         pa.batting(Batting.valueOf("BALL"));
         //when, then
-        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.CANNOT_PROCEED_ATBAT);
+        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.CANNOT_PROCEED_ATBAT);
         pa.newGame("force");
     }
 
@@ -124,7 +124,7 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("BALL"));
 
         //when, then
-        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.NEW_GAME_START);
+        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.NEW_GAME_START);
 
     }
 }
