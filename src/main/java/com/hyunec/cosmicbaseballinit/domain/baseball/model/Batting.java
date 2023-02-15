@@ -15,10 +15,6 @@ public enum Batting {
   }
 
   public static Batting of(Integer index) {
-    final int length = Batting.values().length;
-    if (index > length || index < 0) {
-      throw new IllegalArgumentException(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
-    }
     return Arrays.stream(Batting.values()).filter(batting -> batting.getValue() == index)
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.NO_MATCH_BATTING_VALUE));

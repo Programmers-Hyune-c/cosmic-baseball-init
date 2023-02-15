@@ -1,18 +1,14 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class BattingTest {
 
-  @DisplayName("Batting값을 변환하려는 수는 Batting의 size 보다 클 수 없고 0보다 커야합니다.")
+  @DisplayName("Batting값을 변환하려는 수는 Batting에 있는 값에 속해있어야 합니다.")
   @Test
   void atBattingOfIsBiggerThanZeroOrSmallerThanBattingSize() {
     //given
@@ -22,11 +18,11 @@ class BattingTest {
     //when, then
     assertThatThrownBy(() -> Batting.of(number1))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageContaining(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
+        .hasMessageContaining(ExceptionMessage.NO_MATCH_BATTING_VALUE);
 
     assertThatThrownBy(() -> Batting.of(number2))
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageContaining(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
+        .hasMessageContaining(ExceptionMessage.NO_MATCH_BATTING_VALUE);
   }
 
 }
