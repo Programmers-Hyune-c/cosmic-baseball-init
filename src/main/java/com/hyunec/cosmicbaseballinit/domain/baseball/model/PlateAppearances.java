@@ -23,8 +23,6 @@ public class PlateAppearances {
 
     public PlateAppearances() {
         player.put("1player", "N"); //N 게임 미진행, U: 게임진행중, E: 게임끝
-        //player.put("2player", "N"); //N 게임 미진행, U: 게임진행중, E: 게임끝
-        //player.put("3player", "N"); //N 게임 미진행, U: 게임진행중, E: 게임끝
     }
 
     public static synchronized PlateAppearances getInstance() {
