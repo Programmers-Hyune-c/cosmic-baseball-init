@@ -3,18 +3,21 @@ package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.exception.ExceptionMessage;
 import java.util.Arrays;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 public enum Batting {
-  STRIKE, BALL, HIT;
+  STRIKE(0), BALL(1), HIT(2);
+
+  private final int value;
+
+  Batting(final int value) {
+    this.value = value;
+  }
 
   public static Batting of(Integer index) {
-    Batting[] battings = Batting.values();
-    if (index > battings.length || index < 0) {
-      throw new IllegalArgumentException(ExceptionMessage.VALUE_MUST_BE_SMALLER_THAN_BATTING_SIZE);
-    }
-    return battings[index];
+    return Arrays.stream(Batting.values()).filter(batting -> batting.getValue() == index)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.NO_MATCH_BATTING_VALUE));
   }
 
   public static int getBattingSize() {
