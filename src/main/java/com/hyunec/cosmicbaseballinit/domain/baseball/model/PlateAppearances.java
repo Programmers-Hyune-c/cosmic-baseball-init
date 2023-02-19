@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
 import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 
+@Getter
+
 @Component
 public class PlateAppearances {
 
@@ -18,6 +21,7 @@ public class PlateAppearances {
     private final Map<String, String> player = new HashMap<String, String>();
 
     private static PlateAppearances pa;
+
     Integer totalOut = 0;
     boolean isPlaying = false;
 
@@ -32,17 +36,17 @@ public class PlateAppearances {
         return pa;
     }
 
-    public boolean getPlaying() {
-        return this.isPlaying;
-    }
+//    public boolean getPlaying() {
+//        return this.isPlaying;
+//    }
 
     public void setPlaying(boolean is) {
         this.isPlaying = is;
     }
 
-    public Integer gettotalOutCount() {
-        return this.totalOut;
-    }
+//    public Integer gettotalOut() {
+//        return this.totalOut;
+//    }
 
     public void settotalOutCount() {
         this.totalOut++;
@@ -106,7 +110,7 @@ public class PlateAppearances {
             setPlaying(false);
 
             //3OUT - NEW CHANGE GAME
-            if(gettotalOutCount() == 3) {
+            if(getTotalOut() == 3) {
                 this.totalOut = 0;
             }
             return;
@@ -125,7 +129,6 @@ public class PlateAppearances {
         if(fourBallCheck()) {
             totalOut = 0;
             battings.clear();
-//            throw new IllegalStateException(ExceptionMessage.CANNOT_PROCEED_ATBAT);
             return ExceptionMessage.NEW_GAME_START;
 
         } 
