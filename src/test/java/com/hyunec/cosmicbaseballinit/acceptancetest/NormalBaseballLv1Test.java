@@ -110,14 +110,14 @@ class NormalBaseballLv1Test {
     void t4() {
 
         //given
-        PlateAppearances pa = PlateAppearances.getInstance();
+        PlateAppearances pa = new PlateAppearances();
         pa.batting(Batting.valueOf("STRIKE"));
         pa.batting(Batting.valueOf("BALL"));
         pa.batting(Batting.valueOf("BALL"));
         pa.batting(Batting.valueOf("STRIKE"));
         pa.batting(Batting.valueOf("BALL"));
         //when, then
-        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.CANNOT_PROCEED_ATBAT);
+        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.CANNOT_PROCEED_NEWGAME);
         pa.newGame("force");
     }
 
@@ -127,7 +127,7 @@ class NormalBaseballLv1Test {
     void t5() {
 
         //given
-        PlateAppearances pa = PlateAppearances.getInstance();
+        PlateAppearances pa = new PlateAppearances();
         pa.batting(Batting.valueOf("BALL"));
         pa.batting(Batting.valueOf("BALL"));
         pa.batting(Batting.valueOf("BALL"));
