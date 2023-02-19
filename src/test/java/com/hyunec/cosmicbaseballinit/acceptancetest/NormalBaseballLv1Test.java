@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.baseball.model.PlateAppearances;
@@ -17,12 +18,14 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 
 import java.util.Random;
 
+
 class NormalBaseballLv1Test {
 
 
     @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
     @Test
     void t1() {
+
         int nDefalutNo = 100;
         Random random = new Random();
         int n1 = 0, n2 = 0, n3 = 0;
@@ -61,11 +64,13 @@ class NormalBaseballLv1Test {
             answer = true;
         }
         return answer;
+
     }
 
     @DisplayName("3B 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 됩니다.")
     @Test
     void t2() {
+
         String battingType = "BALL";
 
         //given : 3B 타석
@@ -79,11 +84,13 @@ class NormalBaseballLv1Test {
 
         // then : 4ball 이 됨.
         assertThat(pa.result()).isEqualTo(BattingResult.FOUR_BALL);
+
     }
 
     @DisplayName("2S 타석에서 타격 결과가 strike 이면 타석 결과는 out 됩니다.")
     @Test
     void t3() {
+
         String battingType = "STRIKE";
         //given : 2S 타석
         PlateAppearances pa = new PlateAppearances();
@@ -95,11 +102,13 @@ class NormalBaseballLv1Test {
 
         //then : 타석결과는 out 인지 검증
         assertThat(pa.result()).isEqualTo(BattingResult.OUT);
+
     }
 
     @DisplayName("진행 중인 타석이 있는 상태에서 새로운 타석을 진행할 수 없습니다.")
     @Test
     void t4() {
+
         //given
         PlateAppearances pa = PlateAppearances.getInstance();
         pa.batting(Batting.valueOf("STRIKE"));
@@ -116,6 +125,7 @@ class NormalBaseballLv1Test {
     @DisplayName("타석이 종료되면 초기화하여 새로 진행할 수 있습니다.")
     @Test
     void t5() {
+
         //given
         PlateAppearances pa = PlateAppearances.getInstance();
         pa.batting(Batting.valueOf("BALL"));
