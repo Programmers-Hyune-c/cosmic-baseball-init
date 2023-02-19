@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,42 +14,31 @@ import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE
 import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 
 @Getter
-
+@RequiredArgsConstructor
 @Component
 public class PlateAppearances {
 
     private final List<Batting> battings = new ArrayList<>();
-    private final Map<String, String> player = new HashMap<String, String>();
+    private final Map<String, String> players = new HashMap<String, String>();
 
-    private static PlateAppearances pa;
+//    private static PlateAppearances pa;
 
     Integer totalOut = 0;
     boolean isPlaying = false;
 
-    public PlateAppearances() {
-        player.put("1player", "N"); //N 게임 미진행, U: 게임진행중, E: 게임끝
-    }
 
-    public static synchronized PlateAppearances getInstance() {
-        if(pa == null) {
-            pa = new PlateAppearances();
-        }
-        return pa;
-    }
-
-//    public boolean getPlaying() {
-//        return this.isPlaying;
+//    public static synchronized PlateAppearances getInstance() {
+//        if(pa == null) {
+//            pa = new PlateAppearances();
+//        }
+//        return pa;
 //    }
 
     public void setPlaying(boolean is) {
         this.isPlaying = is;
     }
 
-//    public Integer gettotalOut() {
-//        return this.totalOut;
-//    }
-
-    public void settotalOutCount() {
+    public void setTotalOut() {
         this.totalOut++;
     }
 
@@ -83,18 +73,12 @@ public class PlateAppearances {
         battings.clear();
     }
 
-    //1플레이어 OUT 체크
-    public boolean getPlayCheck() {
-        if (isPlaying) {
-            return true;
-        }
-        return false;
-    }
+
 
     public boolean fourBallCheck() {
         boolean isFourBallorOut = false;
-        if(!(pa.strikeCount() == 0 && pa.ballCount() == 0)) {
-            if(pa.result().equals(BattingResult.FOUR_BALL) || pa.result().equals(BattingResult.OUT)) {
+        if(!(strikeCount() == 0 && ballCount() == 0)) {
+            if(result().equals(BattingResult.FOUR_BALL) || result().equals(BattingResult.OUT)) {
                 isFourBallorOut = true;
             }
         }
@@ -105,7 +89,7 @@ public class PlateAppearances {
         setPlaying(true);
 
         if(fourBallCheck()){
-            settotalOutCount();
+            setTotalOut();
             battings.clear();
             setPlaying(false);
 
@@ -115,7 +99,7 @@ public class PlateAppearances {
             }
             return;
         }
-        pa.batting(Batting.generate());	//4볼이나 OUT이 아니면 리스트에 계속 담는다 > 플레이어 끝
+        batting(Batting.generate());	//4볼이나 OUT이 아니면 리스트에 계속 담는다 > 플레이어 끝
         batting();
     }
   
@@ -130,11 +114,8 @@ public class PlateAppearances {
             totalOut = 0;
             battings.clear();
             return ExceptionMessage.NEW_GAME_START;
-
-        } 
-            return ExceptionMessage.CANNOT_PROCEED_ATBAT;
-        
-
+        }
+            return ExceptionMessage.CANNOT_PROCEED_NEWGAME;
     }
 
 }
