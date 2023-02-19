@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
+
 import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 
 @Getter
@@ -34,16 +35,16 @@ public class PlateAppearances {
 //        return pa;
 //    }
 
-    public void setPlaying(boolean is) {
-        this.isPlaying = is;
-    }
-
-    public void setTotalOut() {
-        this.totalOut++;
-    }
+//    public void setPlaying(boolean is) {
+//        this.isPlaying = is;
+//    }
+//
+//    public void setTotalOut() {
+//        this.totalOut++;
+//    }
 
     public void batting(final Batting batting) {
-        setPlaying(true);
+        this.isPlaying = true;
         battings.add(batting);
     }
 
@@ -57,12 +58,12 @@ public class PlateAppearances {
 
     public BattingResult result() {
         if (strikeCount().equals(BattingResult.OUT.getValue())) {
-            setPlaying(false);
+            this.isPlaying = false;
             return BattingResult.OUT;
         }
 
         if (ballCount().equals(BattingResult.FOUR_BALL.getValue())) {
-            setPlaying(false);
+            this.isPlaying = false;
             return BattingResult.FOUR_BALL;
         }
 
@@ -74,48 +75,47 @@ public class PlateAppearances {
     }
 
 
-
     public boolean fourBallCheck() {
         boolean isFourBallorOut = false;
-        if(!(strikeCount() == 0 && ballCount() == 0)) {
-            if(result().equals(BattingResult.FOUR_BALL) || result().equals(BattingResult.OUT)) {
+        if (!(strikeCount() == 0 && ballCount() == 0)) {
+            if (result().equals(BattingResult.FOUR_BALL) || result().equals(BattingResult.OUT)) {
                 isFourBallorOut = true;
             }
         }
         return isFourBallorOut;
     }
 
-    public void batting () {
-        setPlaying(true);
+    public void batting() {
+        this.isPlaying = true;
 
-        if(fourBallCheck()){
-            setTotalOut();
+        if (fourBallCheck()) {
+            totalOut++;
             battings.clear();
-            setPlaying(false);
+            this.isPlaying = false;
 
             //3OUT - NEW CHANGE GAME
-            if(getTotalOut() == 3) {
+            if (getTotalOut() == 3) {
                 this.totalOut = 0;
             }
             return;
         }
-        batting(Batting.generate());	//4볼이나 OUT이 아니면 리스트에 계속 담는다 > 플레이어 끝
+        batting(Batting.generate());    //4볼이나 OUT이 아니면 리스트에 계속 담는다 > 플레이어 끝
         batting();
     }
-  
+
 
     public String newGame(String str) {
-        if("force".equals(str)) {
+        if ("force".equals(str)) {
             totalOut = 0;
             battings.clear();
             return null;
         }
-        if(fourBallCheck()) {
+        if (fourBallCheck()) {
             totalOut = 0;
             battings.clear();
             return ExceptionMessage.NEW_GAME_START;
         }
-            return ExceptionMessage.CANNOT_PROCEED_NEWGAME;
+        return ExceptionMessage.CANNOT_PROCEED_NEWGAME;
     }
 
 }
