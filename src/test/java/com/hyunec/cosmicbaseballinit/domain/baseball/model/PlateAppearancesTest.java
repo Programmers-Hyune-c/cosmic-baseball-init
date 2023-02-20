@@ -23,6 +23,7 @@ class PlateAppearancesTest {
         assertThat(plateAppearances.result()).isEqualTo(BattingResult.OUT);
     }
 
+    
     @DisplayName("타석 결과 - 포볼")
     @Test
     void atBatResultsFourBall() {
