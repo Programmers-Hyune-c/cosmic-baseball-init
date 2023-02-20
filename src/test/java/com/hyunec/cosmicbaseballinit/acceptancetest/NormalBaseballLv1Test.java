@@ -53,18 +53,13 @@ class NormalBaseballLv1Test {
         );
 
         boolean result = compareThreeValues((int) n1, (int) n2, (int) n3);
-        assertEquals(result, true);
+        assertThat(result).isEqualTo(true);
     }
 
     public static boolean compareThreeValues(int n1, int n2, int n3) {
-        boolean answer = false;
         boolean equation1 = 0 <= Math.abs(n2 - n1) / 100 && Math.abs(n2 - n1) / 100 < 5;
         boolean equation2 = 0 <= Math.abs(n3 - n2) / 100 && Math.abs(n3 - n2) / 100 < 5;
-        if (equation1 && equation2) {
-            answer = true;
-        }
-        return answer;
-
+        return equation1 && equation2;
     }
 
     @DisplayName("3B 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 됩니다.")
@@ -117,8 +112,8 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("STRIKE"));
         pa.batting(Batting.valueOf("BALL"));
         //when, then
-        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.CANNOT_PROCEED_NEWGAME);
-        pa.newGame("force");
+        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.CANNOT_PROCEED_NEWGAME);
+//        pa.newGame("force");
     }
 
 
@@ -134,7 +129,7 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("BALL"));
 
         //when, then
-        assertThat(pa.newGame("")).isEqualTo(ExceptionMessage.NEW_GAME_START);
+        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.NEW_GAME_START);
 
     }
 }
