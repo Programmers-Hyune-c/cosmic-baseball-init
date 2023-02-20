@@ -3,15 +3,12 @@ package com.hyunec.cosmicbaseballinit.domain.baseball.model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.baseball.model.Batting.STRIKE;
-
 import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 
 @Getter
@@ -21,11 +18,8 @@ public class PlateAppearances {
 
     private final List<Batting> battings = new ArrayList<>();
     private final Map<String, String> players = new HashMap<String, String>();
-
-
     Integer totalOut = 0;
     boolean isPlaying = false;
-
 
     public void batting(final Batting batting) {
         this.isPlaying = true;
@@ -54,11 +48,6 @@ public class PlateAppearances {
         return BattingResult.of(battings.get(battings.size() - 1));
     }
 
-    public void clear() {
-        battings.clear();
-    }
-
-
     public boolean fourBallCheck() {
         boolean isFourBallorOut = false;
         if(strikeCount() ==0 && ballCount()==0) return false;
@@ -69,14 +58,10 @@ public class PlateAppearances {
 
     public void batting() {
         this.isPlaying = true;
-
-
-
         if (fourBallCheck()) {
             totalOut++;
             battings.clear();
             this.isPlaying = false;
-
             //3OUT - NEW CHANGE GAME
             if (getTotalOut() == 3) {
                 this.totalOut = 0;
