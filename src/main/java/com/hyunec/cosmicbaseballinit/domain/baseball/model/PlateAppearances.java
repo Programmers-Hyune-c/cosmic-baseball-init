@@ -22,26 +22,10 @@ public class PlateAppearances {
     private final List<Batting> battings = new ArrayList<>();
     private final Map<String, String> players = new HashMap<String, String>();
 
-//    private static PlateAppearances pa;
 
     Integer totalOut = 0;
     boolean isPlaying = false;
 
-
-//    public static synchronized PlateAppearances getInstance() {
-//        if(pa == null) {
-//            pa = new PlateAppearances();
-//        }
-//        return pa;
-//    }
-
-//    public void setPlaying(boolean is) {
-//        this.isPlaying = is;
-//    }
-//
-//    public void setTotalOut() {
-//        this.totalOut++;
-//    }
 
     public void batting(final Batting batting) {
         this.isPlaying = true;
@@ -77,16 +61,16 @@ public class PlateAppearances {
 
     public boolean fourBallCheck() {
         boolean isFourBallorOut = false;
-        if (!(strikeCount() == 0 && ballCount() == 0)) {
-            if (result().equals(BattingResult.FOUR_BALL) || result().equals(BattingResult.OUT)) {
-                isFourBallorOut = true;
-            }
-        }
+        if(strikeCount() ==0 && ballCount()==0) return false;
+        if (result().equals(BattingResult.FOUR_BALL) || result().equals(BattingResult.OUT)) return true;
         return isFourBallorOut;
+
     }
 
     public void batting() {
         this.isPlaying = true;
+
+
 
         if (fourBallCheck()) {
             totalOut++;
@@ -104,18 +88,19 @@ public class PlateAppearances {
     }
 
 
-    public String newGame(String str) {
-        if ("force".equals(str)) {
-            totalOut = 0;
-            battings.clear();
-            return null;
-        }
+    public String newGame() {
         if (fourBallCheck()) {
             totalOut = 0;
             battings.clear();
-            return ExceptionMessage.NEW_GAME_START;
+            return discriminateNewGame(true);
         }
-        return ExceptionMessage.CANNOT_PROCEED_NEWGAME;
+        return discriminateNewGame(false);
+    }
+
+    //새 게임인지 여부 판별하는 메서드
+    public String discriminateNewGame(boolean isNewGame){
+        if(isNewGame) return ExceptionMessage.NEW_GAME_START;
+        else return ExceptionMessage.CANNOT_PROCEED_NEWGAME;
     }
 
 }
