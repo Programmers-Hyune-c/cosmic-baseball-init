@@ -15,7 +15,6 @@ import com.hyunec.cosmicbaseballinit.domain.baseball.exception.ExceptionMessage;
 @RequiredArgsConstructor
 @Component
 public class PlateAppearances {
-
     private final List<Batting> battings = new ArrayList<>();
     private final Map<String, String> players = new HashMap<String, String>();
     Integer totalOut = 0;
