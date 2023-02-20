@@ -2,6 +2,7 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,7 +22,13 @@ import java.util.Random;
 
 class NormalBaseballLv1Test {
 
+   public static boolean isTrue(){
+        return true;
+    }
 
+    public static boolean isFalse(){
+        return false;
+    }
     @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
     @Test
     void t1() {
@@ -53,7 +60,7 @@ class NormalBaseballLv1Test {
         );
 
         boolean result = compareThreeValues((int) n1, (int) n2, (int) n3);
-        assertThat(result).isEqualTo(true);
+        assertThat(result).isEqualTo(isTrue());
     }
 
     public static boolean compareThreeValues(int n1, int n2, int n3) {
@@ -112,14 +119,14 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("STRIKE"));
         pa.batting(Batting.valueOf("BALL"));
         //when, then
-        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.CANNOT_PROCEED_NEWGAME);
-//        pa.newGame("force");
+        assertThatThrownBy(()->pa.newGame())
+                .hasMessage("현재 타석이 진행중이라, 새로운 게임이 불가능 합니다.");
     }
 
 
     @DisplayName("타석이 종료되면 초기화하여 새로 진행할 수 있습니다.")
     @Test
-    void t5() {
+    void t5() throws Exception {
 
         //given
         PlateAppearances pa = new PlateAppearances();
@@ -129,7 +136,7 @@ class NormalBaseballLv1Test {
         pa.batting(Batting.valueOf("BALL"));
 
         //when, then
-        assertThat(pa.newGame()).isEqualTo(ExceptionMessage.NEW_GAME_START);
+        assertThat(pa.newGame()).isEqualTo(isTrue());
 
     }
 }
