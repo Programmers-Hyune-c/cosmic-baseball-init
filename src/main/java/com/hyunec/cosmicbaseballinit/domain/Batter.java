@@ -1,6 +1,6 @@
-package com.hyunec.cosmicbaseballinit;
+package com.hyunec.cosmicbaseballinit.domain;
 
-import static com.hyunec.cosmicbaseballinit.BattingResult.*;
+import static com.hyunec.cosmicbaseballinit.domain.BattingResult.*;
 
 import java.util.Random;
 
@@ -8,10 +8,10 @@ public class Batter {
 	private Random random = new Random();
 
 	public BattingResult hit() {
-		return getBattingResult();
+		return getResult();
 	}
 
-	private BattingResult getBattingResult() {
+	private BattingResult getResult() {
 		BattingResult result = null;
 		int randomNumber = random.nextInt(3);
 		switch (randomNumber) {
