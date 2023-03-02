@@ -29,7 +29,7 @@
     - spring data jpa 를 권장합니다. native query, mybatis, querydsl 은 권장하지 않습니다.
 
 ## Requirement
-
+ 
 - 플레이어는 타자로만 플레이 합니다.
 - 1개의 게임은 1개의 타석으로 구성 됩니다.
 
