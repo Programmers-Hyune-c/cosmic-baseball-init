@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.service;
 
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.BALL;
+import static com.hyunec.cosmicbaseballinit.service.BattingResult.DOUBLE_STRIKE;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.HIT;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.STRIKE;
 
@@ -15,17 +16,19 @@ public class BattingService {
     private final Random random;
 
     public BattingResult hit() {
-        return getResult();
+        return getBattingResult();
     }
 
-    private BattingResult getResult() {
-        switch (random.nextInt(3)) {
+    private BattingResult getBattingResult() {
+        switch (random.nextInt(4)) {
             case 0:
                 return STRIKE;
             case 1:
                 return HIT;
-            default:
+            case 2:
                 return BALL;
+            default:
+                return DOUBLE_STRIKE;
         }
     }
 }
