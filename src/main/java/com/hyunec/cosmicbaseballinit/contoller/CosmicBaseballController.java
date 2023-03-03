@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class CosmicBaseballContoroller {
+public class CosmicBaseballController {
 	private final ComicBaseballService baseballService;
 
 	@GetMapping("/batting")
