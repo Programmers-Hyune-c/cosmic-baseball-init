@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
+
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.BALL;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.HIT;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.STRIKE;
@@ -9,9 +10,11 @@ import com.hyunec.cosmicbaseballinit.service.BattingResult;
 import com.hyunec.cosmicbaseballinit.util.RandomFactory;
 import java.util.Random;
 import org.assertj.core.data.Percentage;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
 
 class NormalBaseballLv1Test extends ResultCount {
 
@@ -45,4 +48,5 @@ class NormalBaseballLv1Test extends ResultCount {
                 return BALL;
         }
     }
+
 }

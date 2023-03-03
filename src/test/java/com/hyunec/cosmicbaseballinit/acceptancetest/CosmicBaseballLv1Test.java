@@ -1,5 +1,6 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
+
 import static com.hyunec.cosmicbaseballinit.service.BallCountService.COUNT_STORE;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.BALL;
 import static com.hyunec.cosmicbaseballinit.service.BattingResult.DOUBLE_STRIKE;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
 
 class CosmicBaseballLv1Test extends ResultCount {
 
@@ -111,5 +113,4 @@ class CosmicBaseballLv1Test extends ResultCount {
     private void resetStore() {
         COUNT_STORE.keySet().forEach(key -> COUNT_STORE.put(key, 0));
     }
-
 }
