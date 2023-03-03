@@ -1,8 +1,9 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.Random;
 
-import org.assertj.core.api.Assertions;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,7 @@ class NormalBaseballLv1Test {
 		int count = 0;
 		count = getBattingResultCount(battingResult.ordinal() , count);
 
-		Assertions.assertThat(count).isCloseTo(33_300, Percentage.withPercentage(1));
+		assertThat(count).isCloseTo(33_300, Percentage.withPercentage(1));
 	}
 
 	@DisplayName("타격 결과는 strike, ball, hit 입니다.")

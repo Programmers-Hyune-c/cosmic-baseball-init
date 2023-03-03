@@ -4,26 +4,24 @@ import static com.hyunec.cosmicbaseballinit.domain.BattingResult.*;
 
 import java.util.Random;
 
+import com.hyunec.cosmicbaseballinit.util.NumberFactory;
+
 public class Batter {
-	private Random random = new Random();
+
+	private final Random random = NumberFactory.getInstance();
 
 	public BattingResult hit() {
 		return getResult();
 	}
 
 	private BattingResult getResult() {
-		BattingResult result = null;
-		int randomNumber = random.nextInt(3);
-		switch (randomNumber) {
+		switch (random.nextInt(3)) {
 			case 0:
-				result = STRIKE;
-				break;
+				return STRIKE;
 			case 1:
-				result = HIT;
-				break;
+				return HIT;
 			default:
-				result = BALL;
+				return BALL;
 		}
-		return result;
 	}
 }
