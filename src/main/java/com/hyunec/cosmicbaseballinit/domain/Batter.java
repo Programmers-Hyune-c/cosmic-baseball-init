@@ -4,8 +4,10 @@ import static com.hyunec.cosmicbaseballinit.domain.BattingResult.*;
 
 import java.util.Random;
 
-import com.hyunec.cosmicbaseballinit.util.NumberFactory;
+import org.springframework.stereotype.Component;
 
+import com.hyunec.cosmicbaseballinit.util.NumberFactory;
+@Component
 public class Batter {
 
 	private final Random random = NumberFactory.getInstance();
