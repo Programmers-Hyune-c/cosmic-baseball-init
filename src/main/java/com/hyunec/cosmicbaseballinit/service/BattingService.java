@@ -1,8 +1,8 @@
-package com.hyunec.cosmicbaseballinit.domain;
+package com.hyunec.cosmicbaseballinit.service;
 
-import static com.hyunec.cosmicbaseballinit.domain.BattingResult.BALL;
-import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
-import static com.hyunec.cosmicbaseballinit.domain.BattingResult.STRIKE;
+import static com.hyunec.cosmicbaseballinit.service.BattingResult.BALL;
+import static com.hyunec.cosmicbaseballinit.service.BattingResult.HIT;
+import static com.hyunec.cosmicbaseballinit.service.BattingResult.STRIKE;
 
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class Batter {
+public class BattingService {
 
     private final Random random;
 
