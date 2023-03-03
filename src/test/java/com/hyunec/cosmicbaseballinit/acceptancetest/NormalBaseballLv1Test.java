@@ -24,7 +24,6 @@ class NormalBaseballLv1Test {
 	}
 
 	@DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
-	@Test
 	@RepeatedTest(10)
 	void t1() {
 		Batter batter = new Batter();
