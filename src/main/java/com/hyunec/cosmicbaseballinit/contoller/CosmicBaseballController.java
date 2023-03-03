@@ -1,9 +1,11 @@
 package com.hyunec.cosmicbaseballinit.contoller;
 
-import com.hyunec.cosmicbaseballinit.domain.BattingResult;
+import static com.hyunec.cosmicbaseballinit.service.BallCountService.COUNT_STORE;
+
+import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
+import com.hyunec.cosmicbaseballinit.service.BattingResult;
 import com.hyunec.cosmicbaseballinit.service.ComicBaseballService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +17,12 @@ public class CosmicBaseballController {
     private final ComicBaseballService baseballService;
 
     @GetMapping("/batting")
-    public ResponseEntity<String> hit() {
+    public ResponseEntity<ResponseDto> hit() {
+
         BattingResult result = baseballService.getBattingResult();
-        return new ResponseEntity<>(result.name(), HttpStatus.OK);
+        baseballService.getBallCount(result);
+        ResponseDto responseDto = new ResponseDto(COUNT_STORE);
+
+        return ResponseEntity.ok().body(responseDto);
     }
 }
