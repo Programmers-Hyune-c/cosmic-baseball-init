@@ -14,8 +14,8 @@ public class CosmicBaseballController {
     private final BattingService battingService;
 
     @GetMapping("/batting")
-    public ResponseDto batting() {
-        BattingResult result = battingService.hit();
+    public ResponseDto startBatting() {
+        BattingResult result = battingService.batting();
         return new ResponseDto(result.name());
     }
 }
