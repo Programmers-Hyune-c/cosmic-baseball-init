@@ -1,13 +1,11 @@
 package com.hyunec.cosmicbaseballinit.dto;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class ResponseDto {
-    private String result;
 
-
-    public ResponseDto(String result) {
-        this.result = result;
-    }
+    private final String result;
 }
