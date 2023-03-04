@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class UtilConfig {
 
     @Bean
-    public RandomGenerator random() {
-        return new RandomFactory();
+    public RandomGenerator randomGenerator() {
+        return new RandomGeneratorImpl();
     }
 }
