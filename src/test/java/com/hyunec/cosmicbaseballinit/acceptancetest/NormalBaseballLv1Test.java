@@ -19,7 +19,7 @@ class NormalBaseballLv1Test {
     @RepeatedTest(10)
     void t1() {
         BattingResult battingResult = getResult();
-        int result = getBattingResultCount(battingResult.getIndex());
+        int result = getBattingResultCount(battingResult.ordinal());
 
         assertThat(result).isCloseTo(33_300, Percentage.withPercentage(1));
     }
