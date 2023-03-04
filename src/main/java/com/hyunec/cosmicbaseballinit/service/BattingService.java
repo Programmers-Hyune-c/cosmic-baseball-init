@@ -1,9 +1,10 @@
-package com.hyunec.cosmicbaseballinit.domain;
+package com.hyunec.cosmicbaseballinit.service;
 
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.STRIKE;
 
+import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
