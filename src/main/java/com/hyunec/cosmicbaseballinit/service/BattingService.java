@@ -20,7 +20,7 @@ public class BattingService {
 	}
 
 	private BattingResult getResult() {
-		switch (randomGenerator.createRandom().nextInt(BattingResult.values().length)) {
+		switch (randomGenerator.getRandomNumber()) {
 			case 0:
 				return STRIKE;
 			case 1:
