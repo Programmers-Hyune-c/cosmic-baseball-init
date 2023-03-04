@@ -15,12 +15,13 @@ public class BattingService {
 
 	private final RandomGenerator randomGenerator;
 
-	public BattingResult hit() {
+	public BattingResult batting() {
 		return getResult();
 	}
 
 	private BattingResult getResult() {
-		switch (randomGenerator.getRandomNumber()) {
+
+		switch (randomGenerator.getNumber(BattingResult.values().length)) {
 			case 0:
 				return STRIKE;
 			case 1:
