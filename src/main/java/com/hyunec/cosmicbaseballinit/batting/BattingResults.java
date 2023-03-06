@@ -1,4 +1,4 @@
-package com.hyunec.cosmicbaseballinit.batter;
+package com.hyunec.cosmicbaseballinit.batting;
 
 public enum BattingResults {
     STRIKE, BALL, HIT
