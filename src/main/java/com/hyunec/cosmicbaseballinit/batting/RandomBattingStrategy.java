@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomBattingStrategy implements BattingStrategy {
 
-    private final Random random = new Random();
+    private static final Random random = new Random();
 
     @Override
     public BattingResults generateResult() {
