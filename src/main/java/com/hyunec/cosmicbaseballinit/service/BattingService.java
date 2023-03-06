@@ -12,5 +12,4 @@ public class BattingService {
 	public BattingResult batting() {
 		return BattingResult.values()[RANDOM.nextInt(BattingResult.values().length)];
 	}
-
 }
