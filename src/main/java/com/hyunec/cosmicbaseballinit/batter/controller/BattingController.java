@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BattingController {
 
-    private final BattingService battingService;
-
     @GetMapping("/batting")
     public Batting getBattingResult() {
-        return battingService.getRandomBattingResult();
+        return BattingService.getRandomBattingResult();
     }
 }
