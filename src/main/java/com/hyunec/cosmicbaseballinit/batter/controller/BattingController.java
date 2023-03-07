@@ -1,5 +1,7 @@
-package com.hyunec.cosmicbaseballinit.batting;
+package com.hyunec.cosmicbaseballinit.batter.controller;
 
+import com.hyunec.cosmicbaseballinit.batter.domain.Batting;
+import com.hyunec.cosmicbaseballinit.batter.service.BattingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BattingController {
 
-    private final BattingResultService battingResultService;
+    private final BattingService battingService;
 
     @GetMapping("/batting")
     public Batting getBattingResult() {
-        return battingResultService.getBattingResult();
+        return battingService.getRandomBattingResult();
     }
 }
