@@ -1,6 +1,6 @@
 package com.hyunec.cosmicbaseballinit.batter.domain;
 
-import com.hyunec.cosmicbaseballinit.batter.service.BattingStrategy;
+import com.hyunec.cosmicbaseballinit.batter.service.BattingFactory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,14 +9,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class Batting {
 
-    private final BattingResult result;
+    private final BattingFactory factory;
 
-    public static Batting of(BattingStrategy strategy) {
-        return new Batting(strategy.generateBatting());
-    }
-
-    @Override
-    public String toString() {
-        return result.name();
+    public static Batting of(BattingFactory factory) {
+        return new Batting(factory);
     }
 }
