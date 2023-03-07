@@ -2,10 +2,9 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.hyunec.cosmicbaseballinit.batter.domain.Batting;
 import com.hyunec.cosmicbaseballinit.batter.domain.BattingResult;
-import com.hyunec.cosmicbaseballinit.batter.service.BattingStrategy;
-import com.hyunec.cosmicbaseballinit.batter.service.RandomBattingStrategy;
+import com.hyunec.cosmicbaseballinit.batter.service.BattingFactory;
+import com.hyunec.cosmicbaseballinit.batter.service.RandomBattingFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -20,9 +19,9 @@ class NormalBaseballLv1Test {
     @BeforeAll
     static void setUp() {
         // given
-        BattingStrategy strategy = new RandomBattingStrategy();
+        BattingFactory factory = new RandomBattingFactory();
         IntStream.range(0, 100).forEach(i -> {
-            BattingResult result = Batting.of(strategy).getResult();
+            BattingResult result = factory.generate();
             results.add(result);
         });
     }

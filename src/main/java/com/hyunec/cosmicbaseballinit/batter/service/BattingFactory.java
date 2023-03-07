@@ -2,8 +2,8 @@ package com.hyunec.cosmicbaseballinit.batter.service;
 
 import com.hyunec.cosmicbaseballinit.batter.domain.BattingResult;
 
-public interface BattingStrategy {
+public interface BattingFactory {
 
-    BattingResult generateBatting();
+    BattingResult generate();
 
 }
