@@ -4,8 +4,6 @@ import java.util.Map;
 
 public class Ball implements BattingResult {
 
-    private static final String NAME = "Ball";
-
     @Override
     public void call(Map<String, Integer> resultCount) {
         resultCount.compute("ball", (k, v) -> v + 1);
@@ -13,6 +11,6 @@ public class Ball implements BattingResult {
 
     @Override
     public String getName() {
-        return NAME;
+        return "Ball";
     }
 }
