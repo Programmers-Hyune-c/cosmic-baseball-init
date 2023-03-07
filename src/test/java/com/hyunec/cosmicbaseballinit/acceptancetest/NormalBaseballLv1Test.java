@@ -7,7 +7,9 @@ import com.hyunec.cosmicbaseballinit.batter.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.batter.service.BattingStrategy;
 import com.hyunec.cosmicbaseballinit.batter.service.RandomBattingStrategy;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -31,12 +33,14 @@ class NormalBaseballLv1Test {
     @DisplayName("strike, ball, hit 는 같은 확률 입니다.")
     @Test
     void t1() {
-        // then
-        long strikeCount = results.stream().filter(result -> result == BattingResult.STRIKE).count();
-        long ballCount = results.stream().filter(result -> result == BattingResult.BALL).count();
-        long hitCount = results.stream().filter(result -> result == BattingResult.HIT).count();
+        // when
+        Map<BattingResult, Integer> counts = new HashMap<>();
+        for (BattingResult result : results) {
+            counts.put(result, counts.getOrDefault(result, 0) + 1);
+        }
 
-        assertThat(strikeCount + ballCount + hitCount).isEqualTo(100);
+        // then
+        assertThat(counts.values().stream().mapToInt(Integer::intValue).sum()).isEqualTo(100);
     }
 
     @DisplayName("타격 결과는 strike, ball, hit 입니다.")
