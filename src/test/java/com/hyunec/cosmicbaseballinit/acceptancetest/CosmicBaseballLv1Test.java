@@ -42,7 +42,7 @@ class CosmicBaseballLv1Test {
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
     @RepeatedTest(10)
     void t1() {
-        assertThat(getTotalRandomPick()).isCloseTo(25_000, Percentage.withPercentage(1));
+        assertThat(getTotalStrikeCount()).isCloseTo(25_000, Percentage.withPercentage(1));
     }
 
     @DisplayName("strike 시 strike 카운트가 1 증가합니다.")
@@ -79,11 +79,11 @@ class CosmicBaseballLv1Test {
     void t2() {
     }
 
-    private int getTotalRandomPick() {
+    private int getTotalStrikeCount() {
         int count = 0;
         for (int i = 0; i < 100000; i++) {
             BattingResult result = battingResults.get(RANDOM.nextInt(battingResults.size()));
-            if (result == battingResults.get(0)) {
+            if (result == strike) {
                 count++;
             }
         }

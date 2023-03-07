@@ -24,7 +24,7 @@ class NormalBaseballLv1Test {
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
     @RepeatedTest(10)
     void t1() {
-        assertThat(getTotalRandomPick()).isCloseTo(33_300, Percentage.withPercentage(1));
+        assertThat(getTotalStrikeCount()).isCloseTo(33_300, Percentage.withPercentage(1));
     }
 
     @DisplayName("타격 결과는 strike, ball, hit 입니다.")
@@ -34,7 +34,7 @@ class NormalBaseballLv1Test {
         assertThat(result).isIn(strike, hit, ball);
     }
 
-    private int getTotalRandomPick() {
+    private int getTotalStrikeCount() {
         int count = 0;
         for (int i = 0; i < 100000; i++) {
             BattingResult result = battingResults.get(RANDOM.nextInt(battingResults.size()));
