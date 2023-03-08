@@ -1,16 +1,19 @@
 package com.hyunec.cosmicbaseballinit.domain;
 
-import java.util.Map;
+import lombok.Getter;
 
+@Getter
 public class Strike implements BattingResult {
 
+    private static final int STRIKE_COUNT = 1;
+
     @Override
-    public void call(Map<String, Integer> resultCount) {
-        resultCount.compute("strike", (k, v) -> v + 1);
+    public int call() {
+        return STRIKE_COUNT;
     }
 
     @Override
     public String getName() {
-        return "Strike";
+        return this.getClass().getSimpleName();
     }
 }

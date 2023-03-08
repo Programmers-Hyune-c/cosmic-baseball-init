@@ -1,16 +1,16 @@
 package com.hyunec.cosmicbaseballinit.domain;
 
-import java.util.Map;
-
 public class DoubleStrike implements BattingResult {
 
+    private static final int DOUBLE_STRIKE_COUNT = 2;
+
     @Override
-    public void call(Map<String, Integer> resultCount) {
-        resultCount.compute("strike", (k, v) -> v + 2);
+    public int call() {
+        return DOUBLE_STRIKE_COUNT;
     }
 
     @Override
     public String getName() {
-        return "Double Strike";
+        return this.getClass().getSimpleName();
     }
 }
