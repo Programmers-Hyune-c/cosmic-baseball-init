@@ -13,13 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BattingService {
 
-    private static final List<BattingResult> BATTING_RESULTS =
+    private final List<BattingResult> battingResult =
                 new ArrayList<>(List.of(new Strike(), new Hit(), new Ball(), new DoubleStrike()));
 
     public static final Random RANDOM = new Random();
 
     public BattingResult batting() {
-        return BATTING_RESULTS.get(RANDOM.nextInt(BATTING_RESULTS.size()));
+        return battingResult.get(RANDOM.nextInt(battingResult.size()));
     }
-
 }
