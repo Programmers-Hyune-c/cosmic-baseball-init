@@ -2,9 +2,9 @@ package com.hyunec.cosmicbaseballinit.contoller;
 
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
+import com.hyunec.cosmicbaseballinit.domain.BattingResultCount;
+import com.hyunec.cosmicbaseballinit.service.BattingResultCountService;
 import com.hyunec.cosmicbaseballinit.service.BattingService;
-import com.hyunec.cosmicbaseballinit.service.ResultCountService;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CosmicBaseballController {
 
     private final BattingService battingService;
-    private final ResultCountService resultCountService;
+    private final BattingResultCountService battingResultCountService;
 
     @GetMapping("/batting")
     public ResponseDto startBatting() {
-
         BattingResult result = battingService.batting();
+        BattingResultCount battingResultCount = battingResultCountService.calculateCount(result);
 
-        resultCountService.addResultCount(result);
-        Map<String, Integer> resultCount = resultCountService.getResultCount();
-
-        return new ResponseDto(result.getName(), resultCount);
+        return ResponseDto.builder()
+                            .ballCount(battingResultCount.getBallCount())
+                            .strikeCount(battingResultCount.getStrikeCount())
+                            .result(result.getName())
+                            .build();
     }
 }
