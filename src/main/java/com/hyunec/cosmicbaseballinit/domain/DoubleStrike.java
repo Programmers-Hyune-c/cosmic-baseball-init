@@ -3,6 +3,7 @@ package com.hyunec.cosmicbaseballinit.domain;
 public class DoubleStrike implements BattingResult {
 
     private static final int DOUBLE_STRIKE_COUNT = 2;
+    private static final String NAME = "DoubleStrike";
 
     @Override
     public int call() {
@@ -11,6 +12,6 @@ public class DoubleStrike implements BattingResult {
 
     @Override
     public String getName() {
-        return this.getClass().getSimpleName();
+        return NAME;
     }
 }

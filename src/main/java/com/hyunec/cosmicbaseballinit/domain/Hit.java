@@ -2,6 +2,8 @@ package com.hyunec.cosmicbaseballinit.domain;
 
 public class Hit implements BattingResult {
 
+    private static final String NAME = "HIT";
+
     @Override
     public int call() {
         return 0;
@@ -9,6 +11,6 @@ public class Hit implements BattingResult {
 
     @Override
     public String getName() {
-        return this.getClass().getSimpleName();
+        return NAME;
     }
 }

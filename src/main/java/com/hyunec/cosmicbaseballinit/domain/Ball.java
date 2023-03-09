@@ -6,6 +6,7 @@ import lombok.Getter;
 public class Ball implements BattingResult {
 
     private static final int BALL_COUNT = 1;
+    private static final String NAME = "Ball";
 
     @Override
     public int call() {
@@ -14,6 +15,6 @@ public class Ball implements BattingResult {
 
     @Override
     public String getName() {
-        return this.getClass().getSimpleName();
+        return NAME;
     }
 }
