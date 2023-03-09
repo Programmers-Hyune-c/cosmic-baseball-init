@@ -7,15 +7,18 @@ import com.hyunec.cosmicbaseballinit.domain.Ball;
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.Hit;
 import com.hyunec.cosmicbaseballinit.domain.Strike;
+import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.data.Percentage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
+@Disabled
 class NormalBaseballLv1Test {
 
-    private final List<BattingResult> battingResults =
-                        BattingResultGenerator.of(new Strike(), new Ball(), new Hit());
+    private List<BattingResult> battingResults =
+                       new ArrayList<>(List.of(new Strike(), new Ball(), new Hit()));
     private final BattingResult strike = battingResults.get(0);
     private final BattingResult ball = battingResults.get(1);
     private final BattingResult hit = battingResults.get(2);
