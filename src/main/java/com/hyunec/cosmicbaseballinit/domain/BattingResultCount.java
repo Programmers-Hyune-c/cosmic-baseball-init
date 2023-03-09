@@ -1,10 +1,13 @@
 package com.hyunec.cosmicbaseballinit.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class BattingResultCount {
 
+    @Setter
+    private long id;
     private int ballCount;
     private int strikeCount;
 
@@ -26,11 +29,12 @@ public class BattingResultCount {
                 this.strikeCount += count;
                 break;
             case "Ball":
+            case "DoubleBall":
                 this.ballCount += count;
                 break;
             default:
-                this.strikeCount = 0;
-                this.ballCount = 0;
+                this.strikeCount = count;
+                this.ballCount = count;
         }
     }
 }
