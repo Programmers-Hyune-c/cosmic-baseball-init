@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BattingResultCountMapDao implements BattingResultCountDao {
+public class TotalBattingResultMapDao implements TotalBattingResultDao {
 
     private final Map<Long, TotalBattingResult> store = new ConcurrentHashMap<>();
     private final AtomicLong number = new AtomicLong(0);
