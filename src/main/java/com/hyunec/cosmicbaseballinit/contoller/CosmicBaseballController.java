@@ -1,13 +1,12 @@
 package com.hyunec.cosmicbaseballinit.contoller;
 
-import com.hyunec.cosmicbaseballinit.domain.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.BattingResultCount;
+import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
-import com.hyunec.cosmicbaseballinit.service.BattingResultCountService;
 import com.hyunec.cosmicbaseballinit.service.BattingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,21 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class CosmicBaseballController {
 
     private final BattingService battingService;
-    private final BattingResultCountService battingResultCountService;
 
-    @GetMapping("/batting/start")
+    @PostMapping("/batting/start")
     public ResponseDto startBatting() {
-        BattingResultCount battingResultCount = battingService.startBatting();
-        return ResponseDto.of(battingResultCount);
+        TotalBattingResult startBatting = battingService.startBatting();
+        return new ResponseDto(startBatting);
     }
 
-    @GetMapping("/batting/{id}")
+    @PatchMapping("/batting/{id}")
     public ResponseDto batting(@PathVariable Long id) {
-        BattingResult result = battingService.batting();
-        BattingResultCount battingResultCount =
-            battingResultCountService.calculateCount(id, result);
-        battingResultCountService.updateBattingResultCount(id, battingResultCount);
+        TotalBattingResult totalBattingResult = battingService.batting(id);
+        return new ResponseDto(totalBattingResult);
+    }
 
-        return ResponseDto.of(result.getName(), battingResultCount);
+    @PostMapping("/batting/new/{id}")
+    public ResponseDto newBatting(@PathVariable Long id) {
+        TotalBattingResult newBatting = battingService.newBatting(id);
+        return new ResponseDto(newBatting);
     }
 }
