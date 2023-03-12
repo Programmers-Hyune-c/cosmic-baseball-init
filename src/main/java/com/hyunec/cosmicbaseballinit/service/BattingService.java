@@ -1,14 +1,11 @@
 package com.hyunec.cosmicbaseballinit.service;
 
+import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
+
 import com.hyunec.cosmicbaseballinit.dao.BattingResultCountDao;
-import com.hyunec.cosmicbaseballinit.domain.Ball;
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.BattingResultCount;
-import com.hyunec.cosmicbaseballinit.domain.DoubleBall;
-import com.hyunec.cosmicbaseballinit.domain.DoubleStrike;
-import com.hyunec.cosmicbaseballinit.domain.Hit;
-import com.hyunec.cosmicbaseballinit.domain.Strike;
-import java.util.List;
+import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
+import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,20 +16,35 @@ public class BattingService {
 
     private final BattingResultCountDao battingResultCountDao;
 
-    private static final List<BattingResult> battingResult =
-        BattingResultGenerator.of(
-            new Strike(), new Ball(), new Hit(), new DoubleStrike(), new DoubleBall()
-        );
-
     public static final Random RANDOM = new Random();
 
-    public BattingResult batting() {
-        return battingResult.get(RANDOM.nextInt(battingResult.size()));
+    public TotalBattingResult startBatting() {
+        TotalBattingResult totalBattingResult = TotalBattingResult.getInstance();
+        battingResultCountDao.save(totalBattingResult);
+
+        return totalBattingResult;
     }
 
-    public BattingResultCount startBatting() {
-        BattingResultCount battingResultCount = BattingResultCount.getInstance();
-        battingResultCountDao.save(battingResultCount);
-        return battingResultCount;
+    public TotalBattingResult batting(Long id) {
+        TotalBattingResult totalBattingResultEntity = battingResultCountDao.findById(id);
+        BattingResult result = BattingResult.values()[RANDOM.nextInt(BattingResult.values().length)];
+
+        totalBattingResultEntity.setBattingTotalResult(result);
+        battingResultCountDao.update(id, totalBattingResultEntity);
+
+        return totalBattingResultEntity;
+    }
+
+    public TotalBattingResult newBatting( Long id) {
+        if (isOnGoing(id)) {
+            throw new NewBattingException("새로운 타석 안됨");
+        }
+        battingResultCountDao.delete(id);
+        return startBatting();
+    }
+
+    private boolean isOnGoing(Long id) {
+        TotalBattingResult totalBattingResultEntity = battingResultCountDao.findById(id);
+        return totalBattingResultEntity.getBatterStatus() == ON_GOING;
     }
 }
