@@ -18,49 +18,57 @@ public class TotalBattingResult {
     private int ballCount;
     private int strikeCount;
     private BatterStatus batterStatus = ON_GOING;
+    @Setter
     private BattingResult battingResult;
 
-    private TotalBattingResult(){}
+    private TotalBattingResult() {
+    }
 
-    public static TotalBattingResult getInstance(){
+    public static TotalBattingResult getInstance() {
         return new TotalBattingResult();
     }
 
-    public void setBattingTotalResult(BattingResult battingResult) {
-        this.battingResult = battingResult;
+
+    public void addBattingResultCount(BattingResult battingResult) {
         switch (battingResult) {
             case STRIKE:
             case DOUBLE_STRIKE:
-                 setBatterStatusOnStrike(battingResult);
-                 return;
+                this.strikeCount += battingResult.getBattingResultCount();
+                return;
             case BALL:
             case DOUBLE_BALL:
-                 setBatterStatusOnBall(battingResult);
+                this.ballCount += battingResult.getBattingResultCount();
                 return;
             default:
-                 setBatterStatusOnHit();
+                this.strikeCount += battingResult.getBattingResultCount();
+                this.ballCount += battingResult.getBattingResultCount();
+
         }
     }
 
-    private void setBatterStatusOnHit() {
-        this.batterStatus = GO_TO_BASE;
-    }
-
-    private void setBatterStatusOnBall(BattingResult battingResult) {
-        this.ballCount += battingResult.getBattingResultCount();
-        if (this.ballCount >= 4){
+    public void judgeBatterStatus() {
+        if (is4Ball()) {
             this.batterStatus = GO_TO_BASE;
             return;
         }
-        this.batterStatus = ON_GOING;
-    }
-
-    private void setBatterStatusOnStrike(BattingResult battingResult) {
-        this.strikeCount += battingResult.getBattingResultCount();
-        if (this.strikeCount >= 3){
+        if (is3Strike()) {
             this.batterStatus = OUT;
             return;
         }
-        this.batterStatus = ON_GOING;
+       if (isHit()){
+           this.batterStatus = GO_TO_BASE;
+       }
+    }
+
+    private boolean isHit() {
+        return this.strikeCount == 0 && this.ballCount == 0;
+    }
+
+    private boolean is3Strike() {
+        return this.strikeCount >= 3;
+    }
+
+    private boolean is4Ball() {
+        return this.ballCount >= 4;
     }
 }
