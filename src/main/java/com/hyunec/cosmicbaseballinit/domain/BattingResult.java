@@ -1,5 +1,8 @@
 package com.hyunec.cosmicbaseballinit.domain;
 
-public enum BattingResult {
-    STRIKE, HIT, BALL;
+public interface BattingResult {
+
+    String getName();
+
+    int call();
 }
