@@ -4,13 +4,10 @@ import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.GO_TO_BASE;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.OUT;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@JsonInclude(Include.NON_NULL)
 public class TotalBattingResult {
 
     @Setter
@@ -21,28 +18,20 @@ public class TotalBattingResult {
     @Setter
     private BattingResult battingResult;
 
-    private TotalBattingResult() {
-    }
-
-    public static TotalBattingResult getInstance() {
-        return new TotalBattingResult();
-    }
-
-
     public void addBattingResultCount(BattingResult battingResult) {
         switch (battingResult) {
             case STRIKE:
+                this.strikeCount += 1;
+                return;
             case DOUBLE_STRIKE:
-                this.strikeCount += battingResult.getBattingResultCount();
+                this.strikeCount += 2;
                 return;
             case BALL:
-            case DOUBLE_BALL:
-                this.ballCount += battingResult.getBattingResultCount();
+                this.ballCount += 1;
                 return;
-            default:
-                this.strikeCount += battingResult.getBattingResultCount();
-                this.ballCount += battingResult.getBattingResultCount();
-
+            case DOUBLE_BALL:
+                this.ballCount += 2;
+                break;
         }
     }
 
