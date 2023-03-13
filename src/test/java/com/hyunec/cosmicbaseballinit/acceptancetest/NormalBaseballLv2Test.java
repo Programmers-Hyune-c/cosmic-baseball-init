@@ -24,7 +24,7 @@ class NormalBaseballLv2Test {
 
     @BeforeEach
     void init() {
-        totalResult = TotalBattingResult.getInstance();
+        totalResult = new TotalBattingResult();
     }
 
     @DisplayName("타석 상태를 표현할 수 있습니다.")
@@ -143,7 +143,7 @@ class NormalBaseballLv2Test {
         if (batterStatus == ON_GOING) {
             throw new NewBattingException("새로운 타석 안됨");
         }
-        return TotalBattingResult.getInstance();
+        return new TotalBattingResult();
     }
 
 }
