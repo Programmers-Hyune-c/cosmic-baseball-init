@@ -10,13 +10,16 @@ import lombok.Setter;
 @Getter
 public class TotalBattingResult {
 
-    @Setter
-    private Long id;
+    private final Long id;
     private int ballCount;
     private int strikeCount;
     private BatterStatus batterStatus = ON_GOING;
     @Setter
     private BattingResult battingResult;
+
+    public TotalBattingResult(long id) {
+        this.id = id;
+    }
 
     public void addBattingResultCount(BattingResult battingResult) {
         switch (battingResult) {
@@ -47,9 +50,9 @@ public class TotalBattingResult {
             this.batterStatus = OUT;
             return;
         }
-       if (isHit()){
-           this.batterStatus = GO_TO_BASE;
-       }
+        if (isHit()) {
+            this.batterStatus = GO_TO_BASE;
+        }
     }
 
     private boolean isHit() {
