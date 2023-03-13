@@ -19,7 +19,7 @@ public class BattingService {
     public static final Random RANDOM = new Random();
 
     public TotalBattingResult startBatting() {
-        TotalBattingResult totalBattingResult = TotalBattingResult.getInstance();
+        TotalBattingResult totalBattingResult = new TotalBattingResult();
         totalBattingResultDao.save(totalBattingResult);
 
         return totalBattingResult;
