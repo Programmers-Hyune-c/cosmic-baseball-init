@@ -7,6 +7,7 @@ import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +16,15 @@ import org.springframework.stereotype.Service;
 public class BattingService {
 
     private final TotalBattingResultDao totalBattingResultDao;
+    private final AtomicLong sequence = new AtomicLong(0);
 
     public static final Random RANDOM = new Random();
 
     public TotalBattingResult startBatting() {
-        TotalBattingResult totalBattingResult = new TotalBattingResult();
-        totalBattingResultDao.save(totalBattingResult);
+        long id = sequence.incrementAndGet();
+        TotalBattingResult startBatting = new TotalBattingResult(id);
 
-        return totalBattingResult;
+        return totalBattingResultDao.save(startBatting);
     }
 
     public TotalBattingResult batting(Long id) {
@@ -33,12 +35,10 @@ public class BattingService {
         totalBattingResultEntity.addBattingResultCount(result);
         totalBattingResultEntity.judgeBatterStatus();
 
-        totalBattingResultDao.update(id, totalBattingResultEntity);
-
-        return totalBattingResultEntity;
+        return totalBattingResultDao.update(id, totalBattingResultEntity);
     }
 
-    public TotalBattingResult newBatting( Long id) {
+    public TotalBattingResult newBatting(Long id) {
         if (isOnGoing(id)) {
             throw new NewBattingException("새로운 타석 안됨");
         }
