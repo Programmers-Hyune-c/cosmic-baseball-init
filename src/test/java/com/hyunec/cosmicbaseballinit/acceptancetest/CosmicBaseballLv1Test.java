@@ -22,8 +22,8 @@ class CosmicBaseballLv1Test {
     private TotalBattingResult container;
 
     @BeforeEach
-    void init() {
-        container = TotalBattingResult.getInstance();
+    void setUp() {
+        container = new TotalBattingResult();
     }
 
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
