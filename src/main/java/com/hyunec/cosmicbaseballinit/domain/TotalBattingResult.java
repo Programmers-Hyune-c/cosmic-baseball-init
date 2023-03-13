@@ -31,7 +31,10 @@ public class TotalBattingResult {
                 return;
             case DOUBLE_BALL:
                 this.ballCount += 2;
-                break;
+                return;
+            default:
+                this.strikeCount = 0;
+                this.ballCount = 0;
         }
     }
 
