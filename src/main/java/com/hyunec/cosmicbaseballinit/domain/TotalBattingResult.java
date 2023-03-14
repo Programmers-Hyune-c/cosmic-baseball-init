@@ -10,34 +10,26 @@ import lombok.Setter;
 @Getter
 public class TotalBattingResult {
 
-    private final Long id;
+    @Setter
+    private Long id;
     private int ballCount;
     private int strikeCount;
     private BatterStatus batterStatus = ON_GOING;
     @Setter
     private BattingResult battingResult;
 
-    public TotalBattingResult(long id) {
-        this.id = id;
-    }
-
     public void addBattingResultCount(BattingResult battingResult) {
         switch (battingResult) {
             case STRIKE:
-                this.strikeCount += 1;
-                return;
             case DOUBLE_STRIKE:
-                this.strikeCount += 2;
+                increaseStrikeCount(battingResult);
                 return;
             case BALL:
-                this.ballCount += 1;
-                return;
             case DOUBLE_BALL:
-                this.ballCount += 2;
+                increaseBallCount(battingResult);
                 return;
             default:
-                this.strikeCount = 0;
-                this.ballCount = 0;
+                resetCount(battingResult);
         }
     }
 
@@ -53,6 +45,19 @@ public class TotalBattingResult {
         if (isHit()) {
             this.batterStatus = GO_TO_BASE;
         }
+    }
+
+    private void resetCount(BattingResult battingResult) {
+        this.strikeCount = battingResult.getIncreasingCount();
+        this.ballCount = battingResult.getIncreasingCount();
+    }
+
+    private void increaseBallCount(BattingResult battingResult) {
+        this.ballCount += battingResult.getIncreasingCount();
+    }
+
+    private void increaseStrikeCount(BattingResult battingResult) {
+        this.strikeCount += battingResult.getIncreasingCount();
     }
 
     private boolean isHit() {
