@@ -22,7 +22,7 @@ class CosmicBaseballLv1Test {
     private TotalBattingResult container;
 
     @BeforeEach
-    void setUp() {
+    void setupEach() {
         container = new TotalBattingResult();
     }
 

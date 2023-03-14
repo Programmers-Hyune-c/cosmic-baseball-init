@@ -23,7 +23,7 @@ class NormalBaseballLv2Test {
     private TotalBattingResult totalResult;
 
     @BeforeEach
-    void init() {
+    void setupEach() {
         totalResult = new TotalBattingResult();
     }
 
