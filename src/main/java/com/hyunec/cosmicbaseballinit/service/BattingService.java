@@ -15,7 +15,7 @@ public class BattingService {
 
     public static final Random RANDOM = new Random();
 
-    public TotalBattingResult startBatting() {
+    public TotalBattingResult newBatting() {
         TotalBattingResult startBatting = new TotalBattingResult();
         return totalBattingResultDao.save(startBatting);
     }

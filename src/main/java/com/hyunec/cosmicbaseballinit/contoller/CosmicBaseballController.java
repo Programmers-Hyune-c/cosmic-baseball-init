@@ -7,6 +7,7 @@ import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
 import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
 import com.hyunec.cosmicbaseballinit.service.BattingService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,18 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class CosmicBaseballController {
 
     private final BattingService battingService;
 
-    @PostMapping("/batting/start")
-    public ResponseDto startBatting(@Nullable @RequestParam("status") String status) {
+    @PostMapping("/batting/new")
+    public ResponseDto newBatting(@Nullable @RequestParam("status") String status) {
         validateOnGoing(status);
 
-        TotalBattingResult startBatting = battingService.startBatting();
-        return new ResponseDto(startBatting);
+        TotalBattingResult newBatting = battingService.newBatting();
+        return new ResponseDto(newBatting);
     }
-
 
     @PatchMapping("/batting/{id}")
     public ResponseDto batting(@PathVariable Long id) {
