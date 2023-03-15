@@ -42,8 +42,7 @@ public class BattingService {
     }
 
     private BattingResult getBattingResult() {
-        BattingResult result =
-            BattingResult.values()[getRandomNumber()];
+        BattingResult result = getRandomBattingResult();
         switch (result) {
             case STRIKE:
                 return isBullEyeStrike() ? BULL_EYE_STRIKE : STRIKE;
@@ -62,7 +61,11 @@ public class BattingService {
             return RANDOM.nextInt(5) == BULL_EYE_BALL.ordinal();
         }
 
-        private int getRandomNumber() {
-            return RANDOM.nextInt(BattingResult.values().length);
+        private BattingResult getRandomBattingResult() {
+            return BattingResult.values()[getRandomNumber()];
         }
+
+            private int getRandomNumber() {
+                return RANDOM.nextInt(BattingResult.values().length);
+            }
 }
