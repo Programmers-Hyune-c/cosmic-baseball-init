@@ -3,6 +3,7 @@ package com.hyunec.cosmicbaseballinit.domain;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.GO_TO_BASE;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.OUT;
+import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +23,16 @@ public class TotalBattingResult {
         switch (battingResult) {
             case STRIKE:
             case DOUBLE_STRIKE:
+            case BULL_EYE_STRIKE:
                 increaseStrikeCount(battingResult);
                 return;
             case BALL:
             case DOUBLE_BALL:
+            case BULL_EYE_BALL:
                 increaseBallCount(battingResult);
                 return;
             default:
-                resetBattingResultCount();
+                break;
         }
     }
 
@@ -41,11 +44,6 @@ public class TotalBattingResult {
         if (isOut()) {
             this.batterStatus = OUT;
         }
-    }
-
-    private void resetBattingResultCount() {
-        this.strikeCount = 0;
-        this.ballCount = 0;
     }
 
     private void increaseBallCount(BattingResult battingResult) {
@@ -61,6 +59,6 @@ public class TotalBattingResult {
     }
 
     private boolean isGoToBase() {
-        return this.ballCount >= 4 || (this.strikeCount == 0 && this.ballCount == 0);
+        return this.ballCount >= 4 || this.battingResult == HIT;
     }
 }
