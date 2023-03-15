@@ -29,46 +29,38 @@ public class TotalBattingResult {
                 increaseBallCount(battingResult);
                 return;
             default:
-                resetCount(battingResult);
+                resetBattingResultCount();
         }
     }
 
     public void judgeBatterStatus() {
-        if (is4Ball()) {
+        if (isGoToBase()) {
             this.batterStatus = GO_TO_BASE;
             return;
         }
-        if (is3Strike()) {
+        if (isOut()) {
             this.batterStatus = OUT;
-            return;
-        }
-        if (isHit()) {
-            this.batterStatus = GO_TO_BASE;
         }
     }
 
-    private void resetCount(BattingResult battingResult) {
-        this.strikeCount = battingResult.getIncreasingCount();
-        this.ballCount = battingResult.getIncreasingCount();
+    private void resetBattingResultCount() {
+        this.strikeCount = 0;
+        this.ballCount = 0;
     }
 
     private void increaseBallCount(BattingResult battingResult) {
-        this.ballCount += battingResult.getIncreasingCount();
+        this.ballCount += battingResult.getIncreaseBallCount();
     }
 
     private void increaseStrikeCount(BattingResult battingResult) {
-        this.strikeCount += battingResult.getIncreasingCount();
+        this.strikeCount += battingResult.getIncreaseStrikeCount();
     }
 
-    private boolean isHit() {
-        return this.strikeCount == 0 && this.ballCount == 0;
-    }
-
-    private boolean is3Strike() {
+    private boolean isOut() {
         return this.strikeCount >= 3;
     }
 
-    private boolean is4Ball() {
-        return this.ballCount >= 4;
+    private boolean isGoToBase() {
+        return this.ballCount >= 4 || (this.strikeCount == 0 && this.ballCount == 0);
     }
 }
