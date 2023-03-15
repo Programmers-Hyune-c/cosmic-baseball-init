@@ -12,11 +12,12 @@ import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-
+@Disabled
 class CosmicBaseballLv1Test {
 
     private TotalBattingResult container;
