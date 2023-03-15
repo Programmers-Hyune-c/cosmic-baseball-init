@@ -2,17 +2,21 @@ package com.hyunec.cosmicbaseballinit.domain;
 
 import lombok.Getter;
 
+@Getter
 public enum BattingResult {
-    STRIKE(1),
-    BALL(1),
-    HIT(0),
-    DOUBLE_STRIKE(2),
-    DOUBLE_BALL(2);
+    STRIKE(1,0),
+    BALL(0,1),
+    HIT(0,0),
+    DOUBLE_STRIKE(2,0),
+    DOUBLE_BALL(0,2);
 
-    @Getter
-    private final int increasingCount;
 
-    BattingResult(int increasingCount) {
-        this.increasingCount = increasingCount;
+    private final int increaseStrikeCount;
+    private final int increaseBallCount;
+
+
+    BattingResult(int increaseStrikeCount, int increaseBallCount) {
+        this.increaseStrikeCount = increaseStrikeCount;
+        this.increaseBallCount = increaseBallCount;
     }
 }
