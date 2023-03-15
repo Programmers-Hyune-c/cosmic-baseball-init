@@ -1,35 +1,48 @@
 package com.hyunec.cosmicbaseballinit.contoller;
 
-import com.hyunec.cosmicbaseballinit.domain.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.BattingResultCount;
+import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
+
+import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
-import com.hyunec.cosmicbaseballinit.service.BattingResultCountService;
+import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
 import com.hyunec.cosmicbaseballinit.service.BattingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class CosmicBaseballController {
 
     private final BattingService battingService;
-    private final BattingResultCountService battingResultCountService;
 
-    @GetMapping("/batting/start")
-    public ResponseDto startBatting() {
-        BattingResultCount battingResultCount = battingService.startBatting();
-        return ResponseDto.of(battingResultCount);
+    @PostMapping("/batting/new")
+    public ResponseDto newBatting(@Nullable @RequestParam("status") String status) {
+        validateOnGoing(status);
+
+        TotalBattingResult newBatting = battingService.newBatting();
+        return new ResponseDto(newBatting);
     }
 
-    @GetMapping("/batting/{id}")
+    @PatchMapping("/batting/{id}")
     public ResponseDto batting(@PathVariable Long id) {
-        BattingResult result = battingService.batting();
-        BattingResultCount battingResultCount =
-            battingResultCountService.calculateCount(id, result);
-        battingResultCountService.updateBattingResultCount(id, battingResultCount);
-
-        return ResponseDto.of(result.getName(), battingResultCount);
+        TotalBattingResult totalBattingResult = battingService.batting(id);
+        return new ResponseDto(totalBattingResult);
     }
+
+    private void validateOnGoing(String status) {
+        if (isOnGoing(status)) {
+            throw new NewBattingException("새로운 타석 안됨");
+        }
+    }
+
+        private  boolean isOnGoing(String status) {
+            return status != null && status.equals(ON_GOING.name());
+        }
 }
