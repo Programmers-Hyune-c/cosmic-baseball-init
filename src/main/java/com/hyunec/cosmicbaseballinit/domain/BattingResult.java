@@ -12,11 +12,8 @@ public enum BattingResult {
     DOUBLE_STRIKE(2,0),
     DOUBLE_BALL(0,2);
 
-
-
     private final int increaseStrikeCount;
     private final int increaseBallCount;
-
 
     BattingResult(int increaseStrikeCount, int increaseBallCount) {
         this.increaseStrikeCount = increaseStrikeCount;

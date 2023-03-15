@@ -23,7 +23,6 @@ public class CosmicBaseballController {
     @PostMapping("/batting/new")
     public ResponseDto newBatting(@Nullable @RequestParam("status") String status) {
         validateOnGoing(status);
-
         TotalBattingResult newBatting = battingService.newBatting();
         return new ResponseDto(newBatting);
     }
