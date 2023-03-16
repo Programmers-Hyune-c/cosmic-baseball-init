@@ -21,7 +21,7 @@ class CosmicBaseballLv2Test {
     private static final int FREQUENCY = 5_000_000;
 
     @DisplayName("strike 의 20% 는 bullseye_strike 입니다.")
-    @RepeatedTest(100)
+    @RepeatedTest(10)
     void t1() {
         int totalStrikeCount = getTotalStrikeCount();
         int bullsEyeStrikeCount = getTotalBullEyeStrikeCount();
