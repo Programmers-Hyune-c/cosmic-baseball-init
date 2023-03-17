@@ -19,6 +19,7 @@ public class BattingService {
     private final TotalBattingResultDao totalBattingResultDao;
 
     public static final Random RANDOM = new Random();
+    private static final int RANGE = 5;
 
     public TotalBattingResult newBatting() {
         return totalBattingResultDao.save(new TotalBattingResult());
@@ -26,7 +27,7 @@ public class BattingService {
 
     public TotalBattingResult batting(Long id) {
         TotalBattingResult updatedTotalBattingResult
-            = updateTotalBattingResult(id, getBattingResult());
+                         = updateTotalBattingResult(id, getBattingResult());
         return totalBattingResultDao.update(updatedTotalBattingResult);
     }
 
@@ -42,7 +43,7 @@ public class BattingService {
     }
 
     private BattingResult getBattingResult() {
-        BattingResult result = getRandomBattingResult();
+        BattingResult result = getRandomResult();
         switch (result) {
             case STRIKE:
                 return isBullEyeStrike() ? BULL_EYE_STRIKE : STRIKE;
@@ -53,19 +54,15 @@ public class BattingService {
         }
     }
 
-        private boolean isBullEyeStrike() {
-            return RANDOM.nextInt(5) == BULL_EYE_STRIKE.ordinal();
-        }
+    private  BattingResult getRandomResult() {
+        return BattingResult.values()[RANDOM.nextInt(RANGE)];
+    }
 
-        private boolean isBullEyeBall() {
-            return RANDOM.nextInt(5) == BULL_EYE_BALL.ordinal();
-        }
+    private boolean isBullEyeStrike() {
+        return RANDOM.nextInt(RANGE) == STRIKE.ordinal();
+    }
 
-        private BattingResult getRandomBattingResult() {
-            return BattingResult.values()[getRandomNumber()];
-        }
-
-            private int getRandomNumber() {
-                return RANDOM.nextInt(BattingResult.values().length);
-            }
+    private boolean isBullEyeBall() {
+        return RANDOM.nextInt(RANGE) == BALL.ordinal();
+    }
 }
