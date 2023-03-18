@@ -19,21 +19,9 @@ public class TotalBattingResult {
     @Setter
     private BattingResult battingResult;
 
-    public void addBattingResultCount(BattingResult battingResult) {
-        switch (battingResult) {
-            case STRIKE:
-            case DOUBLE_STRIKE:
-            case BULL_EYE_STRIKE:
-                increaseStrikeCount(battingResult);
-                return;
-            case BALL:
-            case DOUBLE_BALL:
-            case BULL_EYE_BALL:
-                increaseBallCount(battingResult);
-                return;
-            default:
-                break;
-        }
+    public void increaseBattingResultCount(BattingResult battingResult) {
+        this.ballCount += battingResult.getIncreaseBallCount();
+        this.strikeCount += battingResult.getIncreaseStrikeCount();
     }
 
     public void judgeBatterStatus() {
@@ -44,14 +32,6 @@ public class TotalBattingResult {
         if (isOut()) {
             this.batterStatus = OUT;
         }
-    }
-
-    private void increaseBallCount(BattingResult battingResult) {
-        this.ballCount += battingResult.getIncreaseBallCount();
-    }
-
-    private void increaseStrikeCount(BattingResult battingResult) {
-        this.strikeCount += battingResult.getIncreaseStrikeCount();
     }
 
     private boolean isOut() {
