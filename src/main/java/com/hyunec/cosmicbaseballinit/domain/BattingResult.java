@@ -14,6 +14,9 @@ public enum BattingResult {
     BULL_EYE_STRIKE(3, 0),
     BULL_EYE_BALL(0, 4);
 
+    public BattingResult getBullEyeResult(){
+        return this == STRIKE ? BULL_EYE_STRIKE : BULL_EYE_BALL;
+    }
     private final int increaseStrikeCount;
     private final int increaseBallCount;
 
