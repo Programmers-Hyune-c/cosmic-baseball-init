@@ -19,21 +19,9 @@ public class TotalBattingResultMapDao implements TotalBattingResultDao {
         store.put(id, totalBattingResult);
         return store.get(id);
     }
-
-    @Override
-    public TotalBattingResult update(TotalBattingResult totalBattingResult) {
-        store.put(totalBattingResult.getId(), totalBattingResult);
-        return store.get(totalBattingResult.getId());
-    }
-
     @Override
     public TotalBattingResult findById(Long id) {
         return store.get(id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        store.remove(id);
     }
 }
 
