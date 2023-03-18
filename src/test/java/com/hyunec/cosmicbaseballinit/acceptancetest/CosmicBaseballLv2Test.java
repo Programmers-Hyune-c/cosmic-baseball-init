@@ -6,7 +6,7 @@ import static com.hyunec.cosmicbaseballinit.domain.BattingResult.BALL;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.BULL_EYE_BALL;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.BULL_EYE_STRIKE;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.STRIKE;
-import static com.hyunec.cosmicbaseballinit.service.BattingService.RANDOM;
+import static com.hyunec.cosmicbaseballinit.service.RandomBattingResultGenerator.RANDOM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
@@ -21,13 +21,12 @@ class CosmicBaseballLv2Test {
 
     private static final int FREQUENCY = 2_000_000;
 
-
     @Disabled("CI 시 확률 테스트는 ignore 합니다.")
     @DisplayName("strike 의 20% 는 bullseye_strike 입니다.")
     @RepeatedTest(10)
     void t1() {
-        int totalStrikeCount = getTotalStrikeCount();
-        int bullsEyeStrikeCount = getTotalBullEyeStrikeCount();
+        int totalStrikeCount = getTotalBattingResultCount(STRIKE);
+        int bullsEyeStrikeCount = getTotalBullEyeResultCount(STRIKE);
 
         assertThat(bullsEyeStrikeCount).isCloseTo(
                                                     (int) (totalStrikeCount * 0.2),
@@ -40,8 +39,8 @@ class CosmicBaseballLv2Test {
     @DisplayName("ball 의 20% 는 bullseye_ball 입니다.")
     @RepeatedTest(10)
     void t2() {
-        int totalBallCount = getTotalBallCount();
-        int bullsEyeBallCount = getTotalBullEyeBallCount();
+        int totalBallCount = getTotalBattingResultCount(BALL);
+        int bullsEyeBallCount = getTotalBullEyeResultCount(BALL);
 
         assertThat(bullsEyeBallCount).isCloseTo(
                                                     (int) (totalBallCount * 0.2),
@@ -53,8 +52,11 @@ class CosmicBaseballLv2Test {
     @Test
     void t3() {
         TotalBattingResult totalBattingResult = new TotalBattingResult();
-        totalBattingResult.addBattingResultCount(BULL_EYE_STRIKE);
+
+        totalBattingResult.setBattingResult(BULL_EYE_STRIKE);
+        totalBattingResult.increaseBattingResultCount();
         totalBattingResult.judgeBatterStatus();
+
         assertThat(totalBattingResult.getBatterStatus()).isEqualTo(OUT);
     }
 
@@ -62,65 +64,35 @@ class CosmicBaseballLv2Test {
     @Test
     void t4() {
         TotalBattingResult totalBattingResult = new TotalBattingResult();
-        totalBattingResult.addBattingResultCount(BULL_EYE_BALL);
+
+        totalBattingResult.setBattingResult(BULL_EYE_BALL);
+        totalBattingResult.increaseBattingResultCount();
         totalBattingResult.judgeBatterStatus();
+
         assertThat(totalBattingResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
 
-
-    private int getTotalStrikeCount() {
+    private int getTotalBattingResultCount(BattingResult battingResult) {
         int count = 0;
         for (int i = 0; i < FREQUENCY; i++) {
-            BattingResult result =
-                BattingResult.values()[RANDOM.nextInt(5)];
-            if (result == STRIKE) {
+            if (getRandomBattingResult() == battingResult) {
                 count++;
             }
         }
         return count;
     }
 
-
-    private int getTotalBullEyeStrikeCount() {
+    private int getTotalBullEyeResultCount(BattingResult battingResult) {
         int count = 0;
         for (int i = 0; i < FREQUENCY; i++) {
-            BattingResult result =
-                BattingResult.values()[RANDOM.nextInt(5)];
-            if (result == STRIKE) {
-                int index =RANDOM.nextInt(5);
-                if (index == STRIKE.ordinal()) {
+            if (getRandomBattingResult() == battingResult && getRandomBattingResult() == battingResult ) {
                     count++;
-                }
             }
         }
         return count;
     }
-
-    private int getTotalBallCount() {
-        int count = 0;
-        for (int i = 0; i < FREQUENCY; i++) {
-            BattingResult result =
-                BattingResult.values()[RANDOM.nextInt(5)];
-            if (result == BALL) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private int getTotalBullEyeBallCount() {
-        int count = 0;
-        for (int i = 0; i < FREQUENCY; i++) {
-            BattingResult result =
-                BattingResult.values()[RANDOM.nextInt(5)];
-
-            if (result == BALL) {
-                int index = RANDOM.nextInt(5);
-                if (index == BALL.ordinal()) {
-                    count++;
-                }
-            }
-        }
-        return count;
+    private BattingResult getRandomBattingResult() {
+        int noBullEyeResultRange = 5;
+        return BattingResult.values()[RANDOM.nextInt(noBullEyeResultRange)];
     }
 }
