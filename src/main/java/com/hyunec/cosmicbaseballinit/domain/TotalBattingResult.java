@@ -6,9 +6,11 @@ import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.OUT;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@NoArgsConstructor
 public class TotalBattingResult {
 
     @Setter
@@ -19,9 +21,9 @@ public class TotalBattingResult {
     @Setter
     private BattingResult battingResult;
 
-    public void increaseBattingResultCount(BattingResult battingResult) {
-        this.ballCount += battingResult.getIncreaseBallCount();
-        this.strikeCount += battingResult.getIncreaseStrikeCount();
+    public void increaseBattingResultCount() {
+        this.ballCount += this.battingResult.getIncreaseBallCount();
+        this.strikeCount += this.battingResult.getIncreaseStrikeCount();
     }
 
     public void judgeBatterStatus() {
@@ -40,5 +42,21 @@ public class TotalBattingResult {
 
     private boolean isGoToBase() {
         return this.ballCount >= 4 || this.battingResult == HIT;
+    }
+
+
+    /**
+     * 테스트용 생성자입니다.
+     */
+    private TotalBattingResult(int strikeCount, int ballCount) {
+        this.ballCount = ballCount;
+        this.strikeCount = strikeCount;
+    }
+
+    /**
+     * 테스트용 객체 생성 메서드입니다.
+     */
+    public static TotalBattingResult of(int strikeCount, int ballCount){
+        return new TotalBattingResult(strikeCount,ballCount);
     }
 }
