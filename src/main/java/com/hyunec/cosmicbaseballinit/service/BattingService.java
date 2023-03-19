@@ -14,7 +14,7 @@ public class BattingService {
     private final RandomBattingResultGenerator randomBattingResultGenerator;
 
     public TotalBattingResult newBatting() {
-        return totalBattingResultDao.save(new TotalBattingResult());
+        return totalBattingResultDao.save(TotalBattingResult.of(0,0));
     }
 
     public TotalBattingResult batting(Long id) {
@@ -29,7 +29,7 @@ public class BattingService {
         TotalBattingResult totalBattingResultEntity = totalBattingResultDao.findById(id);
         totalBattingResultEntity.setBattingResult(result);
         totalBattingResultEntity.increaseBattingResultCount();
-        totalBattingResultEntity.judgeBatterStatus();
+        totalBattingResultEntity.updateBatterStatus();
         return totalBattingResultEntity;
     }
 }
