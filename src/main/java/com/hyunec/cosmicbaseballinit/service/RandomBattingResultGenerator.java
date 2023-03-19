@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class RandomBattingResultGenerator {
 
-    public static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
     private static final int NO_BULL_EYE_RESULT_RANGE = 5;
 
     public BattingResult getBattingResult() {
         BattingResult result = getRandomResult();
-        return isBullEyeResult(result) ? result.getBullEyeResult() : result;
+        return isBullEyeResult(result) ? result.toBullEyeResult() : result;
     }
 
     private BattingResult getRandomResult() {
@@ -23,11 +23,15 @@ public class RandomBattingResultGenerator {
     }
 
     private boolean isBullEyeResult(BattingResult result) {
-        return isStrikeOrBall(result) && getRandomResult() == result;
+        return isStrikeOrBall(result) && isTheSameResultOneMore(result);
     }
 
-        private boolean isStrikeOrBall(BattingResult result) {
-            return result == BALL || result == STRIKE;
-        }
+    private boolean isTheSameResultOneMore(BattingResult result) {
+        return getRandomResult() == result;
+    }
+
+    private boolean isStrikeOrBall(BattingResult result) {
+        return result == BALL || result == STRIKE;
+    }
 
 }
