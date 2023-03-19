@@ -21,11 +21,14 @@ class NormalBaseballLv2Test {
 
     private TotalBattingResult totalResult;
 
+
+
     @DisplayName("타석 상태를 표현할 수 있습니다.")
     @Test
     void t1() {
         assertThat(BatterStatus.values()).contains(OUT, ON_GOING, GO_TO_BASE);
     }
+
 
     @DisplayName("0 strike 상태의 타석에서 타격 결과가 strike 이면 타석 결과는 진행 중 입니다.")
     @Test
@@ -33,7 +36,7 @@ class NormalBaseballLv2Test {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
         totalResult.setBattingResult(STRIKE);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -44,7 +47,7 @@ class NormalBaseballLv2Test {
         TotalBattingResult totalResult = TotalBattingResult.of(2, 0);
         totalResult.setBattingResult(DOUBLE_STRIKE);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
 
@@ -56,7 +59,7 @@ class NormalBaseballLv2Test {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
         totalResult.setBattingResult(DOUBLE_STRIKE);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -68,7 +71,7 @@ class NormalBaseballLv2Test {
 
         totalResult.setBattingResult(DOUBLE_STRIKE);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
     }
@@ -79,7 +82,7 @@ class NormalBaseballLv2Test {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
         totalResult.setBattingResult(BALL);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -92,7 +95,7 @@ class NormalBaseballLv2Test {
         totalResult.setBattingResult(BALL);
         totalResult.increaseBattingResultCount();
 
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -104,7 +107,7 @@ class NormalBaseballLv2Test {
 
         totalResult.setBattingResult(DOUBLE_BALL);
         totalResult.increaseBattingResultCount();
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -117,7 +120,7 @@ class NormalBaseballLv2Test {
         totalResult.setBattingResult(DOUBLE_BALL);
         totalResult.increaseBattingResultCount();
 
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -130,7 +133,7 @@ class NormalBaseballLv2Test {
         totalResult.setBattingResult(HIT);
         totalResult.increaseBattingResultCount();
 
-        totalResult.judgeBatterStatus();
+        totalResult.updateBatterStatus();
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -159,7 +162,7 @@ class NormalBaseballLv2Test {
         if (batterStatus == ON_GOING) {
             throw new NewBattingException("새로운 타석 안됨");
         }
-        return new TotalBattingResult();
+        return TotalBattingResult.of(0,0);
     }
 
 }
