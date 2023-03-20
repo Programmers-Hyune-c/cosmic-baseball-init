@@ -31,10 +31,10 @@ public class TotalBattingResult {
         this.battingResult = battingResult;
         this.ballCount += battingResult.getIncreaseBallCount();
         this.strikeCount += battingResult.getIncreaseStrikeCount();
-        setBatterStatus();
+        applyBatterStatus();
     }
 
-    private void setBatterStatus() {
+    private void applyBatterStatus() {
         if (isGoToBase()) {
             this.batterStatus = GO_TO_BASE;
             return;
