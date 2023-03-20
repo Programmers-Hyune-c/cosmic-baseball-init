@@ -23,15 +23,9 @@ public class RandomBattingResultGenerator {
     }
 
     private boolean isBullEyeResult(BattingResult result) {
-        return isStrikeOrBall(result) && isTheSameResultOneMore(result);
-    }
-
-    private boolean isTheSameResultOneMore(BattingResult result) {
-        return getRandomResult() == result;
-    }
-
-    private boolean isStrikeOrBall(BattingResult result) {
-        return result == BALL || result == STRIKE;
+        boolean isStrikeOrBall = (result == BALL || result == STRIKE);
+        boolean isTheSameResultOneMore = getRandomResult() == result;
+        return  isStrikeOrBall && isTheSameResultOneMore;
     }
 
 }
