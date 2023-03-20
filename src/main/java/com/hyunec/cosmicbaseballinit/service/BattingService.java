@@ -3,33 +3,31 @@ package com.hyunec.cosmicbaseballinit.service;
 import com.hyunec.cosmicbaseballinit.dao.TotalBattingResultDao;
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class BattingService {
 
     private final TotalBattingResultDao totalBattingResultDao;
-
-    public static final Random RANDOM = new Random();
+    private final RandomBattingResultGenerator randomBattingResultGenerator;
 
     public TotalBattingResult newBatting() {
-        TotalBattingResult startBatting = new TotalBattingResult();
-        return totalBattingResultDao.save(startBatting);
+        return totalBattingResultDao.save(TotalBattingResult.of(0,0));
     }
 
     public TotalBattingResult batting(Long id) {
-        TotalBattingResult totalBattingResultEntity = totalBattingResultDao.findById(id);
-        BattingResult result = BattingResult.values()[RANDOM.nextInt(BattingResult.values().length)];
-
-        totalBattingResultEntity.setBattingResult(result);
-        totalBattingResultEntity.addBattingResultCount(result);
-        totalBattingResultEntity.judgeBatterStatus();
-
-        return totalBattingResultDao.update(totalBattingResultEntity);
+        BattingResult battingResult = randomBattingResultGenerator.getBattingResult();
+        return updateTotalBattingResult(id, battingResult);
     }
 
-
+    private TotalBattingResult updateTotalBattingResult(
+                                                            Long id,
+                                                            BattingResult result
+    ) {
+        TotalBattingResult totalBattingResultEntity = totalBattingResultDao.findById(id);
+        totalBattingResultEntity.adjustAccordingToBattingResult(result);
+        return totalBattingResultEntity;
+    }
 }

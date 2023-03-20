@@ -14,7 +14,6 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import com.hyunec.cosmicbaseballinit.domain.BatterStatus;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +21,7 @@ class NormalBaseballLv2Test {
 
     private TotalBattingResult totalResult;
 
-    @BeforeEach
-    void setupEach() {
-        totalResult = new TotalBattingResult();
-    }
+
 
     @DisplayName("타석 상태를 표현할 수 있습니다.")
     @Test
@@ -33,11 +29,12 @@ class NormalBaseballLv2Test {
         assertThat(BatterStatus.values()).contains(OUT, ON_GOING, GO_TO_BASE);
     }
 
+
     @DisplayName("0 strike 상태의 타석에서 타격 결과가 strike 이면 타석 결과는 진행 중 입니다.")
     @Test
     void t2() {
-        totalResult.addBattingResultCount(STRIKE);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
+        totalResult.adjustAccordingToBattingResult(STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -45,9 +42,8 @@ class NormalBaseballLv2Test {
     @DisplayName("2 strike 상태의 타석에서 타격 결과가 strike 이면 타석 결과는 out 입니다.")
     @Test
     void t3() {
-        totalResult.addBattingResultCount(DOUBLE_STRIKE);
-        totalResult.addBattingResultCount(STRIKE);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(2, 0);
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
 
@@ -56,8 +52,8 @@ class NormalBaseballLv2Test {
     @DisplayName("0 strike 상태의 타석에서 타격 결과가 double_strike 이면 타석 결과는 진행 중 입니다.")
     @Test
     void t4() {
-        totalResult.addBattingResultCount(DOUBLE_STRIKE);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -65,9 +61,8 @@ class NormalBaseballLv2Test {
     @DisplayName("1 strike 상태의 타석에서 타격 결과가 double_strike 이면 타석 결과는 out 입니다.")
     @Test
     void t5() {
-        totalResult.addBattingResultCount(STRIKE);
-        totalResult.addBattingResultCount(DOUBLE_STRIKE);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(1, 0);
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
     }
@@ -75,8 +70,8 @@ class NormalBaseballLv2Test {
     @DisplayName("0 ball 상태의 타석에서 타격 결과가 ball 이면 타석 결과는 진행 중 입니다.")
     @Test
     void t6() {
-        totalResult.addBattingResultCount(BALL);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
+        totalResult.adjustAccordingToBattingResult(BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -84,10 +79,8 @@ class NormalBaseballLv2Test {
     @DisplayName("3 ball 상태의 타석에서 타격 결과가 ball 이면 타석 결과는 four_ball 으로 진루 입니다.")
     @Test
     void t7() {
-        totalResult.addBattingResultCount(BALL);
-        totalResult.addBattingResultCount(DOUBLE_BALL);
-        totalResult.addBattingResultCount(BALL);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 3);
+        totalResult.adjustAccordingToBattingResult(BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -95,17 +88,17 @@ class NormalBaseballLv2Test {
     @DisplayName("0 ball 상태의 타석에서 타격 결과가 double_ball 이면 타석 결과는 진행 중 입니다.")
     @Test
     void t8() {
-        totalResult.addBattingResultCount(DOUBLE_BALL);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
+        totalResult.adjustAccordingToBattingResult(DOUBLE_BALL);
+
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
 
     @DisplayName("2 ball 상태의 타석에서 타격 결과가 double_ball 이면 타석 결과는 four_ball 으로 진루 입니다.")
     @Test
     void t9() {
-        totalResult.addBattingResultCount(DOUBLE_BALL);
-        totalResult.addBattingResultCount(DOUBLE_BALL);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 2);
+        totalResult.adjustAccordingToBattingResult(DOUBLE_BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -113,8 +106,8 @@ class NormalBaseballLv2Test {
     @DisplayName("타석 결과가 hit 이면 타석 결과는 hit 로 진루 입니다.")
     @Test
     void t10() {
-        totalResult.addBattingResultCount(HIT);
-        totalResult.judgeBatterStatus();
+        TotalBattingResult totalResult = TotalBattingResult.of(0, 2);
+        totalResult.adjustAccordingToBattingResult(HIT);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -143,7 +136,7 @@ class NormalBaseballLv2Test {
         if (batterStatus == ON_GOING) {
             throw new NewBattingException("새로운 타석 안됨");
         }
-        return new TotalBattingResult();
+        return TotalBattingResult.of(0,0);
     }
 
 }
