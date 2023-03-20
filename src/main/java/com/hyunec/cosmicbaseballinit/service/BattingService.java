@@ -27,9 +27,7 @@ public class BattingService {
                                                             BattingResult result
     ) {
         TotalBattingResult totalBattingResultEntity = totalBattingResultDao.findById(id);
-        totalBattingResultEntity.setBattingResult(result);
-        totalBattingResultEntity.increaseBattingResultCount();
-        totalBattingResultEntity.updateBatterStatus();
+        totalBattingResultEntity.adjustAccordingToBattingResult(result);
         return totalBattingResultEntity;
     }
 }

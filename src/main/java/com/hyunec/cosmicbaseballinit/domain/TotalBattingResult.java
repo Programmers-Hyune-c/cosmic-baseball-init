@@ -16,7 +16,6 @@ public class TotalBattingResult {
     private int ballCount;
     private int strikeCount;
     private BatterStatus batterStatus = ON_GOING;
-    @Setter
     private BattingResult battingResult;
 
     private TotalBattingResult(int strikeCount, int ballCount) {
@@ -24,16 +23,18 @@ public class TotalBattingResult {
         this.strikeCount = strikeCount;
     }
 
-    public static TotalBattingResult of(int strikeCount, int ballCount){
-        return new TotalBattingResult(strikeCount,ballCount);
+    public static TotalBattingResult of(int strikeCount, int ballCount) {
+        return new TotalBattingResult(strikeCount, ballCount);
     }
 
-    public void increaseBattingResultCount() {
-        this.ballCount += this.battingResult.getIncreaseBallCount();
-        this.strikeCount += this.battingResult.getIncreaseStrikeCount();
+    public void adjustAccordingToBattingResult(BattingResult battingResult) {
+        this.battingResult = battingResult;
+        this.ballCount += battingResult.getIncreaseBallCount();
+        this.strikeCount += battingResult.getIncreaseStrikeCount();
+        setBatterStatus();
     }
 
-    public void updateBatterStatus() {
+    private void setBatterStatus() {
         if (isGoToBase()) {
             this.batterStatus = GO_TO_BASE;
             return;
