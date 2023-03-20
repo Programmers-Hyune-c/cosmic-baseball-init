@@ -34,9 +34,7 @@ class NormalBaseballLv2Test {
     @Test
     void t2() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
-        totalResult.setBattingResult(STRIKE);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -45,9 +43,7 @@ class NormalBaseballLv2Test {
     @Test
     void t3() {
         TotalBattingResult totalResult = TotalBattingResult.of(2, 0);
-        totalResult.setBattingResult(DOUBLE_STRIKE);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
 
@@ -57,9 +53,7 @@ class NormalBaseballLv2Test {
     @Test
     void t4() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
-        totalResult.setBattingResult(DOUBLE_STRIKE);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -68,10 +62,7 @@ class NormalBaseballLv2Test {
     @Test
     void t5() {
         TotalBattingResult totalResult = TotalBattingResult.of(1, 0);
-
-        totalResult.setBattingResult(DOUBLE_STRIKE);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(DOUBLE_STRIKE);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(OUT);
     }
@@ -80,9 +71,7 @@ class NormalBaseballLv2Test {
     @Test
     void t6() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
-        totalResult.setBattingResult(BALL);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -91,11 +80,7 @@ class NormalBaseballLv2Test {
     @Test
     void t7() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 3);
-
-        totalResult.setBattingResult(BALL);
-        totalResult.increaseBattingResultCount();
-
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -104,10 +89,7 @@ class NormalBaseballLv2Test {
     @Test
     void t8() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 0);
-
-        totalResult.setBattingResult(DOUBLE_BALL);
-        totalResult.increaseBattingResultCount();
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(DOUBLE_BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(ON_GOING);
     }
@@ -116,11 +98,7 @@ class NormalBaseballLv2Test {
     @Test
     void t9() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 2);
-
-        totalResult.setBattingResult(DOUBLE_BALL);
-        totalResult.increaseBattingResultCount();
-
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(DOUBLE_BALL);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
@@ -129,11 +107,7 @@ class NormalBaseballLv2Test {
     @Test
     void t10() {
         TotalBattingResult totalResult = TotalBattingResult.of(0, 2);
-
-        totalResult.setBattingResult(HIT);
-        totalResult.increaseBattingResultCount();
-
-        totalResult.updateBatterStatus();
+        totalResult.adjustAccordingToBattingResult(HIT);
 
         assertThat(totalResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }

@@ -50,10 +50,7 @@ class CosmicBaseballLv2Test {
     @Test
     void t3() {
         TotalBattingResult totalBattingResult = TotalBattingResult.of(0, 0);
-
-        totalBattingResult.setBattingResult(BULL_EYE_STRIKE);
-        totalBattingResult.increaseBattingResultCount();
-        totalBattingResult.updateBatterStatus();
+        totalBattingResult.adjustAccordingToBattingResult(BULL_EYE_STRIKE);
 
         assertThat(totalBattingResult.getBatterStatus()).isEqualTo(OUT);
     }
@@ -62,10 +59,7 @@ class CosmicBaseballLv2Test {
     @Test
     void t4() {
         TotalBattingResult totalBattingResult = TotalBattingResult.of(0, 0);
-
-        totalBattingResult.setBattingResult(BULL_EYE_BALL);
-        totalBattingResult.increaseBattingResultCount();
-        totalBattingResult.updateBatterStatus();
+        totalBattingResult.adjustAccordingToBattingResult(BULL_EYE_BALL);
 
         assertThat(totalBattingResult.getBatterStatus()).isEqualTo(GO_TO_BASE);
     }
