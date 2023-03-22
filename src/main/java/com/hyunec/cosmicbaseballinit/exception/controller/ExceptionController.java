@@ -1,8 +1,9 @@
 package com.hyunec.cosmicbaseballinit.exception.controller;
 
-import com.hyunec.cosmicbaseballinit.exception.NewBattingException;
+import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,9 +11,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(NewBattingException.class)
+    @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse newBattingExceptionHandler(NewBattingException e) {
+    public ErrorResponse newBattingExceptionHandler(BusinessException e) {
+        return ErrorResponse.of(e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+        return ErrorResponse.of(e.getBindingResult());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse runtimeExceptionHandler(RuntimeException e){
         return ErrorResponse.of(e.getMessage());
     }
 
