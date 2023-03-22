@@ -15,33 +15,51 @@ public class TotalBattingResult {
     private Long id;
     private int ballCount;
     private int strikeCount;
-    private BatterStatus batterStatus = ON_GOING;
+    private BatterStatus batterStatus;
     private BattingResult battingResult;
+    private int outCount;
+    private final ScoreBoard scoreBoard = ScoreBoard.of(false, false, false);
 
     private TotalBattingResult(int strikeCount, int ballCount) {
         this.ballCount = ballCount;
         this.strikeCount = strikeCount;
     }
 
+    public TotalBattingResult(int ballCount, int strikeCount, int outCount) {
+        this.ballCount = ballCount;
+        this.strikeCount = strikeCount;
+        this.outCount = outCount;
+    }
+
     public static TotalBattingResult of(int strikeCount, int ballCount) {
         return new TotalBattingResult(strikeCount, ballCount);
     }
+
 
     public void adjustAccordingToBattingResult(BattingResult battingResult) {
         this.battingResult = battingResult;
         this.ballCount += battingResult.getIncreaseBallCount();
         this.strikeCount += battingResult.getIncreaseStrikeCount();
-        applyBatterStatus();
-    }
 
-    private void applyBatterStatus() {
         if (isGoToBase()) {
             this.batterStatus = GO_TO_BASE;
+            this.scoreBoard.adjustBaseAndScore();
+            resetBattingResultCount();
             return;
         }
+
         if (isOut()) {
             this.batterStatus = OUT;
+            this.outCount++;
+            resetBattingResultCount();
+            return;
         }
+        this.batterStatus = ON_GOING;
+    }
+
+    private void resetBattingResultCount() {
+        this.strikeCount = 0;
+        this.ballCount = 0;
     }
 
     private boolean isOut() {

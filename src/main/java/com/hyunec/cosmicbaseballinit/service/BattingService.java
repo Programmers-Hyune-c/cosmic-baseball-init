@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 public class BattingService {
 
     private final TotalBattingResultDao totalBattingResultDao;
-    private final RandomBattingResultGenerator randomBattingResultGenerator;
 
     public TotalBattingResult newBatting() {
-        return totalBattingResultDao.save(TotalBattingResult.of(0,0));
+        return totalBattingResultDao.save(TotalBattingResult.of(0, 0));
     }
 
-    public TotalBattingResult batting(Long id) {
-        BattingResult battingResult = randomBattingResultGenerator.getBattingResult();
+    public TotalBattingResult batting(Long id, int percentage, String targetResult) {
+        BattingResult battingResult =
+            RandomBattingResultGenerator.getBattingResult(percentage, targetResult);
         return updateTotalBattingResult(id, battingResult);
     }
 
     private TotalBattingResult updateTotalBattingResult(
-                                                            Long id,
-                                                            BattingResult result
+        Long id,
+        BattingResult result
     ) {
         TotalBattingResult totalBattingResultEntity = totalBattingResultDao.findById(id);
         totalBattingResultEntity.adjustAccordingToBattingResult(result);
