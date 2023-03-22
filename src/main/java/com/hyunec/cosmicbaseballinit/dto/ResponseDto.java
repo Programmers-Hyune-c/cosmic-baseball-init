@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class ResponseDto {
 
-    private final TotalBattingResult resultCount;
+    private final TotalBattingResult screen;
 }
 
