@@ -42,24 +42,24 @@ public class TotalBattingResult {
         this.strikeCount += battingResult.getIncreaseStrikeCount();
 
         if (isGoToBase()) {
-            processGoToBase();
+            doGoToBaseProcess();
             return;
         }
 
         if (isOut()) {
-            processOut();
+            doOutProcess();
             return;
         }
         this.batterStatus = ON_GOING;
     }
 
-    private void processGoToBase() {
+    private void doGoToBaseProcess() {
         this.batterStatus = GO_TO_BASE;
         this.scoreAndBaseBoard.adjustBaseAndScore();
         resetBattingResultCount();
     }
 
-    private void processOut() {
+    private void doOutProcess() {
         this.batterStatus = OUT;
         this.outCount++;
         resetBattingResultCount();
