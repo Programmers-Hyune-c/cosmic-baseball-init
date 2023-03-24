@@ -18,17 +18,17 @@ public class TotalBattingResult {
     private BatterStatus batterStatus;
     private BattingResult battingResult;
     private int outCount;
-    private final ScoreBoard scoreBoard = ScoreBoard.of(false, false, false);
-
-    private TotalBattingResult(int strikeCount, int ballCount) {
-        this.ballCount = ballCount;
-        this.strikeCount = strikeCount;
-    }
+    private final ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard();
 
     public TotalBattingResult(int ballCount, int strikeCount, int outCount) {
         this.ballCount = ballCount;
         this.strikeCount = strikeCount;
         this.outCount = outCount;
+    }
+
+    private TotalBattingResult(int strikeCount, int ballCount) {
+        this.ballCount = ballCount;
+        this.strikeCount = strikeCount;
     }
 
     public static TotalBattingResult of(int strikeCount, int ballCount) {
@@ -42,19 +42,27 @@ public class TotalBattingResult {
         this.strikeCount += battingResult.getIncreaseStrikeCount();
 
         if (isGoToBase()) {
-            this.batterStatus = GO_TO_BASE;
-            this.scoreBoard.adjustBaseAndScore();
-            resetBattingResultCount();
+            processGoToBase();
             return;
         }
 
         if (isOut()) {
-            this.batterStatus = OUT;
-            this.outCount++;
-            resetBattingResultCount();
+            processOut();
             return;
         }
         this.batterStatus = ON_GOING;
+    }
+
+    private void processGoToBase() {
+        this.batterStatus = GO_TO_BASE;
+        this.scoreAndBaseBoard.adjustBaseAndScore();
+        resetBattingResultCount();
+    }
+
+    private void processOut() {
+        this.batterStatus = OUT;
+        this.outCount++;
+        resetBattingResultCount();
     }
 
     private void resetBattingResultCount() {
