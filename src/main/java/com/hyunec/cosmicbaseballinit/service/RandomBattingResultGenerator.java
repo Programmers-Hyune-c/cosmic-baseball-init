@@ -5,13 +5,15 @@ import static com.hyunec.cosmicbaseballinit.domain.BattingResult.DOUBLE_BALL;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.DOUBLE_STRIKE;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.STRIKE;
+import static lombok.AccessLevel.PRIVATE;
 
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor(access = PRIVATE)
 public class RandomBattingResultGenerator {
 
     private static final Random RANDOM = new Random();
@@ -19,10 +21,7 @@ public class RandomBattingResultGenerator {
         List.of(STRIKE, BALL, HIT, DOUBLE_STRIKE, DOUBLE_BALL);
     private static final int BOUND = 100;
 
-    private RandomBattingResultGenerator(){}
-
-    public static BattingResult getBattingResult(int percentage, String targetResult) {
-        BattingResult target = BattingResult.valueOf(targetResult);
+    public static BattingResult getBattingResult(int percentage, BattingResult target) {
         if (isInPercentage(percentage)) {
             return target;
         }

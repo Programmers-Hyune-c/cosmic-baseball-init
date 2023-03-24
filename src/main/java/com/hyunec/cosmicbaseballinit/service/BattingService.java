@@ -16,7 +16,7 @@ public class BattingService {
         return totalBattingResultDao.save(TotalBattingResult.of(0, 0));
     }
 
-    public TotalBattingResult batting(Long id, int percentage, String targetResult) {
+    public TotalBattingResult batting(Long id, int percentage, BattingResult targetResult) {
         BattingResult battingResult =
             RandomBattingResultGenerator.getBattingResult(percentage, targetResult);
         return updateTotalBattingResult(id, battingResult);
