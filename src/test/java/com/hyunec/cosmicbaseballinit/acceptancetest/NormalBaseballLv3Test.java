@@ -2,9 +2,8 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
-import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
+import com.hyunec.cosmicbaseballinit.domain.ScoreAndBaseBoard;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ExceptionType;
@@ -38,66 +37,36 @@ class NormalBaseballLv3Test {
             .hasMessageContaining(ExceptionType.END_INNING.getMessage());
     }
 
-    @DisplayName("1명의 타자가 진루 시 1루 베이스가 true로 변합니다.")
+    @DisplayName("한 명의 타자가 진루 시 OnBaseList에 1(baseNumber)이 있습니다.")
     @Test
     void t3() {
-        ScoreBoard scoreBoard = ScoreBoard.of(false, false, false);
+        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard();
 
-        scoreBoard.adjustBaseAndScore();
-        boolean firstBase = scoreBoard.isInFirstBase();
-        boolean secondBase = scoreBoard.isInSecondBase();
-        boolean thirdBase = scoreBoard.isInThirdBase();
+        scoreAndBaseBoard.adjustBaseAndScore();
 
-        assertSoftly(soft -> {
-            soft.assertThat(firstBase).isTrue();
-            soft.assertThat(secondBase).isFalse();
-            soft.assertThat(thirdBase).isFalse();
-        });
+        assertThat(scoreAndBaseBoard.getOnBaseList()).containsExactly(1);
+
     }
 
-    @DisplayName("2명의 타자가 진루시 1루, 2루 베이스가 true로 변합니다.")
+    @DisplayName("두 명의 타자가 진루 시 OnBaseList에 1과 2가(baseNumber)이 있습니다.")
     @Test
     void t4() {
-        ScoreBoard scoreBoard = ScoreBoard.of(true, false, false);
+        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard(1);
 
-        scoreBoard.adjustBaseAndScore();
-        boolean firstBase = scoreBoard.isInFirstBase();
-        boolean secondBase = scoreBoard.isInSecondBase();
-        boolean thirdBase = scoreBoard.isInThirdBase();
+        scoreAndBaseBoard.adjustBaseAndScore();
 
-        assertSoftly(soft -> {
-            soft.assertThat(firstBase).isTrue();
-            soft.assertThat(secondBase).isTrue();
-            soft.assertThat(thirdBase).isFalse();
-        });
-    }
+        assertThat(scoreAndBaseBoard.getOnBaseList()).containsExactly(1,2);
 
-    @DisplayName("3명의 타자가 진루시 1루, 2루, 3루 베이스가 true로 변합니다..")
-    @Test
-    void t() {
-        ScoreBoard scoreBoard = ScoreBoard.of(true, true, false);
-
-        scoreBoard.adjustBaseAndScore();
-        boolean firstBase = scoreBoard.isInFirstBase();
-        boolean secondBase = scoreBoard.isInSecondBase();
-        boolean thirdBase = scoreBoard.isInThirdBase();
-
-        assertSoftly(soft -> {
-            soft.assertThat(firstBase).isTrue();
-            soft.assertThat(secondBase).isTrue();
-            soft.assertThat(thirdBase).isTrue();
-        });
     }
 
     @DisplayName("득점을 표현할 수 있습니다.")
     @Test
     void t5() {
-        ScoreBoard scoreBoard = ScoreBoard.of(true, true, true);
+        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard(3);
 
-        scoreBoard.adjustBaseAndScore();
-        int score = scoreBoard.getScore();
+        scoreAndBaseBoard.adjustBaseAndScore();
 
-        assertThat(score).isEqualTo(1);
+        assertThat(scoreAndBaseBoard.getScore()).isEqualTo(1);
     }
 
     private int getRandomStrikeCount(int percent) {
