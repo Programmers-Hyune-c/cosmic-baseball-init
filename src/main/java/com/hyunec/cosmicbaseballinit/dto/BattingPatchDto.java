@@ -12,6 +12,6 @@ public class BattingPatchDto {
     private int percentage;
     private String targetResult;
     @Min(0)
-    @Max(3)
+    @Max(value = 2, message = "3 out이 되어 게임이 종료됩니다.")
     private int outCount;
 }

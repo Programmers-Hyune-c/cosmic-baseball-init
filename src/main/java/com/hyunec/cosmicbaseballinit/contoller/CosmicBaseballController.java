@@ -37,17 +37,9 @@ public class CosmicBaseballController {
     @PatchMapping("/batting/{id}")
     public ResponseDto batting(@Min(1) @PathVariable Long id, @Valid @RequestBody BattingPatchDto patchDto) {
 
-        checkOutCount(patchDto.getOutCount());
-
         TotalBattingResult totalBattingResult =
             battingService.batting(id, patchDto.getPercentage(), patchDto.getTargetResult());
         return new ResponseDto(totalBattingResult);
-    }
-
-    private void checkOutCount(int outCount) {
-        if (outCount >= 3){
-            throw new BusinessException(ExceptionType.END_INNING);
-        }
     }
 
     private void validateOnGoing(String status) {
