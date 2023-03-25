@@ -7,20 +7,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ScoreAndBaseBoard {
+public class ScoreBoard {
 
     private static final int COUNT_OF_BASES = 4;
     private final List<Integer> onBaseList = new ArrayList<>();
     private int score;
-    private int baseNumber;
 
-    public ScoreAndBaseBoard(int baseNumber) {
-        onBaseList.add(baseNumber);
-        this.baseNumber = baseNumber;
+    public ScoreBoard(List<Integer> baseNumbers ) {
+        onBaseList.addAll(baseNumbers);
     }
 
     public void adjustBaseAndScore() {
-        onBaseList.add(++baseNumber);
+        onBaseList.add(onBaseList.size() + 1);
         if (isRun()) {
             doScoringProcess();
         }
@@ -29,7 +27,6 @@ public class ScoreAndBaseBoard {
     private void doScoringProcess() {
         score++;
         onBaseList.clear();
-        baseNumber = 0;
     }
 
     private boolean isRun() {

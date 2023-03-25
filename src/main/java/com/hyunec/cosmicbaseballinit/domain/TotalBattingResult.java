@@ -18,7 +18,7 @@ public class TotalBattingResult {
     private BatterStatus batterStatus;
     private BattingResult battingResult;
     private int outCount;
-    private final ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard();
+    private final ScoreBoard scoreBoard = new ScoreBoard();
 
     public TotalBattingResult(int ballCount, int strikeCount, int outCount) {
         this.ballCount = ballCount;
@@ -55,7 +55,7 @@ public class TotalBattingResult {
 
     private void doGoToBaseProcess() {
         this.batterStatus = GO_TO_BASE;
-        this.scoreAndBaseBoard.adjustBaseAndScore();
+        this.scoreBoard.adjustBaseAndScore();
         resetBattingResultCount();
     }
 
