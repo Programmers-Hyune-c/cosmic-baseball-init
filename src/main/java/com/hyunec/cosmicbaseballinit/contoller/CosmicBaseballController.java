@@ -46,7 +46,7 @@ public class CosmicBaseballController {
 
     private void validateOnGoing(BatterStatus status) {
         if ( status == ON_GOING) {
-            throw new BusinessException(ExceptionType.NEW_BATTING);
+            throw new BusinessException(ExceptionType.NO_NEW_BATTING_ON_GOING);
         }
     }
 }
