@@ -2,6 +2,7 @@ package com.hyunec.cosmicbaseballinit.contoller;
 
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
 
+import com.hyunec.cosmicbaseballinit.domain.BatterStatus;
 import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
 import com.hyunec.cosmicbaseballinit.dto.BattingPatchDto;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
@@ -28,27 +29,24 @@ public class CosmicBaseballController {
     private final BattingService battingService;
 
     @PostMapping("/batting/new")
-    public ResponseDto newBatting(@Nullable @RequestParam("status") String status) {
+    public ResponseDto newBatting(@Nullable @RequestParam("status") BatterStatus status) {
         validateOnGoing(status);
         TotalBattingResult newBatting = battingService.newBatting();
         return new ResponseDto(newBatting);
     }
 
     @PatchMapping("/batting/{id}")
-    public ResponseDto batting(@Min(1) @PathVariable Long id, @Valid @RequestBody BattingPatchDto patchDto) {
+    public ResponseDto batting(@Min(1) @PathVariable Long id,
+        @Valid @RequestBody BattingPatchDto patchDto) {
 
         TotalBattingResult totalBattingResult =
             battingService.batting(id, patchDto.getPercentage(), patchDto.getTargetResult());
         return new ResponseDto(totalBattingResult);
     }
 
-    private void validateOnGoing(String status) {
-        if (isOnGoing(status)) {
+    private void validateOnGoing(BatterStatus status) {
+        if ( status == ON_GOING) {
             throw new BusinessException(ExceptionType.NEW_BATTING);
         }
-    }
-
-    private boolean isOnGoing(String status) {
-        return status != null && status.equals(ON_GOING.name());
     }
 }
