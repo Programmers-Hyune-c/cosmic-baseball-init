@@ -21,7 +21,7 @@ public class RandomBattingResultGenerator {
         List.of(STRIKE, BALL, HIT, DOUBLE_STRIKE, DOUBLE_BALL);
     private static final int BOUND = 100;
 
-    public static BattingResult getBattingResult(int percentage, BattingResult target) {
+    public static BattingResult get(int percentage, BattingResult target) {
         if (isInPercentage(percentage)) {
             return target;
         }

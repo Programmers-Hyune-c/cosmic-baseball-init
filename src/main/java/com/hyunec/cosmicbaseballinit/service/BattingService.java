@@ -18,7 +18,7 @@ public class BattingService {
 
     public TotalBattingResult batting(Long id, int percentage, BattingResult targetResult) {
         BattingResult battingResult =
-            RandomBattingResultGenerator.getBattingResult(percentage, targetResult);
+            RandomBattingResultGenerator.get(percentage, targetResult);
         return updateTotalBattingResult(id, battingResult);
     }
 
