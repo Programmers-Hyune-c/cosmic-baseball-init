@@ -3,12 +3,12 @@ package com.hyunec.cosmicbaseballinit.contoller;
 import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
 
 import com.hyunec.cosmicbaseballinit.domain.BatterStatus;
-import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
+import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
 import com.hyunec.cosmicbaseballinit.dto.BattingPatchDto;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
 import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ExceptionType;
-import com.hyunec.cosmicbaseballinit.service.BattingService;
+import com.hyunec.cosmicbaseballinit.service.GameService;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -26,26 +26,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CosmicBaseballController {
 
-    private final BattingService battingService;
+    private final GameService gameService;
 
-    @PostMapping("/batting/new")
-    public ResponseDto newBatting(@Nullable @RequestParam("status") BatterStatus status) {
+    @PostMapping("/new")
+    public ResponseDto newGame(@Nullable @RequestParam("status") BatterStatus status) {
         validateOnGoing(status);
-        TotalBattingResult newBatting = battingService.newBatting();
-        return new ResponseDto(newBatting);
+        return new ResponseDto(gameService.newGame());
     }
 
     @PatchMapping("/batting/{id}")
-    public ResponseDto batting(@Min(1) @PathVariable Long id,
-        @Valid @RequestBody BattingPatchDto patchDto) {
-
-        TotalBattingResult totalBattingResult =
-            battingService.batting(id, patchDto.getPercentage(), patchDto.getTargetResult());
-        return new ResponseDto(totalBattingResult);
+    public ResponseDto batting(
+                                    @Min(1) @PathVariable Long id,
+                                    @Valid @RequestBody BattingPatchDto patchDto
+    ) {
+        ScoreBoard updatedScoreBoard = gameService.batting(id, patchDto.getPercentage(), patchDto.getTargetResult());
+        return new ResponseDto(updatedScoreBoard);
     }
 
     private void validateOnGoing(BatterStatus status) {
-        if ( status == ON_GOING) {
+        if (status == ON_GOING) {
             throw new BusinessException(ExceptionType.NO_NEW_BATTING_ON_GOING);
         }
     }
