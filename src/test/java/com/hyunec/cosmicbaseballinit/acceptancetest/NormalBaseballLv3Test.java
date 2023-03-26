@@ -3,10 +3,12 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.hyunec.cosmicbaseballinit.domain.ScoreAndBaseBoard;
-import com.hyunec.cosmicbaseballinit.domain.TotalBattingResult;
+import com.hyunec.cosmicbaseballinit.domain.BattingResult;
+import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
+import com.hyunec.cosmicbaseballinit.domain.AtBatResult;
 import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ExceptionType;
+import java.util.List;
 import java.util.Random;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Disabled;
@@ -29,7 +31,7 @@ class NormalBaseballLv3Test {
     @DisplayName("1개의 게임은 1개의 회로 이루어져 있으며, 1개의 회는 3 out 이 되면 종료됩니다.")
     @Test
     void t2() {
-        TotalBattingResult result = new TotalBattingResult(0, 0, 3);
+        AtBatResult result = new AtBatResult(0, 0, 3);
         assertThatThrownBy(() -> {
             endGame(result);
         })
@@ -40,33 +42,33 @@ class NormalBaseballLv3Test {
     @DisplayName("한 명의 타자가 진루 시 OnBaseList에 1(baseNumber)이 있습니다.")
     @Test
     void t3() {
-        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard();
+        ScoreBoard scoreBoard = new ScoreBoard();
 
-        scoreAndBaseBoard.adjustBaseAndScore();
+        scoreBoard.adjust(BattingResult.HIT);
 
-        assertThat(scoreAndBaseBoard.getOnBaseList()).containsExactly(1);
+        assertThat(scoreBoard.getOnBaseList()).containsExactly(1);
 
     }
 
     @DisplayName("두 명의 타자가 진루 시 OnBaseList에 1과 2가(baseNumber)이 있습니다.")
     @Test
     void t4() {
-        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard(1);
+        ScoreBoard scoreBoard = new ScoreBoard(List.of(1));
 
-        scoreAndBaseBoard.adjustBaseAndScore();
+        scoreBoard.adjust(BattingResult.HIT);
 
-        assertThat(scoreAndBaseBoard.getOnBaseList()).containsExactly(1,2);
+        assertThat(scoreBoard.getOnBaseList()).containsExactly(1,2);
 
     }
 
     @DisplayName("득점을 표현할 수 있습니다.")
     @Test
     void t5() {
-        ScoreAndBaseBoard scoreAndBaseBoard = new ScoreAndBaseBoard(3);
+        ScoreBoard scoreBoard = new ScoreBoard(List.of(1,2,3));
 
-        scoreAndBaseBoard.adjustBaseAndScore();
+        scoreBoard.adjust(BattingResult.HIT);
 
-        assertThat(scoreAndBaseBoard.getScore()).isEqualTo(1);
+        assertThat(scoreBoard.getScore()).isEqualTo(1);
     }
 
     private int getRandomStrikeCount(int percent) {
@@ -80,7 +82,7 @@ class NormalBaseballLv3Test {
         return count;
     }
 
-    private void endGame(TotalBattingResult result) {
+    private void endGame(AtBatResult result) {
         if (result.getOutCount() >= 3) {
             throw new BusinessException(ExceptionType.END_INNING);
         }
