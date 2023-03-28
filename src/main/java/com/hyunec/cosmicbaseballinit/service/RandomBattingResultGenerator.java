@@ -20,12 +20,22 @@ public class RandomBattingResultGenerator {
     private static final List<BattingResult> BATTING_RESULT_LIST =
         List.of(STRIKE, BALL, HIT, DOUBLE_STRIKE, DOUBLE_BALL);
     private static final int BOUND = 100;
+    private static final int HIT_PERCENT = 40;
 
     public static BattingResult get(int percentage, BattingResult target) {
         if (isInPercentage(percentage)) {
             return target;
         }
         BattingResult result = getBattingResultExcept(target);
+        return isBullEyeResult(result) ? result.toBullEyeResult() : result;
+    }
+
+    public static BattingResult getResultOnFever() {
+
+        if(isInPercentage(HIT_PERCENT)){
+           return HIT;
+        }
+        BattingResult result = getBattingResultExcept(HIT);
         return isBullEyeResult(result) ? result.toBullEyeResult() : result;
     }
 
@@ -51,5 +61,6 @@ public class RandomBattingResultGenerator {
     private static BattingResult getRandomResult() {
         return BattingResult.values()[RANDOM.nextInt(BATTING_RESULT_LIST.size())];
     }
+
 
 }

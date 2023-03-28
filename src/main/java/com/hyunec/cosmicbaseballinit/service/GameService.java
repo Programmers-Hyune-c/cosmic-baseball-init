@@ -19,10 +19,15 @@ public class GameService {
     public ScoreBoard batting(Long id, int percentage, BattingResult targetResult) {
         BattingResult battingResult =
             RandomBattingResultGenerator.get(percentage, targetResult);
-        return updateTotalBattingResult(id, battingResult);
+        return updateAtBatResult(id, battingResult);
     }
 
-    private ScoreBoard updateTotalBattingResult(
+    public ScoreBoard feverBatting(Long id) {
+        BattingResult battingResult = RandomBattingResultGenerator.getResultOnFever();
+        return updateAtBatResult(id, battingResult);
+    }
+
+    private ScoreBoard updateAtBatResult(
         Long id,
         BattingResult result
     ) {
