@@ -6,6 +6,7 @@ import com.hyunec.cosmicbaseballinit.domain.BatterStatus;
 import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
 import com.hyunec.cosmicbaseballinit.dto.BattingPatchDto;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
+import com.hyunec.cosmicbaseballinit.dto.ValidationDto;
 import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ExceptionType;
 import com.hyunec.cosmicbaseballinit.service.GameService;
@@ -28,18 +29,39 @@ public class CosmicBaseballController {
 
     private final GameService gameService;
 
-    @PostMapping("/new")
+    @PostMapping("/games")
     public ResponseDto newGame(@Nullable @RequestParam("status") BatterStatus status) {
         validateOnGoing(status);
         return new ResponseDto(gameService.newGame());
     }
 
+    @PostMapping("/games/fever")
+    public ResponseDto feverInning(@Nullable @RequestParam("status") BatterStatus status) {
+        validateOnGoing(status);
+
+        ScoreBoard scoreBoard = gameService.newGame();
+        scoreBoard.startFeverInning();
+
+        return new ResponseDto(scoreBoard);
+    }
+
+    @PatchMapping("/batting/fever/{id}")
+    public ResponseDto battingInFeverInning(
+        @Min(1) @PathVariable Long id,
+        @Valid @RequestBody ValidationDto dto){
+        ScoreBoard feverScoreBoard = gameService.feverBatting(id);
+        return new ResponseDto(feverScoreBoard);
+    }
+
     @PatchMapping("/batting/{id}")
     public ResponseDto batting(
-                                    @Min(1) @PathVariable Long id,
-                                    @Valid @RequestBody BattingPatchDto patchDto
+        @Min(1) @PathVariable Long id,
+        @Valid @RequestBody BattingPatchDto patchDto
     ) {
-        ScoreBoard updatedScoreBoard = gameService.batting(id, patchDto.getPercentage(), patchDto.getTargetResult());
+        ScoreBoard updatedScoreBoard = gameService.batting(
+                                                            id,
+                                                            patchDto.getPercentage(),
+                                                            patchDto.getTargetResult());
         return new ResponseDto(updatedScoreBoard);
     }
 
