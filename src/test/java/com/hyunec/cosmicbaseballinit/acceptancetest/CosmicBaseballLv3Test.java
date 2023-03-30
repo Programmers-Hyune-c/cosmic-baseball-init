@@ -3,51 +3,66 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 import static com.hyunec.cosmicbaseballinit.domain.BattingResult.HIT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.hyunec.cosmicbaseballinit.domain.BaseList;
 import com.hyunec.cosmicbaseballinit.domain.BattingResult;
-import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
-import com.hyunec.cosmicbaseballinit.service.RandomBattingResultGenerator;
+import com.hyunec.cosmicbaseballinit.domain.FeverScoreBoard;
+import com.hyunec.cosmicbaseballinit.util.RandomBattingResultGenerator;
 import java.util.List;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.EnumSource.Mode;
+
 
 class CosmicBaseballLv3Test {
 
     @Disabled("확률 테스트 메서드는 로컬 환경에서 독립적으로 실행합니다.")
-    @DisplayName("fever inning 에는 안타 확률이 2배가 됩니다.")
-    @Test
-    void t1() {
-        int hitCount = getHitCount();
-        int hitCountInFeverInning = getHitCountInFeverInning();
-        assertThat(hitCountInFeverInning).isCloseTo(hitCount*2, Percentage.withPercentage(1));
+    @DisplayName("fever inning의 안타 확률은 normal inning의 안타 확률의 2배입니다.")
+    @ParameterizedTest
+    @EnumSource(
+        value = BattingResult.class,
+        mode = Mode.EXCLUDE,
+        names = {"BULL_EYE_STRIKE", "BULL_EYE_BALL"}
+    )
+    void t1(BattingResult battingResult) {
+        int hitCount = getHitCount(battingResult);
+        int hitCountInFeverInning = getHitCountInFeverInning(battingResult);
+        assertThat(hitCountInFeverInning).isCloseTo(hitCount * 2, Percentage.withPercentage(1));
     }
-
     @DisplayName("3루가 없어집니다.")
     @Test
     void t2() {
-        ScoreBoard scoreBoard = new ScoreBoard(List.of(1,2));
-        scoreBoard.startFeverInning();
+        FeverScoreBoard feverScoreBoard = new FeverScoreBoard(new BaseList(List.of(1, 2)));
 
-        scoreBoard.adjust(HIT);
+        feverScoreBoard.adjust(HIT);
 
-        assertThat(scoreBoard.getScore()).isEqualTo(1);
+        assertThat(feverScoreBoard.getScore()).isEqualTo(1);
     }
 
-    private int getHitCount() {
+    private int getHitCount(BattingResult target) {
         int count = 0;
-        BattingResult result = RandomBattingResultGenerator.get(20, HIT);
-        if (result == HIT) {
-            count++;
+        int percentage = 20;
+        for (int i = 0; i < 1000000; i++) {
+            BattingResult result = RandomBattingResultGenerator.get(percentage, target);
+            if (result == HIT) {
+                count++;
+            }
         }
         return count;
     }
 
-    private int getHitCountInFeverInning() {
+    private int getHitCountInFeverInning(BattingResult target) {
         int count = 0;
-        BattingResult resultOnFever = RandomBattingResultGenerator.getResultOnFever();
-        if (resultOnFever == HIT) {
-            count++;
+        int percentage = 20;
+        for (int i = 0; i < 1000000; i++) {
+            BattingResult resultOnFever =
+                RandomBattingResultGenerator.getOnFever(percentage, target);
+            if (resultOnFever == HIT) {
+                count++;
+            }
         }
         return count;
     }
