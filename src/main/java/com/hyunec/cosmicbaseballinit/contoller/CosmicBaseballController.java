@@ -4,13 +4,12 @@ import static com.hyunec.cosmicbaseballinit.domain.BatterStatus.ON_GOING;
 
 import com.hyunec.cosmicbaseballinit.domain.BatterStatus;
 import com.hyunec.cosmicbaseballinit.domain.ScoreBoard;
-import com.hyunec.cosmicbaseballinit.dto.BattingPatchDto;
+import com.hyunec.cosmicbaseballinit.dto.GamePatchDto;
+import com.hyunec.cosmicbaseballinit.dto.NewGameDto;
 import com.hyunec.cosmicbaseballinit.dto.ResponseDto;
-import com.hyunec.cosmicbaseballinit.dto.ValidationDto;
 import com.hyunec.cosmicbaseballinit.exception.BusinessException;
 import com.hyunec.cosmicbaseballinit.exception.ExceptionType;
 import com.hyunec.cosmicbaseballinit.service.GameService;
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -22,47 +21,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RequiredArgsConstructor
 @Validated
 @RestController
 public class CosmicBaseballController {
 
-    private final GameService gameService;
+    private final GameServiceSelector gameServiceSelector;
 
     @PostMapping("/games")
-    public ResponseDto newGame(@Nullable @RequestParam("status") BatterStatus status) {
+    public ResponseDto newGame(
+        @Nullable @RequestParam("status") BatterStatus status,
+        @RequestBody NewGameDto newGameDto
+    ) {
         validateOnGoing(status);
-        return new ResponseDto(gameService.newGame());
-    }
-
-    @PostMapping("/games/fever")
-    public ResponseDto feverInning(@Nullable @RequestParam("status") BatterStatus status) {
-        validateOnGoing(status);
-
+        GameService gameService = gameServiceSelector.get(newGameDto.getInningType());
         ScoreBoard scoreBoard = gameService.newGame();
-        scoreBoard.startFeverInning();
 
         return new ResponseDto(scoreBoard);
     }
 
-    @PatchMapping("/batting/fever/{id}")
+    @PatchMapping("/games/{id}")
     public ResponseDto battingInFeverInning(
         @Min(1) @PathVariable Long id,
-        @Valid @RequestBody ValidationDto dto){
-        ScoreBoard feverScoreBoard = gameService.feverBatting(id);
-        return new ResponseDto(feverScoreBoard);
-    }
-
-    @PatchMapping("/batting/{id}")
-    public ResponseDto batting(
-        @Min(1) @PathVariable Long id,
-        @Valid @RequestBody BattingPatchDto patchDto
+        @RequestBody GamePatchDto patchDto
     ) {
-        ScoreBoard updatedScoreBoard = gameService.batting(
-                                                            id,
-                                                            patchDto.getPercentage(),
-                                                            patchDto.getTargetResult());
-        return new ResponseDto(updatedScoreBoard);
+        GameService gameService = gameServiceSelector.get(patchDto.getInningType());
+        ScoreBoard scoreBoard = gameService.batting(
+            id,
+            patchDto.getPercentage(),
+            patchDto.getTargetResult()
+        );
+        return new ResponseDto(scoreBoard);
     }
 
     private void validateOnGoing(BatterStatus status) {
