@@ -22,11 +22,11 @@ public class ErrorResponse {
         this.customFieldError = customFieldError;
     }
 
-    public static ErrorResponse of(String message){
+    public static ErrorResponse of(String message) {
         return ErrorResponse.builder().message(message).build();
     }
 
-    public static ErrorResponse of(BindingResult bindingResult){
+    public static ErrorResponse of(BindingResult bindingResult) {
         return ErrorResponse.builder().customFieldError(CustomFieldError.of(bindingResult)).build();
     }
 
@@ -43,7 +43,7 @@ public class ErrorResponse {
             this.message = message;
         }
 
-        public static List<CustomFieldError> of(BindingResult bindingResult){
+        public static List<CustomFieldError> of(BindingResult bindingResult) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             return fieldErrors.stream().map(fieldError ->
                 new CustomFieldError(

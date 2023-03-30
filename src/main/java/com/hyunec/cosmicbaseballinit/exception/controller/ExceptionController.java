@@ -19,13 +19,13 @@ public class ExceptionController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+    public ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         return ErrorResponse.of(e.getBindingResult());
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse runtimeExceptionHandler(RuntimeException e){
+    public ErrorResponse runtimeExceptionHandler(RuntimeException e) {
         return ErrorResponse.of(e.getMessage());
     }
 
