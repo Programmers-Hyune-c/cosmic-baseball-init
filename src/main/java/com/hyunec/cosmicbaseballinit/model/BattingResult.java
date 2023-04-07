@@ -6,9 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BattingResult {
-    STRIKE(0.3),
-    BALL(0.3),
-    HIT(0.3);
+    STRIKE,
+    BALL,
+    HIT
 
-    private final double probability;
 }
