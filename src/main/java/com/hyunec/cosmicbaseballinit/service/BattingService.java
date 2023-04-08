@@ -8,9 +8,9 @@ import java.util.Random;
 @Service
 public class BattingService {
 
-    public BattingResult batting() {
+    private final Random random = new Random();
 
-        Random random = new Random();
+    public BattingResult batting() {
 
         int value = random.nextInt(3);
 
