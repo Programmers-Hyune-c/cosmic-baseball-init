@@ -1,7 +1,7 @@
 package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
-import com.hyunec.cosmicbaseballinit.service.BattingService;
+import com.hyunec.cosmicbaseballinit.service.BattingServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class NormalBaseballLv1Test {
 
     @Autowired
-    private BattingService battingService;
+    private BattingServiceImpl battingServiceImpl;
 
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
     @Test
@@ -26,7 +26,7 @@ class NormalBaseballLv1Test {
         double caseSize = 150000;
 
         for (double i = 0; i < caseSize; i++) {
-            BattingResult result = battingService.batting();
+            BattingResult result = battingServiceImpl.batting();
 
             switch (result) {
                 case STRIKE:
@@ -52,7 +52,7 @@ class NormalBaseballLv1Test {
     @Test
     void t2() {
 
-        BattingResult result = battingService.batting();
+        BattingResult result = battingServiceImpl.batting();
 
         boolean validResult = result.equals(BattingResult.HIT)
                 || result.equals(BattingResult.STRIKE)
