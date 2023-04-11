@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BattingServiceImpl implements BattingService {
 
-    private final RandomUtils randomUtils;
-
     @Override
     public BattingResult batting() {
-        return randomUtils.getRandomBattingResult();
+        return RandomUtils.getRandomBattingResult();
     }
 }

@@ -7,9 +7,13 @@ import java.util.Random;
 
 @Component
 public class RandomUtils {
-    private final Random random = new Random();
+    private static final Random random = new Random();
 
-    public BattingResult getRandomBattingResult() {
+    private RandomUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static BattingResult getRandomBattingResult() {
         int value = random.nextInt(3);
 
         switch (value) {
