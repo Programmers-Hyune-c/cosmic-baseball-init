@@ -10,7 +10,6 @@ public class RandomUtils {
     private static final Random random = new Random();
 
     private RandomUtils() {
-        throw new IllegalStateException("Utility class");
     }
 
     public static BattingResult getRandomBattingResult() {
