@@ -7,13 +7,13 @@ import java.util.Random;
 
 @Component
 public class RandomUtils {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     private RandomUtils() {
     }
 
     public static BattingResult getRandomBattingResult() {
-        int value = random.nextInt(3);
+        int value = RANDOM.nextInt(3);
 
         switch (value) {
             case 0:
