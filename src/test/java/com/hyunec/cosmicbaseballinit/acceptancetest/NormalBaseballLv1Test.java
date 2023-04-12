@@ -2,12 +2,17 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.service.BattingServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.hyunec.cosmicbaseballinit.model.BattingResult.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class NormalBaseballLv1Test {
@@ -45,7 +50,8 @@ class NormalBaseballLv1Test {
         double ballProbability = Math.round(ballCount / caseSize * 10) / 10F;
         double hitProbability = Math.round(hitCount / caseSize * 10) / 10F;
 
-        Assertions.assertTrue(strikeProbability == ballProbability && ballProbability == hitProbability);
+        assertThat(strikeProbability == ballProbability && ballProbability == hitProbability)
+                .isTrue();
     }
 
     @DisplayName("타격 결과는 strike, ball, hit 입니다.")
@@ -54,10 +60,9 @@ class NormalBaseballLv1Test {
 
         BattingResult result = battingServiceImpl.batting();
 
-        boolean validResult = result.equals(BattingResult.HIT)
-                || result.equals(BattingResult.STRIKE)
-                || result.equals(BattingResult.BALL);
+        List<BattingResult> validResult = Stream.of(STRIKE, BALL, HIT).collect(Collectors.toList());
 
-        Assertions.assertTrue(validResult);
+        assertThat(result)
+                .isIn(validResult);
     }
 }
