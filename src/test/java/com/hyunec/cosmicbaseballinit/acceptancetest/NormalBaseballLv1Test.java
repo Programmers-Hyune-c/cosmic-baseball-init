@@ -2,7 +2,9 @@ package com.hyunec.cosmicbaseballinit.acceptancetest;
 
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.service.BattingServiceImpl;
+import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,37 +23,22 @@ class NormalBaseballLv1Test {
     private BattingServiceImpl battingServiceImpl;
 
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
-    @Test
+    @RepeatedTest(100)
     void t1() {
 
-        double strikeCount = 0;
-        double ballCount = 0;
-        double hitCount = 0;
+        double caseSize = 100000;
+        double count = 0;
 
-        double caseSize = 150000;
+        BattingResult randomResult = battingServiceImpl.batting();
 
         for (double i = 0; i < caseSize; i++) {
             BattingResult result = battingServiceImpl.batting();
-
-            switch (result) {
-                case STRIKE:
-                    strikeCount += 1;
-                    break;
-                case BALL:
-                    ballCount += 1;
-                    break;
-                case HIT:
-                    hitCount += 1;
-                    break;
+            if (randomResult == result) {
+                count++;
             }
         }
 
-        double strikeProbability = Math.round(strikeCount / caseSize * 10) / 10F;
-        double ballProbability = Math.round(ballCount / caseSize * 10) / 10F;
-        double hitProbability = Math.round(hitCount / caseSize * 10) / 10F;
-
-        assertThat(strikeProbability == ballProbability && ballProbability == hitProbability)
-                .isTrue();
+        assertThat(count).isCloseTo(33333, Percentage.withPercentage(5));
     }
 
     @DisplayName("타격 결과는 strike, ball, hit 입니다.")
