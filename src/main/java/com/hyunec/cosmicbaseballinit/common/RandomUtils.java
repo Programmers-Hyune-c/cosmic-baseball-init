@@ -1,27 +1,27 @@
 package com.hyunec.cosmicbaseballinit.common;
 
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
-import org.springframework.stereotype.Component;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
-@Component
+import static com.hyunec.cosmicbaseballinit.model.BattingResult.*;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RandomUtils {
     private static final Random RANDOM = new Random();
-
-    private RandomUtils() {
-    }
 
     public static BattingResult getRandomBattingResult() {
         int value = RANDOM.nextInt(3);
 
         switch (value) {
             case 0:
-                return BattingResult.STRIKE;
+                return STRIKE;
             case 1:
-                return BattingResult.BALL;
+                return BALL;
             default:
-                return BattingResult.HIT;
+                return HIT;
         }
     }
 }
