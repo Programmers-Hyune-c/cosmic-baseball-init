@@ -11,6 +11,7 @@ public class BattingServiceImpl implements BattingService {
 
     @Override
     public BattingResult batting() {
-        return RandomUtils.getRandomBattingResult();
+        int value = RandomUtils.getRandomBattingNumber();
+        return BattingResult.getBattingResult(value);
     }
 }
