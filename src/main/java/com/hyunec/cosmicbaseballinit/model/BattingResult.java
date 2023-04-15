@@ -8,6 +8,8 @@ import lombok.Getter;
 public enum BattingResult {
     STRIKE,
     BALL,
-    HIT
+    HIT,
+    DOUBLE_STRIKE,
+    DOUBLE_BALL
 
 }
