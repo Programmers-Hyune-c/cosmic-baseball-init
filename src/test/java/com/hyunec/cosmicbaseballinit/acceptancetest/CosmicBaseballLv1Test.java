@@ -28,11 +28,11 @@ class CosmicBaseballLv1Test {
         int caseSize = 100000;
         int count = 0;
 
-        BattingResult randomResult = battingServiceImpl.batting();
+        BattingResult expected = battingServiceImpl.batting();
 
         for (int i = 0; i < caseSize; i++) {
             BattingResult result = battingServiceImpl.batting();
-            if (randomResult == result) {
+            if (expected == result) {
                 count++;
             }
         }
