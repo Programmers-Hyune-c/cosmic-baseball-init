@@ -25,12 +25,12 @@ class CosmicBaseballLv1Test {
     @DisplayName("타격 결과는 모두 같은 확률을 가집니다.")
     @RepeatedTest(100)
     void t1() {
-        double caseSize = 100000;
-        double count = 0;
+        int caseSize = 100000;
+        int count = 0;
 
         BattingResult randomResult = battingServiceImpl.batting();
 
-        for (double i = 0; i < caseSize; i++) {
+        for (int i = 0; i < caseSize; i++) {
             BattingResult result = battingServiceImpl.batting();
             if (randomResult == result) {
                 count++;
