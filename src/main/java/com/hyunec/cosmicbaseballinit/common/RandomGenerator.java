@@ -6,10 +6,6 @@ import lombok.NoArgsConstructor;
 import java.util.Random;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RandomUtils {
-    private static final Random RANDOM = new Random();
-
-    public static int getRandomBattingNumber() {
-        return RANDOM.nextInt(5);
-    }
+public class RandomGenerator {
+    public static final Random RANDOM = new Random();
 }
