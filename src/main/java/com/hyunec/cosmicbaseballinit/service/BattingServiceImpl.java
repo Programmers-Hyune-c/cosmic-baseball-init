@@ -1,7 +1,6 @@
 package com.hyunec.cosmicbaseballinit.service;
 
 import com.hyunec.cosmicbaseballinit.common.RandomGenerator;
-import com.hyunec.cosmicbaseballinit.model.BatterStatus;
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
 import com.hyunec.cosmicbaseballinit.model.PlateStatus;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,9 @@ public class BattingServiceImpl implements BattingService {
     }
 
     @Override
-    public BatterStatus getBatterStatus() {
-
-        PlateStatus plateStatus = new PlateStatus();
+    public PlateStatus updatePlateStatus(PlateStatus plateStatus) {
         BattingResult result = batting();
         plateStatus.updateBatterResult(result);
-
-        return plateStatus.getBatterStatus();
+        return plateStatus;
     }
 }
