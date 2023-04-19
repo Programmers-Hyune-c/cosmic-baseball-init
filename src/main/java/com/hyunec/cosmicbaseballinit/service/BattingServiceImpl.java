@@ -1,9 +1,9 @@
 package com.hyunec.cosmicbaseballinit.service;
 
 import com.hyunec.cosmicbaseballinit.common.RandomGenerator;
-import com.hyunec.cosmicbaseballinit.model.BatterResult;
 import com.hyunec.cosmicbaseballinit.model.BatterStatus;
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
+import com.hyunec.cosmicbaseballinit.model.PlateStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,10 @@ public class BattingServiceImpl implements BattingService {
     @Override
     public BatterStatus getBatterStatus() {
 
-        BatterResult batterResult = new BatterResult();
+        PlateStatus plateStatus = new PlateStatus();
         BattingResult result = batting();
-        batterResult.updateBatterResult(result);
+        plateStatus.updateBatterResult(result);
 
-        return BatterStatus.getBatterStatus(batterResult);
+        return plateStatus.getBatterStatus();
     }
 }
