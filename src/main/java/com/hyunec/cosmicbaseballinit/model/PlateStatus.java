@@ -6,17 +6,10 @@ import static com.hyunec.cosmicbaseballinit.model.BatterStatus.*;
 
 @Getter
 public class PlateStatus {
-    private int strikeCount;
-    private int ballCount;
-    private int hitCount;
-    private final BatterStatus batterStatus;
-
-    public PlateStatus() {
-        this.strikeCount = 0;
-        this.ballCount = 0;
-        this.hitCount = 0;
-        this.batterStatus = STAY;
-    }
+    private final BatterStatus batterStatus = STAY;
+    private int strikeCount = 0;
+    private int ballCount = 0;
+    private int hitCount = 0;
 
     public void updateBatterResult(BattingResult result) {
         switch (result) {
