@@ -32,10 +32,10 @@ public class PlateStatus {
     }
 
     public BatterStatus getBatterStatus() {
-        if (this.ballCount >= 4 || this.getHitCount() == 1) {
+        if (ballCount >= 4 || hitCount == 1) {
             return ADVANCE;
         }
-        if (this.getStrikeCount() >= 3) {
+        if (strikeCount >= 3) {
             return OUT;
         }
         return STAY;
