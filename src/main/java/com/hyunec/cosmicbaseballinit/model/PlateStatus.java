@@ -12,6 +12,9 @@ public class PlateStatus {
     private int hitCount = 0;
 
     public void updateBatterResult(BattingResult result) {
+        if (result.equals(BattingResult.HIT)) {
+            hitCount++;
+        }
         strikeCount += result.getStrikeCount();
         ballCount += result.getBallCount();
     }
