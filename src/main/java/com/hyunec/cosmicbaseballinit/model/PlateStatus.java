@@ -12,23 +12,8 @@ public class PlateStatus {
     private int hitCount = 0;
 
     public void updateBatterResult(BattingResult result) {
-        switch (result) {
-            case STRIKE:
-                this.strikeCount++;
-                break;
-            case BALL:
-                this.ballCount++;
-                break;
-            case DOUBLE_STRIKE:
-                this.strikeCount += 2;
-                break;
-            case DOUBLE_BALL:
-                this.ballCount += 2;
-                break;
-            default:
-                this.hitCount++;
-                break;
-        }
+        strikeCount += result.getStrikeCount();
+        ballCount += result.getBallCount();
     }
 
     public BatterStatus getBatterStatus() {
