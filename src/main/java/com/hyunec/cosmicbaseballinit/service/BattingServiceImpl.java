@@ -17,9 +17,14 @@ public class BattingServiceImpl implements BattingService {
     }
 
     @Override
-    public PlateStatus updatePlateStatus(PlateStatus plateStatus) {
-        BattingResult result = batting();
-        plateStatus.updateBatterResult(result);
-        return plateStatus;
+    public PlateStatus getPlateStatus() throws Exception {
+        PlateStatus plateStatus = new PlateStatus();
+        if (plateStatus.checkInitialStatus()) {
+            BattingResult result = batting();
+            plateStatus.updateBatterResult(result);
+            return plateStatus;
+        } else {
+            throw new Exception();
+        }
     }
 }
