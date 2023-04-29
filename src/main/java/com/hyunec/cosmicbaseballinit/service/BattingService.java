@@ -6,5 +6,5 @@ import com.hyunec.cosmicbaseballinit.model.PlateStatus;
 public interface BattingService {
     BattingResult batting();
 
-    PlateStatus updatePlateStatus(PlateStatus plateStatus);
+    PlateStatus getPlateStatus() throws Exception;
 }

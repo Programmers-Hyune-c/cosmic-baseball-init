@@ -19,7 +19,7 @@ public class BattingController {
     }
 
     @GetMapping("/plateStatus")
-    public PlateStatus getPlateStatus() {
-        return new PlateStatus(); // TODO 추가필요
+    public PlateStatus getPlateStatus() throws Exception {
+        return battingServiceImpl.getPlateStatus();
     }
 }
