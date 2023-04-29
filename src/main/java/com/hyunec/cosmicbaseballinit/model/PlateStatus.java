@@ -28,4 +28,11 @@ public class PlateStatus {
         }
         return STAY;
     }
+
+    public Boolean checkInitialStatus() {
+        if (strikeCount == 0 && ballCount == 0 && hitCount == 0 && batterStatus.equals(STAY)) {
+            return true;
+        }
+        return false;
+    }
 }
