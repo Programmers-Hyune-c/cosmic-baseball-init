@@ -1,6 +1,7 @@
 package com.hyunec.cosmicbaseballinit.controller;
 
 import com.hyunec.cosmicbaseballinit.model.BattingResult;
+import com.hyunec.cosmicbaseballinit.model.PlateStatus;
 import com.hyunec.cosmicbaseballinit.service.BattingServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,5 +16,10 @@ public class BattingController {
     @GetMapping("/batting")
     public BattingResult getBattingResult() {
         return battingServiceImpl.batting();
+    }
+
+    @GetMapping("/plateStatus")
+    public PlateStatus getPlateStatus() {
+        return new PlateStatus(); // TODO 추가필요
     }
 }
