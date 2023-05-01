@@ -6,11 +6,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BattingResult {
-    STRIKE,
-    BALL,
-    HIT,
-    DOUBLE_STRIKE,
-    DOUBLE_BALL;
+    STRIKE(1, 0),
+    BALL(0, 1),
+    HIT(0, 0),
+    DOUBLE_STRIKE(2, 0),
+    DOUBLE_BALL(0, 2);
+
+    private final int strikeCount;
+    private final int ballCount;
 
     public static BattingResult getBattingResult(int value) {
         switch (value) {

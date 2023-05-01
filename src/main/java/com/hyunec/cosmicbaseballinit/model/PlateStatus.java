@@ -12,32 +12,27 @@ public class PlateStatus {
     private int hitCount = 0;
 
     public void updateBatterResult(BattingResult result) {
-        switch (result) {
-            case STRIKE:
-                this.strikeCount++;
-                break;
-            case BALL:
-                this.ballCount++;
-                break;
-            case DOUBLE_STRIKE:
-                this.strikeCount += 2;
-                break;
-            case DOUBLE_BALL:
-                this.ballCount += 2;
-                break;
-            default:
-                this.hitCount++;
-                break;
+        if (result.equals(BattingResult.HIT)) {
+            hitCount++;
         }
+        strikeCount += result.getStrikeCount();
+        ballCount += result.getBallCount();
     }
 
     public BatterStatus getBatterStatus() {
-        if (this.ballCount >= 4 || this.getHitCount() == 1) {
+        if (ballCount >= 4 || hitCount == 1) {
             return ADVANCE;
         }
-        if (this.getStrikeCount() >= 3) {
+        if (strikeCount >= 3) {
             return OUT;
         }
         return STAY;
+    }
+
+    public Boolean checkInitialStatus() {
+        if (strikeCount == 0 && ballCount == 0 && hitCount == 0 && batterStatus.equals(STAY)) {
+            return true;
+        }
+        return false;
     }
 }
